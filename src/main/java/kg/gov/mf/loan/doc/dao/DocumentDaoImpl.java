@@ -23,4 +23,9 @@ public class DocumentDaoImpl extends GenericDaoImpl<Document> implements Documen
     public List<Document> outgoingDocuments() {
         return getCurrentSession().createQuery("from Document where documentType = 3").list();
     }
+
+    @Override
+    public List<Document> archivedDocuments() {
+        return getCurrentSession().createQuery("from Document where documentType = 4").list();
+    }
 }

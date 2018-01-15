@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class DocumentSubType extends Catalog {
 
     @ManyToOne(targetEntity=DocumentType.class, fetch = FetchType.EAGER)
-    @JoinColumn(name="documentType_id")
+    @JoinColumn
     DocumentType documentType;
 
     public DocumentType getDocumentType() {

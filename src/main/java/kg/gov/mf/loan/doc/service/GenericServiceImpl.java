@@ -16,31 +16,31 @@ public abstract class GenericServiceImpl<E> implements GenericService<E>
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public void add(E entity) {
-    dao.add(entity);
-}
-
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-    public List<E> list() {
-    return dao.list();
-}
-
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-    public E getById(Long id) {
-    return dao.getById(id);
+    public void create(E entity) {
+    dao.create(entity);
 }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public void update(E entity) {
-    dao.update(entity);
-}
+    public void edit(E entity) {
+        dao.edit(entity);
+    }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public void remove(E entity) {
-    dao.remove(entity);
+    public void deleteById(E entity) {
+        dao.deleteById(entity);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public E findById(Long id) {
+    return dao.findById(id);
 }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public List<E> findAll() {
+        return dao.findAll();
+    }
 }

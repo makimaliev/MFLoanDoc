@@ -26,23 +26,24 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E>
         return sessionFactory.getCurrentSession();
     }
 
-    public void add(E entity) {
+
+    public void create(E entity) {
         getCurrentSession().save(entity);
     }
 
-    public List<E> list() {
-        return getCurrentSession().createCriteria(entityClass).list();
-    }
-
-    public E getById(Long id) {
-        return (E) getCurrentSession().get(entityClass, id);
-    }
-
-    public void update(E entity) {
+    public void edit(E entity) {
         getCurrentSession().update(entity);
     }
 
-    public void remove(E entity) {
+    public void deleteById(E entity) {
         getCurrentSession().delete(entity);
+    }
+
+    public E findById(Long id) {
+        return (E) getCurrentSession().get(entityClass, id);
+    }
+
+    public List<E> findAll() {
+        return getCurrentSession().createCriteria(entityClass).list();
     }
 }

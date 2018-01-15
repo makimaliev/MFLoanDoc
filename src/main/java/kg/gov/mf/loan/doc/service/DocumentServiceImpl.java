@@ -17,6 +17,12 @@ public class DocumentServiceImpl extends GenericServiceImpl<Document> implements
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public List<Document> internalDocuments() {
+        return dao.internalDocuments();
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public List<Document> incomingDocuments() {
         return dao.incomingDocuments();
     }
@@ -29,7 +35,7 @@ public class DocumentServiceImpl extends GenericServiceImpl<Document> implements
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-    public List<Document> internalDocuments() {
-        return dao.internalDocuments();
+    public List<Document> archivedDocuments() {
+        return dao.archivedDocuments();
     }
 }

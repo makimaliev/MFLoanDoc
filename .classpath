@@ -23,5 +23,6 @@
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="/MFLoanAdmin"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

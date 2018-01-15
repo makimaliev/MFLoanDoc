@@ -1,5 +1,8 @@
 package kg.gov.mf.loan.doc.model;
 
+import kg.gov.mf.loan.admin.org.model.Organization;
+import kg.gov.mf.loan.admin.org.model.Person;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,11 +10,11 @@ import javax.persistence.*;
 public class Responsible extends Catalog {
 
     @ManyToOne(targetEntity=Organization.class, fetch = FetchType.EAGER)
-    @JoinColumn(name="organization_id")
+    @JoinColumn
     private Organization organization;
 
     @ManyToOne(targetEntity=Person.class, fetch = FetchType.EAGER)
-    @JoinColumn(name="person_id")
+    @JoinColumn
     private Person person;
 
     public Organization getOrganization() {

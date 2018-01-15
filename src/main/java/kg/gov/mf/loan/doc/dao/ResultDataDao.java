@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 public class ResultDataDao extends GenericDaoImpl<ResultData>
 {
     @Override
-    public void remove(ResultData resultData)
+    public void deleteById(ResultData resultData)
     {
         resultData.setResultStatus(null);
         resultData.setDescription(null);

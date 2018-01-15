@@ -1,5 +1,6 @@
 package kg.gov.mf.loan.doc.model;
 
+import kg.gov.mf.loan.admin.sys.model.Information;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 import javax.persistence.*;

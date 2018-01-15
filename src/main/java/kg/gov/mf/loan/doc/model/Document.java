@@ -11,15 +11,15 @@ public class Document extends GenericModel {
     private Long generalStatus;
 
     @ManyToOne(targetEntity=DocumentType.class, fetch = FetchType.EAGER)
-    @JoinColumn(name="documentType_id")
+    @JoinColumn
 	private DocumentType documentType;
 
     @ManyToOne(targetEntity=DocumentSubType.class, fetch = FetchType.EAGER)
-    @JoinColumn(name="documentSubType_id")
+    @JoinColumn
 	private DocumentSubType documentSubType;
 
     @ManyToOne(targetEntity=DocumentTemplate.class, fetch = FetchType.EAGER)
-    @JoinColumn(name="documentTemplate_id")
+    @JoinColumn
 	private DocumentTemplate documentTemplate;
 
     public String getTitle() {
