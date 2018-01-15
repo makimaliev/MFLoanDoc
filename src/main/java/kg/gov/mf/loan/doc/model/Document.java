@@ -9,6 +9,7 @@ public class Document extends GenericModel {
     private String title;
     private String description;
     private Long generalStatus;
+    //private
 
     @ManyToOne(targetEntity=DocumentType.class, fetch = FetchType.EAGER)
     @JoinColumn
