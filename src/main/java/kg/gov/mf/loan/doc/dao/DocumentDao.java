@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface DocumentDao extends GenericDao<Document>
 {
-    List<Document> internalDocuments();
+    List internalDocuments();
     List<Document> incomingDocuments();
     List<Document> outgoingDocuments();
     List<Document> archivedDocuments();

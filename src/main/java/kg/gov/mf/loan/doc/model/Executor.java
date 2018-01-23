@@ -10,11 +10,11 @@ import javax.persistence.*;
 public class Executor extends Catalog {
 
     @ManyToOne(targetEntity=Organization.class, fetch = FetchType.EAGER)
-    @JoinColumn
+    @JoinColumn(name = "organization")
     private Organization organization;
 
     @ManyToOne(targetEntity=Person.class, fetch = FetchType.EAGER)
-    @JoinColumn
+    @JoinColumn(name = "person")
     private Person person;
 
     public Organization getOrganization() {

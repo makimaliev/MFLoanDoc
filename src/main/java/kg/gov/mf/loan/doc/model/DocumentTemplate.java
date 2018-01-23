@@ -1,8 +1,6 @@
 package kg.gov.mf.loan.doc.model;
 
 import kg.gov.mf.loan.admin.sys.model.Information;
-import kg.gov.mf.loan.task.model.Task;
-
 import javax.persistence.*;
 
 @Entity
@@ -16,7 +14,7 @@ public class DocumentTemplate extends Catalog {
     */
 
     @ManyToOne(targetEntity=Information.class, fetch = FetchType.EAGER)
-    @JoinColumn
+    @JoinColumn(name = "information")
     private Information information;
 
     /*

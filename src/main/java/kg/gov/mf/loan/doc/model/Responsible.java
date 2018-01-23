@@ -1,61 +1,73 @@
 package kg.gov.mf.loan.doc.model;
 
-import kg.gov.mf.loan.admin.org.model.Department;
-import kg.gov.mf.loan.admin.org.model.Organization;
-import kg.gov.mf.loan.admin.org.model.Person;
-import kg.gov.mf.loan.admin.org.model.Staff;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import kg.gov.mf.loan.admin.org.model.*;
 
 import javax.persistence.*;
+import java.util.*;
 
 @Entity
 @Table(name="cat_responsible")
-public class Responsible extends Catalog {
+public class Responsible extends GenericModel {
 
-    @ManyToOne(targetEntity=Organization.class, fetch = FetchType.EAGER)
-    @JoinColumn
-    private Organization organization;
-
-    @ManyToOne(targetEntity=Department.class, fetch = FetchType.EAGER)
-    @JoinColumn
-    private Department department;
-
-    @ManyToOne(targetEntity=Staff.class, fetch = FetchType.EAGER)
-    @JoinColumn
-    private Staff staff;
-
-    @ManyToOne(targetEntity=Person.class, fetch = FetchType.EAGER)
-    @JoinColumn
-    private Person person;
-
-    public Organization getOrganization() {
-        return organization;
+    public Responsible() {
     }
 
-    public void setOrganization(Organization organization) {
-        this.organization = organization;
+    private int responsibleType;
+
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<Organization> organizations = new HashSet<>();
+
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<Department> departments = new HashSet<>();
+
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<Staff> staff = new HashSet<>();
+
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<Person> person = new HashSet<>();
+
+    public int getResponsibleType() {
+        return responsibleType;
     }
 
-    public Person getPerson() {
-        return person;
+    public void setResponsibleType(int responsibleType) {
+        this.responsibleType = responsibleType;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public Set<Organization> getOrganizations() {
+        return organizations;
     }
 
-    public Department getDepartment() {
-        return department;
+    public void setOrganizations(Set<Organization> organizations) {
+        this.organizations = organizations;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public Set<Department> getDepartments() {
+        return departments;
     }
 
-    public Staff getStaff() {
+    public void setDepartments(Set<Department> departments) {
+        this.departments = departments;
+    }
+
+    public Set<Staff> getStaff() {
         return staff;
     }
 
-    public void setStaff(Staff staff) {
+    public void setStaff(Set<Staff> staff) {
         this.staff = staff;
+    }
+
+    public Set<Person> getPerson() {
+        return person;
+    }
+
+    public void setPerson(Set<Person> person) {
+        this.person = person;
     }
 }

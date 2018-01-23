@@ -23,19 +23,19 @@ public class DispatchData extends Catalog {
     private Date dispatchResponseTime = new Date();
 
     @ManyToOne(targetEntity=DispatchType.class, fetch = FetchType.EAGER)
-    @JoinColumn
+    @JoinColumn(name = "dispatchType")
     private DispatchType dispatchType;
 
     @ManyToOne(targetEntity=DispatchResult.class, fetch = FetchType.EAGER)
-    @JoinColumn
+    @JoinColumn(name = "dispatchResult")
     private DispatchResult dispatchResult;
 
     @ManyToOne(targetEntity=DispatchTemplate.class, fetch = FetchType.EAGER)
-    @JoinColumn
+    @JoinColumn(name = "dispatchTemplate")
     private DispatchTemplate dispatchTemplate;
 
     @ManyToOne(targetEntity=DispatchData.class, fetch = FetchType.EAGER)
-    @JoinColumn
+    @JoinColumn(name = "dispatchData")
     private DispatchData dispatchData;
 
     public Date getDispatchInitTime() {

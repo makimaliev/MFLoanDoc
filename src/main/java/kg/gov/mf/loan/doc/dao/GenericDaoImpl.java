@@ -4,7 +4,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -12,8 +11,6 @@ import java.util.List;
 @Repository
 public abstract class GenericDaoImpl<E> implements GenericDao<E>
 {
-    @Autowired
-    protected SessionFactory sessionFactory;
     protected Class<? extends E> entityClass;
 
     public GenericDaoImpl() {
@@ -22,17 +19,19 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E>
         entityClass = (Class) pt.getActualTypeArguments()[0];
     }
 
+    @Autowired
+    protected SessionFactory sessionFactory;
+
     protected final Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
     }
 
-
     public void create(E entity) {
-        getCurrentSession().save(entity);
+        getCurrentSession().persist(entity);
     }
 
     public void edit(E entity) {
-        getCurrentSession().update(entity);
+        getCurrentSession().merge(entity);
     }
 
     public void deleteById(E entity) {
@@ -46,4 +45,5 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E>
     public List<E> findAll() {
         return getCurrentSession().createCriteria(entityClass).list();
     }
+
 }
