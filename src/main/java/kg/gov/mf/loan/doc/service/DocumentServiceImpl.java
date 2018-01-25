@@ -16,25 +16,26 @@ public class DocumentServiceImpl extends GenericServiceImpl<Document> implements
     private DocumentDao dao;
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    @Transactional
     public List<Document> internalDocuments() {
         return dao.internalDocuments();
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    @Transactional
     public List<Document> incomingDocuments() {
         return dao.incomingDocuments();
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    @Transactional
     public List<Document> outgoingDocuments() {
         return dao.outgoingDocuments();
     }
 
+    //(propagation = Propagation.REQUIRED, readOnly = true)
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    @Transactional
     public List<Document> archivedDocuments() {
         return dao.archivedDocuments();
     }

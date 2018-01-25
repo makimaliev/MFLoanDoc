@@ -4,6 +4,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -27,7 +32,7 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E>
     }
 
     public void create(E entity) {
-        getCurrentSession().persist(entity);
+        getCurrentSession().merge(entity);
     }
 
     public void edit(E entity) {

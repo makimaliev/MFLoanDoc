@@ -13,7 +13,7 @@ public class DocumentTypeDaoImpl extends GenericDaoImpl<DocumentType> implements
 {
     @Override
     public Long getIdByInternalname(String name) {
-        List<DocumentType> dt = getCurrentSession().createQuery("from DocumentType where internalName = :internalName")
+        List<DocumentType> dt = getCurrentSession().createQuery(" from DocumentType where internalName = :internalName")
                 .setParameter("internalName", name)
                 .list();
         return dt.get(0).getId();

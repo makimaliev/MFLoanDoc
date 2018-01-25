@@ -6,8 +6,7 @@ import kg.gov.mf.loan.admin.org.model.*;
 import javax.persistence.*;
 import java.util.*;
 
-@Entity
-@Table(name="cat_responsible")
+@MappedSuperclass
 public class Responsible extends GenericModel {
 
     public Responsible() {
@@ -15,21 +14,19 @@ public class Responsible extends GenericModel {
 
     private int responsibleType;
 
+    //(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL)
-    private Set<Organization> organizations = new HashSet<>();
-
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Organization> organizations;
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL)
-    private Set<Department> departments = new HashSet<>();
-
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Department> departments;
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL)
-    private Set<Staff> staff = new HashSet<>();
-
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Staff> staff;
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL)
-    private Set<Person> person = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Person> person;
 
     public int getResponsibleType() {
         return responsibleType;

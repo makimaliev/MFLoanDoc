@@ -38,33 +38,16 @@ public class Document extends GenericModel {
 
     private Long senderStatus;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Temporal(TemporalType.DATE)
-    private Date senderRegisteredDate;
+    @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    private SenderResponsible senderResponsible;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
-    private Date senderDueDate;
+    private Date senderRegisteredDate = new Date();
 
-
-    /*
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinTable(
-            name="SENDER_RESPONSIBLE",
-            joinColumns = @JoinColumn(name="document_id"),
-            inverseJoinColumns = @JoinColumn(name="responsible_id"))
-    @Transient
-    private Responsible senderResponsible = new Responsible();
-
-
-*/
-
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinColumn(name="sender_responsible_id")
-    private Responsible senderResponsible;
-
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    private Date senderDueDate = new Date();
 
     @ManyToOne(targetEntity=Executor.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "senderExecutor")
@@ -85,30 +68,16 @@ public class Document extends GenericModel {
 
     private Long receiverStatus;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Temporal(TemporalType.DATE)
-    private Date receiverRegisteredDate;
+    @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    private ReceiverResponsible receiverResponsible;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
-    private Date receiverDueDate;
+    private Date receiverRegisteredDate = new Date();
 
-    /*
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinTable(
-            name="RECEIVER_RESPONSIBLE",
-            joinColumns = @JoinColumn(name="document_id"),
-            inverseJoinColumns = @JoinColumn(name="responsible_id"))
-    @Transient
-    private Responsible receiverResponsible = new Responsible();
-
-
-*/
-
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinColumn(name="receiver_responsible_id")
-    private Responsible receiverResponsible;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    private Date receiverDueDate = new Date();
 
     @ManyToOne(targetEntity=Executor.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "receiverExecutor")
@@ -136,12 +105,10 @@ public class Document extends GenericModel {
     @JoinColumn(name = "resultInformation")
     private Information resultInformation;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinTable(
-            name="RESULT_RESPONSIBLE",
-            joinColumns = @JoinColumn(name="document_id"),
-            inverseJoinColumns = @JoinColumn(name="responsible_id"))
+    /*
+    @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     private Responsible resultResponsible;
+    */
     //endregion
 
     //region Document GET-SET
@@ -227,11 +194,11 @@ public class Document extends GenericModel {
         this.senderDueDate = senderDueDate;
     }
 
-    public Responsible getSenderResponsible() {
+    public SenderResponsible getSenderResponsible() {
         return senderResponsible;
     }
 
-    public void setSenderResponsible(Responsible senderResponsible) {
+    public void setSenderResponsible(SenderResponsible senderResponsible) {
         this.senderResponsible = senderResponsible;
     }
 
@@ -293,11 +260,11 @@ public class Document extends GenericModel {
         this.receiverDueDate = receiverDueDate;
     }
 
-    public Responsible getReceiverResponsible() {
+    public ReceiverResponsible getReceiverResponsible() {
         return receiverResponsible;
     }
 
-    public void setReceiverResponsible(Responsible receiverResponsible) {
+    public void setReceiverResponsible(ReceiverResponsible receiverResponsible) {
         this.receiverResponsible = receiverResponsible;
     }
 
@@ -359,12 +326,5 @@ public class Document extends GenericModel {
         this.resultInformation = resultInformation;
     }
 
-    public Responsible getresultResponsible() {
-        return resultResponsible;
-    }
-
-    public void setresultResponsible(Responsible resultResponsible) {
-        this.resultResponsible = resultResponsible;
-    }
     //endregion
 }
