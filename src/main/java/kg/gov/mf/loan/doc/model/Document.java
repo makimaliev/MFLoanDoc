@@ -2,9 +2,8 @@ package kg.gov.mf.loan.doc.model;
 
 import kg.gov.mf.loan.admin.sys.model.Information;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
-import java.util.Date;
+import java.util.*;
 
 @Entity
 @Table(name="df_document")
@@ -13,33 +12,26 @@ public class Document extends GenericModel {
     public Document() {}
 
     //region Document
-
-    private String title;
-    private String description;
+    private String title = "Title " + new Random().nextInt(100);
+    private String description = "Description " + new Random().nextInt(100);
     private Long generalStatus;
 
-    @ManyToOne(targetEntity=DocumentType.class, fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "documentType")
 	private DocumentType documentType;
 
-    @ManyToOne(targetEntity=DocumentSubType.class, fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "documentSubType")
 	private DocumentSubType documentSubType;
 
-    @ManyToOne(targetEntity=DocumentTemplate.class, fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "documentTemplate")
     private DocumentTemplate documentTemplate;
-
     //endregion
 
     //region Sender Data
-
-    private String senderRegisteredNumber;
-
+    private String senderRegisteredNumber = "SDR-" + new Random().nextInt(100);
     private Long senderStatus;
-
-    @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-    private SenderResponsible senderResponsible;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
@@ -49,27 +41,27 @@ public class Document extends GenericModel {
     @Temporal(TemporalType.DATE)
     private Date senderDueDate = new Date();
 
-    @ManyToOne(targetEntity=Executor.class, fetch = FetchType.EAGER)
+    //*********** Responsible ***********************************************
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "senderResponsible")
+    private Responsible senderResponsible;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "senderExecutor")
     private Executor senderExecutor;
 
-    @ManyToOne(targetEntity=Information.class, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "senderDispatchData")
+    private Set<DispatchData> senderDispatchData = new HashSet<>();
+
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "senderInformation")
     private Information senderInformation;
-
-    @ManyToOne(targetEntity=DispatchData.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "senderDispatchData")
-    private DispatchData senderDispatchData;
-
     //endregion
 
     //region Receiver Data
-    private String receiverRegisteredNumber;
-
+    private String receiverRegisteredNumber = "RDR-" + new Random().nextInt(100);
     private Long receiverStatus;
-
-    @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-    private ReceiverResponsible receiverResponsible;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
@@ -79,39 +71,44 @@ public class Document extends GenericModel {
     @Temporal(TemporalType.DATE)
     private Date receiverDueDate = new Date();
 
-    @ManyToOne(targetEntity=Executor.class, fetch = FetchType.EAGER)
+    //*********** Responsible ***********************************************
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "receiverResponsible")
+    private Responsible receiverResponsible;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "receiverExecutor")
     private Executor receiverExecutor;
 
-    @ManyToOne(targetEntity=Information.class, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "receiverDispatchData")
+    private Set<DispatchData> receiverDispatchData = new HashSet<>();
+
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "receiverInformation")
     private Information receiverInformation;
-
-    @ManyToOne(targetEntity=DispatchData.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "receiverDispatchData")
-    private DispatchData receiverDispatchData;
     //endregion
 
     //region Result Data
     private Long resultStatus;
-
     private String resultDescription;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date resultCloseDate;
 
-    @ManyToOne(targetEntity=Information.class, fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "resultInformation")
     private Information resultInformation;
 
     /*
-    @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true)
+    @JoinColumn(name = "resultResponsible")
     private Responsible resultResponsible;
     */
     //endregion
 
-    //region Document GET-SET
+    //region GET-SET
     public String getTitle() {
         return title;
     }
@@ -159,9 +156,7 @@ public class Document extends GenericModel {
     public void setDocumentTemplate(DocumentTemplate documentTemplate) {
         this.documentTemplate = documentTemplate;
     }
-    //endregion
 
-    //region SenderData GET-SET
     public String getSenderRegisteredNumber() {
         return senderRegisteredNumber;
     }
@@ -176,6 +171,14 @@ public class Document extends GenericModel {
 
     public void setSenderStatus(Long senderStatus) {
         this.senderStatus = senderStatus;
+    }
+
+    public Responsible getSenderResponsible() {
+        return senderResponsible;
+    }
+
+    public void setSenderResponsible(Responsible senderResponsible) {
+        this.senderResponsible = senderResponsible;
     }
 
     public Date getSenderRegisteredDate() {
@@ -194,14 +197,6 @@ public class Document extends GenericModel {
         this.senderDueDate = senderDueDate;
     }
 
-    public SenderResponsible getSenderResponsible() {
-        return senderResponsible;
-    }
-
-    public void setSenderResponsible(SenderResponsible senderResponsible) {
-        this.senderResponsible = senderResponsible;
-    }
-
     public Executor getSenderExecutor() {
         return senderExecutor;
     }
@@ -218,16 +213,6 @@ public class Document extends GenericModel {
         this.senderInformation = senderInformation;
     }
 
-    public DispatchData getSenderDispatchData() {
-        return senderDispatchData;
-    }
-
-    public void setSenderDispatchData(DispatchData senderDispatchData) {
-        this.senderDispatchData = senderDispatchData;
-    }
-    //endregion
-
-    //region ReceiverData GET-SET
     public String getReceiverRegisteredNumber() {
         return receiverRegisteredNumber;
     }
@@ -242,6 +227,14 @@ public class Document extends GenericModel {
 
     public void setReceiverStatus(Long receiverStatus) {
         this.receiverStatus = receiverStatus;
+    }
+
+    public Responsible getReceiverResponsible() {
+        return receiverResponsible;
+    }
+
+    public void setReceiverResponsible(Responsible receiverResponsible) {
+        this.receiverResponsible = receiverResponsible;
     }
 
     public Date getReceiverRegisteredDate() {
@@ -260,14 +253,6 @@ public class Document extends GenericModel {
         this.receiverDueDate = receiverDueDate;
     }
 
-    public ReceiverResponsible getReceiverResponsible() {
-        return receiverResponsible;
-    }
-
-    public void setReceiverResponsible(ReceiverResponsible receiverResponsible) {
-        this.receiverResponsible = receiverResponsible;
-    }
-
     public Executor getReceiverExecutor() {
         return receiverExecutor;
     }
@@ -284,16 +269,6 @@ public class Document extends GenericModel {
         this.receiverInformation = receiverInformation;
     }
 
-    public DispatchData getReceiverDispatchData() {
-        return receiverDispatchData;
-    }
-
-    public void setReceiverDispatchData(DispatchData receiverDispatchData) {
-        this.receiverDispatchData = receiverDispatchData;
-    }
-    //endregion
-
-    //region ResultData GET-SET
     public Long getResultStatus() {
         return resultStatus;
     }
@@ -324,6 +299,22 @@ public class Document extends GenericModel {
 
     public void setResultInformation(Information resultInformation) {
         this.resultInformation = resultInformation;
+    }
+
+    public Set<DispatchData> getSenderDispatchData() {
+        return senderDispatchData;
+    }
+
+    public void setSenderDispatchData(Set<DispatchData> senderDispatchData) {
+        this.senderDispatchData = senderDispatchData;
+    }
+
+    public Set<DispatchData> getReceiverDispatchData() {
+        return receiverDispatchData;
+    }
+
+    public void setReceiverDispatchData(Set<DispatchData> receiverDispatchData) {
+        this.receiverDispatchData = receiverDispatchData;
     }
 
     //endregion

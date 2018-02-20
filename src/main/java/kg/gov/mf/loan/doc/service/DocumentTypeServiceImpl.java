@@ -4,6 +4,7 @@ import kg.gov.mf.loan.doc.dao.DocumentTypeDao;
 import kg.gov.mf.loan.doc.model.DocumentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -13,8 +14,7 @@ public class DocumentTypeServiceImpl extends GenericServiceImpl<DocumentType> im
     private DocumentTypeDao dao;
 
     @Override
-    @Transactional
-    public Long getIdByInternalname(String name) {
-        return dao.getIdByInternalname(name);
+    public DocumentType getByInternalName(String internalName) {
+        return dao.getByInternalName(internalName);
     }
 }

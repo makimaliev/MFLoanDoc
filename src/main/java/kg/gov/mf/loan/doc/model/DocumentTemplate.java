@@ -7,6 +7,8 @@ import javax.persistence.*;
 @Table(name="cat_document_template")
 public class DocumentTemplate extends Catalog {
 
+    public DocumentTemplate() { }
+
     /*
     @ManyToOne(targetEntity=Task.class, fetch = FetchType.EAGER)
     @JoinColumn

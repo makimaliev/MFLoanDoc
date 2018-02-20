@@ -1,35 +1,74 @@
 package kg.gov.mf.loan.doc.model;
 
-import kg.gov.mf.loan.admin.org.model.Organization;
-import kg.gov.mf.loan.admin.org.model.Person;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import kg.gov.mf.loan.admin.org.model.*;
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="cat_executor")
-public class Executor extends Catalog {
+public class Executor extends GenericModel {
 
-    @ManyToOne(targetEntity=Organization.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "organization")
-    private Organization organization;
+    public Executor() { }
 
-    @ManyToOne(targetEntity=Person.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "person")
-    private Person person;
+    private int executorType;
 
-    public Organization getOrganization() {
-        return organization;
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @JoinColumn
+    private Set<Organization> organizations = new HashSet<>(0);
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @JoinColumn
+    private Set<Department> departments = new HashSet<>(0);
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @JoinColumn
+    private Set<Staff> staff = new HashSet<>(0);
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @JoinColumn
+    private Set<Person> person = new HashSet<>(0);
+
+    //region GET-SET
+    public int getExecutorType() {
+        return executorType;
     }
 
-    public void setOrganization(Organization organization) {
-        this.organization = organization;
+    public void setExecutorType(int executorType) {
+        this.executorType = executorType;
     }
 
-    public Person getPerson() {
+    public Set<Organization> getOrganizations() {
+        return organizations;
+    }
+    public void setOrganizations(Set<Organization> organizations) {
+        this.organizations = organizations;
+    }
+
+    public Set<Department> getDepartments() {
+        return departments;
+    }
+    public void setDepartments(Set<Department> departments) {
+        this.departments = departments;
+    }
+
+    public Set<Staff> getStaff() {
+        return staff;
+    }
+    public void setStaff(Set<Staff> staff) {
+        this.staff = staff;
+    }
+
+    public Set<Person> getPerson() {
         return person;
     }
-
-    public void setPerson(Person person) {
+    public void setPerson(Set<Person> person) {
         this.person = person;
     }
+    //endregion
 }

@@ -1,7 +1,11 @@
 package kg.gov.mf.loan.doc.dao;
 
 import kg.gov.mf.loan.doc.model.Document;
+import kg.gov.mf.loan.doc.model.DocumentType;
+import kg.gov.mf.loan.doc.service.DocumentTypeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -9,23 +13,14 @@ import java.util.List;
 @Repository
 public class DocumentDaoImpl extends GenericDaoImpl<Document> implements DocumentDao
 {
-    @Override
-    public List<Document> internalDocuments() {
-        return getCurrentSession().createQuery("from Document where documentType = 1").list();
-    }
+    @Autowired
+    DocumentTypeDao documentTypeDao;
 
     @Override
-    public List<Document> incomingDocuments() {
-        return getCurrentSession().createQuery("from Document where documentType = 2").list();
-    }
-
-    @Override
-    public List<Document> outgoingDocuments() {
-        return getCurrentSession().createQuery("from Document where documentType = 3").list();
-    }
-
-    @Override
-    public List<Document> archivedDocuments() {
-        return getCurrentSession().createQuery("from Document where documentType = 4").list();
+    public List<Document> getDocuments(String documentType) {
+        List<Document> documents = getCurrentSession().createQuery(" from Document where documentType = :documentType")
+                .setParameter("documentType", documentTypeDao.getByInternalName(documentType))
+                .list();
+        return documents;
     }
 }

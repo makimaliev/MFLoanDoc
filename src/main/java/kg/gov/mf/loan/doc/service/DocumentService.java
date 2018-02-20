@@ -5,8 +5,5 @@ import java.util.List;
 
 public interface DocumentService extends GenericService<Document>
 {
-    List<Document> incomingDocuments();
-    List<Document> outgoingDocuments();
-    List<Document> internalDocuments();
-    List<Document> archivedDocuments();
+    List<Document> getDocuments(String documentType);
 }

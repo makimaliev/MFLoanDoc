@@ -1,7 +1,7 @@
 package kg.gov.mf.loan.doc.model;
 
+import kg.gov.mf.loan.admin.sys.model.User;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -9,10 +9,18 @@ import java.util.Date;
 @Table(name="cat_dispatch_data")
 public class DispatchData extends Catalog {
 
+    public DispatchData() { }
+
     private String description;
     private boolean isParent;
-    private Long dispatchBy;
-    private Long dispatchTo;
+
+    @ManyToOne(optional=false)
+    @JoinColumn(name="dispatchBy_id")
+    private User dispatchBy;
+
+    @ManyToOne(optional=false)
+    @JoinColumn(name="dispatchTo_id")
+    private User dispatchTo;
 
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     @Temporal(TemporalType.DATE)
@@ -20,24 +28,25 @@ public class DispatchData extends Catalog {
 
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     @Temporal(TemporalType.DATE)
-    private Date dispatchResponseTime = new Date();
+    private Date dispatchResponseTime;
 
-    @ManyToOne(targetEntity=DispatchType.class, fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "dispatchType")
     private DispatchType dispatchType;
 
-    @ManyToOne(targetEntity=DispatchResult.class, fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "dispatchResult")
     private DispatchResult dispatchResult;
 
-    @ManyToOne(targetEntity=DispatchTemplate.class, fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "dispatchTemplate")
     private DispatchTemplate dispatchTemplate;
 
-    @ManyToOne(targetEntity=DispatchData.class, fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "dispatchData")
     private DispatchData dispatchData;
 
+    //region GET-SET
     public Date getDispatchInitTime() {
         return dispatchInitTime;
     }
@@ -46,19 +55,19 @@ public class DispatchData extends Catalog {
         this.dispatchInitTime = dispatchInitTime;
     }
 
-    public Long getDispatchBy() {
+    public User getDispatchBy() {
         return dispatchBy;
     }
 
-    public void setDispatchBy(Long dispatchBy) {
+    public void setDispatchBy(User dispatchBy) {
         this.dispatchBy = dispatchBy;
     }
 
-    public Long getDispatchTo() {
+    public User getDispatchTo() {
         return dispatchTo;
     }
 
-    public void setDispatchTo(Long dispatchTo) {
+    public void setDispatchTo(User dispatchTo) {
         this.dispatchTo = dispatchTo;
     }
 
@@ -117,4 +126,5 @@ public class DispatchData extends Catalog {
     public void setDispatchData(DispatchData dispatchData) {
         this.dispatchData = dispatchData;
     }
+    //endregion
 }
