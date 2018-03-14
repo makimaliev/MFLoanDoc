@@ -19,4 +19,6 @@ public class DocumentTypeDaoImpl extends GenericDaoImpl<DocumentType> implements
                 .list();
         return dt.get(0);
     }
+
+
 }

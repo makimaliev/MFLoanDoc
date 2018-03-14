@@ -14,7 +14,10 @@ public class Document extends GenericModel {
     //region Document
     private String title = "Title " + new Random().nextInt(100);
     private String description = "Description " + new Random().nextInt(100);
-    private Long generalStatus;
+
+    @ManyToOne
+    @JoinColumn(name = "generalStatus")
+    private DocumentStatus generalStatus;
 
     @ManyToOne
     @JoinColumn(name = "documentType")
@@ -30,16 +33,19 @@ public class Document extends GenericModel {
     //endregion
 
     //region Sender Data
-    private String senderRegisteredNumber = "SDR-" + new Random().nextInt(100);
-    private Long senderStatus;
+    private String senderRegisteredNumber;
+
+    @ManyToOne
+    @JoinColumn(name = "senderStatus")
+    private DocumentStatus senderStatus;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
-    private Date senderRegisteredDate = new Date();
+    private Date senderRegisteredDate;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
-    private Date senderDueDate = new Date();
+    private Date senderDueDate;
 
     //*********** Responsible ***********************************************
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
@@ -60,16 +66,19 @@ public class Document extends GenericModel {
     //endregion
 
     //region Receiver Data
-    private String receiverRegisteredNumber = "RDR-" + new Random().nextInt(100);
-    private Long receiverStatus;
+    private String receiverRegisteredNumber;
+
+    @ManyToOne
+    @JoinColumn(name = "receiverStatus")
+    private DocumentStatus receiverStatus;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
-    private Date receiverRegisteredDate = new Date();
+    private Date receiverRegisteredDate;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
-    private Date receiverDueDate = new Date();
+    private Date receiverDueDate;
 
     //*********** Responsible ***********************************************
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
@@ -125,11 +134,11 @@ public class Document extends GenericModel {
         this.description = description;
     }
 
-    public Long getGeneralStatus() {
+    public DocumentStatus getGeneralStatus() {
         return generalStatus;
     }
 
-    public void setGeneralStatus(Long generalStatus) {
+    public void setGeneralStatus(DocumentStatus generalStatus) {
         this.generalStatus = generalStatus;
     }
 
@@ -163,14 +172,6 @@ public class Document extends GenericModel {
 
     public void setSenderRegisteredNumber(String senderRegisteredNumber) {
         this.senderRegisteredNumber = senderRegisteredNumber;
-    }
-
-    public Long getSenderStatus() {
-        return senderStatus;
-    }
-
-    public void setSenderStatus(Long senderStatus) {
-        this.senderStatus = senderStatus;
     }
 
     public Responsible getSenderResponsible() {
@@ -221,11 +222,19 @@ public class Document extends GenericModel {
         this.receiverRegisteredNumber = receiverRegisteredNumber;
     }
 
-    public Long getReceiverStatus() {
+    public DocumentStatus getSenderStatus() {
+        return senderStatus;
+    }
+
+    public void setSenderStatus(DocumentStatus senderStatus) {
+        this.senderStatus = senderStatus;
+    }
+
+    public DocumentStatus getReceiverStatus() {
         return receiverStatus;
     }
 
-    public void setReceiverStatus(Long receiverStatus) {
+    public void setReceiverStatus(DocumentStatus receiverStatus) {
         this.receiverStatus = receiverStatus;
     }
 
@@ -318,4 +327,5 @@ public class Document extends GenericModel {
     }
 
     //endregion
+
 }

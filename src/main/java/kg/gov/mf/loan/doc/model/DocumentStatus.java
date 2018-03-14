@@ -4,9 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="cat_dispatch_type")
-public class DispatchType extends Catalog {
+@Table(name="cat_document_status")
+public class DocumentStatus extends Catalog {
 
-    public DispatchType() {
+    public DocumentStatus() {
     }
 }

@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@SuppressWarnings("JpaQlInspection")
 @Repository
 public class DocumentSubTypeDaoImpl extends GenericDaoImpl<DocumentSubType> implements DocumentSubTypeDao
 {
@@ -16,5 +15,13 @@ public class DocumentSubTypeDaoImpl extends GenericDaoImpl<DocumentSubType> impl
                 .setParameter("internalName", internalName)
                 .list();
         return dst.get(0);
+    }
+
+    @Override
+    public List<DocumentSubType> getByDocumentType(Long id) {
+        List<DocumentSubType> dst = getCurrentSession().createQuery(" from DocumentSubType where documentType = :documentType")
+                .setParameter("documentType", id)
+                .list();
+        return dst;
     }
 }

@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 @Table(name="cat_dispatch_data")
-public class DispatchData extends Catalog {
+public class DispatchData extends GenericModel {
 
     public DispatchData() { }
 
@@ -32,7 +32,7 @@ public class DispatchData extends Catalog {
 
     @ManyToOne
     @JoinColumn(name = "dispatchType")
-    private DispatchType dispatchType;
+    private DocumentStatus dispatchType;
 
     @ManyToOne
     @JoinColumn(name = "dispatchResult")
@@ -95,11 +95,11 @@ public class DispatchData extends Catalog {
         isParent = parent;
     }
 
-    public DispatchType getDispatchType() {
+    public DocumentStatus getDispatchType() {
         return dispatchType;
     }
 
-    public void setDispatchType(DispatchType dispatchType) {
+    public void setDispatchType(DocumentStatus dispatchType) {
         this.dispatchType = dispatchType;
     }
 

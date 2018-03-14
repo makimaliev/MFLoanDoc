@@ -26,4 +26,6 @@ public class GenericFormatter<E> implements Formatter<E> {
     public String print(E object, Locale locale) {
         return (object != null ? String.valueOf(((GenericModel)object).getId()) : "");
     }
+
+
 }

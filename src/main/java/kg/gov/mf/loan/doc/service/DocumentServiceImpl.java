@@ -19,4 +19,24 @@ public class DocumentServiceImpl extends GenericServiceImpl<Document> implements
     public List<Document> getDocuments(String documentType) {
         return dao.getDocuments(documentType);
     }
+
+    @Override
+    public List<Document> getDocumentsSenderExecutor(Long userId) {
+        return null;
+    }
+
+    @Override
+    public List<Document> getDocumentsSenderResponsible(Long userId) {
+        return null;
+    }
+
+    @Override
+    public List<Document> getDocumentsReceiverExecutor(Long userId) {
+        return null;
+    }
+
+    @Override
+    public List<Document> getDocumentsReceiverResponsible(Long userId) {
+        return null;
+    }
 }

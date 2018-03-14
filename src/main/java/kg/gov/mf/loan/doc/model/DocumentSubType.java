@@ -9,17 +9,20 @@ public class DocumentSubType extends Catalog
 {
     public DocumentSubType() { }
 
-    private String internalName;
+    @ManyToOne
+    @JoinColumn(name="documentType_id")
+    private DocumentType documentType;
 
-    public String getInternalName() {
-        return internalName;
+    public DocumentType getDocumentType() {
+        return documentType;
     }
 
-    public void setInternalName(String internalName) {
-        this.internalName = internalName;
+    public void setDocumentType(DocumentType documentType) {
+        this.documentType = documentType;
     }
 
 
+    /*
     @Override
     public int hashCode() {
         int hash = 5;
@@ -38,4 +41,5 @@ public class DocumentSubType extends Catalog
 
         return true;
     }
+    */
 }

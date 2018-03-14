@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@SuppressWarnings("JpaQlInspection")
 @Repository
 public class DocumentDaoImpl extends GenericDaoImpl<Document> implements DocumentDao
 {
@@ -22,5 +21,25 @@ public class DocumentDaoImpl extends GenericDaoImpl<Document> implements Documen
                 .setParameter("documentType", documentTypeDao.getByInternalName(documentType))
                 .list();
         return documents;
+    }
+
+    @Override
+    public List<Document> getDocumentsSenderExecutor(Long userId) {
+        return null;
+    }
+
+    @Override
+    public List<Document> getDocumentsSenderResponsible(Long userId) {
+        return null;
+    }
+
+    @Override
+    public List<Document> getDocumentsReceiverResponsible(Long userId) {
+        return null;
+    }
+
+    @Override
+    public List<Document> getDocumentsReceiverExecutor(Long userId) {
+        return null;
     }
 }

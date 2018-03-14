@@ -1,8 +1,10 @@
 package kg.gov.mf.loan.doc.model;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name="cat_document_type")
@@ -10,16 +12,20 @@ public class DocumentType extends Catalog {
 
     public DocumentType() { }
 
-    private String internalName;
+    @OneToMany(mappedBy="documentType")
+    private Set<DocumentSubType> documentSubTypes;
 
-    public String getInternalName() {
-        return internalName;
+    public Set<DocumentSubType> getDocumentSubTypes() {
+        return documentSubTypes;
     }
 
-    public void setInternalName(String internalName) {
-        this.internalName = internalName;
+    public void setDocumentSubTypes(Set<DocumentSubType> documentSubTypes) {
+        this.documentSubTypes = documentSubTypes;
     }
 
+
+
+    /*
     @Override
     public int hashCode() {
         int hash = 5;
@@ -38,4 +44,5 @@ public class DocumentType extends Catalog {
 
         return true;
     }
+    */
 }

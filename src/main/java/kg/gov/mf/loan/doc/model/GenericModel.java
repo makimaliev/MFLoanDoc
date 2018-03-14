@@ -15,11 +15,7 @@ public abstract class GenericModel implements Serializable {
 
     private Long version = 1L;
 
-    private UUID uuid;
-
     public GenericModel() {
-        if(uuid == null)
-            uuid = UUID.randomUUID();
     }
 
     public void setId(Long id) {
@@ -36,14 +32,6 @@ public abstract class GenericModel implements Serializable {
 
     public Long getVersion() {
         return version;
-    }
-
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
     }
 
 
