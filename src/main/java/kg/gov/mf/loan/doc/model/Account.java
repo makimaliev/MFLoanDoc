@@ -11,14 +11,4 @@ public class Account extends Catalog {
 
     public Account() {
     }
-
-    private Long atype;
-
-    public Long getAtype() {
-        return atype;
-    }
-
-    public void setAtype(Long atype) {
-        this.atype = atype;
-    }
 }

@@ -8,10 +8,10 @@ import java.util.List;
 public class AccountDaoImpl extends GenericDaoImpl<Account> implements AccountDao
 {
     @Override
-    public List<Account> getAccounts(Long atype)
+    public List<Account> getAccounts(String internalName)
     {
-        List<Account> accounts = getCurrentSession().createQuery(" from Account where atype = :atype")
-                .setParameter("atype", atype)
+        List<Account> accounts = getCurrentSession().createQuery(" from Account where internalName = :internalName")
+                .setParameter("internalName", internalName)
                 .list();
         return accounts;
     }

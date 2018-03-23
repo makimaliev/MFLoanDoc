@@ -15,21 +15,21 @@ public class AccountServiceImpl extends GenericServiceImpl<Account> implements A
 
     @Override
     public List<Account> getOrganizations() {
-        return dao.getAccounts(1L);
+        return dao.getAccounts("organization");
     }
 
     @Override
     public List<Account> getDepartments() {
-        return dao.getAccounts(2L);
+        return dao.getAccounts("department");
     }
 
     @Override
     public List<Account> getStaff() {
-        return dao.getAccounts(3L);
+        return dao.getAccounts("staff");
     }
 
     @Override
     public List<Account> getPerson() {
-        return dao.getAccounts(4L);
+        return dao.getAccounts("person");
     }
 }

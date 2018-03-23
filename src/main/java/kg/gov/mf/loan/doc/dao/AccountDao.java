@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface AccountDao extends GenericDao<Account>
 {
-    List<Account> getAccounts(Long atype);
+    List<Account> getAccounts(String internalName);
 }
