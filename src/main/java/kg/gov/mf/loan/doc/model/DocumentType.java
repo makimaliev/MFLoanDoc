@@ -1,8 +1,6 @@
 package kg.gov.mf.loan.doc.model;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
@@ -12,7 +10,8 @@ public class DocumentType extends Catalog {
 
     public DocumentType() { }
 
-    @OneToMany(mappedBy="documentType")
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "documentSubTypes")
     private Set<DocumentSubType> documentSubTypes;
 
     public Set<DocumentSubType> getDocumentSubTypes() {
@@ -22,8 +21,6 @@ public class DocumentType extends Catalog {
     public void setDocumentSubTypes(Set<DocumentSubType> documentSubTypes) {
         this.documentSubTypes = documentSubTypes;
     }
-
-
 
     /*
     @Override

@@ -9,7 +9,8 @@ public class DocumentSubType extends Catalog
 {
     public DocumentSubType() { }
 
-    @ManyToOne
+    /*
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="documentType_id")
     private DocumentType documentType;
 

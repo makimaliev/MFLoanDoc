@@ -15,4 +15,6 @@ public class DocumentStatusServiceImpl extends GenericServiceImpl<DocumentStatus
     public DocumentStatus getByInternalName(String internalName) {
         return dao.getByInternalName(internalName);
     }
+
+
 }

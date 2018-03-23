@@ -21,17 +21,16 @@ import java.util.List;
 @Transactional
 public abstract class GenericDaoImpl<E> implements GenericDao<E>
 {
-    protected Class<E> entityClass;
-
-    public GenericDaoImpl() {
-        this.entityClass = (Class<E>) ((ParameterizedType) this.getClass().getGenericSuperclass())
-                .getActualTypeArguments()[0];
-    }
-
     @Autowired
     protected SessionFactory sessionFactory;
 
-    protected Session getCurrentSession() {
+    protected Class<E> entityClass;
+
+    public GenericDaoImpl() {
+        this.entityClass = (Class<E>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    }
+
+    protected final Session getCurrentSession() {
         try {
             return sessionFactory.getCurrentSession();
         } catch (HibernateException e) {
@@ -40,25 +39,24 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E>
     }
 
     @Override
-    public E create(E entity) {
+    public E create(final E entity) {
         getCurrentSession().persist(entity);
-        getCurrentSession().flush();
         return entity;
     }
 
     @Override
-    public void edit(E entity) {
+    public void edit(final E entity) {
         getCurrentSession().merge(entity);
     }
 
     @Override
-    public void deleteById(E entity) {
+    public void deleteById(final E entity) {
         getCurrentSession().delete(entity);
     }
 
     @Override
-    public E findById(Long id) {
-        return (E) getCurrentSession().get(entityClass, id);
+    public E findById(final Long id) {
+        return getCurrentSession().get(entityClass, id);
     }
 
     @Override

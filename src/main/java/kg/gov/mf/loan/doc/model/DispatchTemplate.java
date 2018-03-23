@@ -1,5 +1,7 @@
 package kg.gov.mf.loan.doc.model;
 
+import org.hibernate.annotations.Nationalized;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
