@@ -64,6 +64,8 @@ public class Document extends GenericModel {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "senderInformation")
     private Information senderInformation;
+
+    private String senderFileName;
     //endregion
 
     //region Receiver Data
@@ -97,6 +99,8 @@ public class Document extends GenericModel {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "receiverInformation")
     private Information receiverInformation;
+
+    private String receiverFileName;
     //endregion
 
     //region Result Data
@@ -325,6 +329,22 @@ public class Document extends GenericModel {
 
     public void setReceiverDispatchData(Set<DispatchData> receiverDispatchData) {
         this.receiverDispatchData = receiverDispatchData;
+    }
+
+    public String getSenderFileName() {
+        return senderFileName;
+    }
+
+    public void setSenderFileName(String senderFileName) {
+        this.senderFileName = senderFileName;
+    }
+
+    public String getReceiverFileName() {
+        return receiverFileName;
+    }
+
+    public void setReceiverFileName(String receiverFileName) {
+        this.receiverFileName = receiverFileName;
     }
 
     //endregion
