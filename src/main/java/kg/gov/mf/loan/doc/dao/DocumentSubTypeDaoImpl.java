@@ -10,6 +10,7 @@ import java.util.List;
 public class DocumentSubTypeDaoImpl extends GenericDaoImpl<DocumentSubType> implements DocumentSubTypeDao
 {
     @Override
+    @Transactional(readOnly = true)
     public DocumentSubType getByInternalName(String internalName) {
         List<DocumentSubType> dst = getCurrentSession().createQuery(" from DocumentSubType where internalName = :internalName")
                 .setParameter("internalName", internalName)
@@ -18,6 +19,7 @@ public class DocumentSubTypeDaoImpl extends GenericDaoImpl<DocumentSubType> impl
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<DocumentSubType> getByDocumentType(Long id) {
         List<DocumentSubType> dst = getCurrentSession().createQuery(" from DocumentSubType where documentType = :documentType")
                 .setParameter("documentType", id)

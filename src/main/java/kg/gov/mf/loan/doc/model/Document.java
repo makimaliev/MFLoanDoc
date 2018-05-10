@@ -1,7 +1,7 @@
 package kg.gov.mf.loan.doc.model;
 
 import kg.gov.mf.loan.admin.sys.model.Information;
-import org.hibernate.annotations.Nationalized;
+import kg.gov.mf.loan.admin.sys.model.User;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.util.*;
@@ -31,6 +31,15 @@ public class Document extends GenericModel {
     @ManyToOne
     @JoinColumn(name = "documentTemplate")
     private DocumentTemplate documentTemplate;
+
+    @Enumerated(EnumType.ORDINAL)
+    private State documentState = State.DRAFT;
+
+    @ManyToMany
+    @JoinTable(name = "df_document_users",
+            joinColumns = { @JoinColumn(name = "Document_id") },
+            inverseJoinColumns = { @JoinColumn(name = "users_id") })
+    private Set<User> users = new HashSet<>(0);
     //endregion
 
     //region Sender Data
@@ -53,7 +62,7 @@ public class Document extends GenericModel {
     @JoinColumn(name = "senderResponsible")
     private Responsible senderResponsible;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "senderExecutor")
     private Executor senderExecutor;
 
@@ -88,7 +97,7 @@ public class Document extends GenericModel {
     @JoinColumn(name = "receiverResponsible")
     private Responsible receiverResponsible;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "receiverExecutor")
     private Executor receiverExecutor;
 
@@ -123,6 +132,15 @@ public class Document extends GenericModel {
     //endregion
 
     //region GET-SET
+
+    public State getDocumentState() {
+        return documentState;
+    }
+
+    public void setDocumentState(State documentState) {
+        this.documentState = documentState;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -165,6 +183,14 @@ public class Document extends GenericModel {
 
     public DocumentTemplate getDocumentTemplate() {
         return documentTemplate;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     public void setDocumentTemplate(DocumentTemplate documentTemplate) {
@@ -348,5 +374,4 @@ public class Document extends GenericModel {
     }
 
     //endregion
-
 }

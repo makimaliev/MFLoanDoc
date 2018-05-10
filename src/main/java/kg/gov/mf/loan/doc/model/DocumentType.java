@@ -1,7 +1,10 @@
 package kg.gov.mf.loan.doc.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
-import java.util.Objects;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -10,10 +13,10 @@ public class DocumentType extends Catalog {
 
     public DocumentType() { }
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "documentSubTypes")
-    private Set<DocumentSubType> documentSubTypes;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "documentType")
+    private Set<DocumentSubType> documentSubTypes = new HashSet<>(0);
 
+    //region GET-SET
     public Set<DocumentSubType> getDocumentSubTypes() {
         return documentSubTypes;
     }
@@ -21,25 +24,5 @@ public class DocumentType extends Catalog {
     public void setDocumentSubTypes(Set<DocumentSubType> documentSubTypes) {
         this.documentSubTypes = documentSubTypes;
     }
-
-    /*
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 83 * hash + Objects.hashCode(this.getId());
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (this == other) return true;
-        if ( !(other instanceof DocumentType) ) return false;
-
-        final DocumentType documentType = (DocumentType) other;
-
-        if(documentType.getId() != getId()) return false;
-
-        return true;
-    }
-    */
+    //endregion
 }

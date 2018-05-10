@@ -1,36 +1,30 @@
 package kg.gov.mf.loan.doc.dao;
 
+import kg.gov.mf.loan.doc.model.GenericModel;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
-import java.io.Serializable;
+import javax.annotation.Resource;
 import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.List;
 
 @Repository
-@Transactional
 public abstract class GenericDaoImpl<E> implements GenericDao<E>
 {
+    private SessionFactory sessionFactory;
+    private Class<E> entityClass;
+
     @Autowired
-    protected SessionFactory sessionFactory;
-
-    protected Class<E> entityClass;
-
-    public GenericDaoImpl() {
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
         this.entityClass = (Class<E>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
-    protected final Session getCurrentSession() {
+    protected Session getCurrentSession() {
         try {
             return sessionFactory.getCurrentSession();
         } catch (HibernateException e) {
@@ -39,28 +33,35 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E>
     }
 
     @Override
-    public E create(final E entity) {
+    @Transactional
+    public E create(E entity) {
         getCurrentSession().persist(entity);
         return entity;
     }
 
     @Override
-    public void edit(final E entity) {
-        getCurrentSession().merge(entity);
+    @Transactional
+    public E edit(E entity) {
+        return (E) getCurrentSession().merge(entity);
     }
 
     @Override
-    public void deleteById(final E entity) {
+    @Transactional
+    public void deleteById(E entity) {
         getCurrentSession().delete(entity);
     }
 
     @Override
-    public E findById(final Long id) {
+    @Transactional
+    public E findById(Long id) {
         return getCurrentSession().get(entityClass, id);
     }
 
     @Override
+    @Transactional
     public List<E> findAll() {
-        return getCurrentSession().createCriteria(entityClass).list();
+        return getCurrentSession().createCriteria(entityClass)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                .list();
     }
 }

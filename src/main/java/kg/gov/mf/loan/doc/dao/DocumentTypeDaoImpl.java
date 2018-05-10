@@ -13,12 +13,11 @@ import java.util.List;
 public class DocumentTypeDaoImpl extends GenericDaoImpl<DocumentType> implements DocumentTypeDao
 {
     @Override
+    @Transactional(readOnly = true)
     public DocumentType getByInternalName(String internalName) {
         List<DocumentType> dt = getCurrentSession().createQuery(" from DocumentType where internalName = :internalName")
                 .setParameter("internalName", internalName)
                 .list();
         return dt.get(0);
     }
-
-
 }

@@ -2,6 +2,7 @@ package kg.gov.mf.loan.doc.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.UUID;
 
 @MappedSuperclass
@@ -22,19 +23,35 @@ public abstract class GenericModel implements Serializable {
         this.id = id;
     }
 
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-
     public Long getId() {
         return id;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
     public Long getVersion() {
         return version;
     }
 
+    @Override
+    public boolean equals(Object other) {
 
+        if (other == this) return true;
+        if (!(other instanceof GenericModel)) {
+            return false;
+        }
+        GenericModel genericModel = (GenericModel) other;
+        return id.equals(genericModel.id) && Objects.equals(version, genericModel.version);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, version);
+    }
+
+    /*
     @Override
     public int hashCode() {
         int hash = 0;
@@ -52,10 +69,9 @@ public abstract class GenericModel implements Serializable {
         if (getClass() != object.getClass())
             return false;
 
-        GenericModel other = (GenericModel) object;
-        if (this.getId() != other.getId() && (this.getId() == null || !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        GenericModel other = (GenericModel)object;
+        return this.getId().equals(other.getId());
     }
+
+	*/
 }

@@ -10,19 +10,18 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 public abstract class GenericServiceImpl<E> implements GenericService<E>
 {
     @Autowired
     protected GenericDao<E> dao;
 
     @Override
-    public E create(E entity) {
+    public E save(E entity) {
         return dao.create(entity);
     }
 
     @Override
-    public void edit(E entity) {
+    public void update(E entity) {
         dao.edit(entity);
     }
 
