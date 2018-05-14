@@ -33,6 +33,7 @@ public class DocumentDaoImpl extends GenericDaoImpl<Document> implements Documen
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List getArchivedDocuments(Long userId) {
         List document;
         String query = "Select d from Document d join d.users u where u in (:users) and documentState = 8";

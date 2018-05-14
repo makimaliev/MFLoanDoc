@@ -5,6 +5,7 @@ public enum Transition {
     REGISTER,
     APPROVE,
 
+    REQUEST,
     CREATE,
     REJECT,
     ACCEPT,
