@@ -23,23 +23,19 @@ public class DocumentDaoImpl extends GenericDaoImpl<Document> implements Documen
     @Override
     @Transactional(readOnly = true)
     public List getDocuments(String documentType, Long userId) {
-        List document;
-        String query = "Select d from Document d join d.users u where u in (:users) and d.documentType = :documentType and documentState < 8";
-        document = getCurrentSession().createQuery(query)
+        String query = "from Document d where owner = :owner and d.documentType = :documentType and documentState < 8";
+        return getCurrentSession().createQuery(query)
                 .setParameter("documentType", documentTypeDao.getByInternalName(documentType))
-                .setParameter("users", userDao.findById(userId))
+                .setParameter("owner", userDao.findById(userId).getId())
                 .list();
-        return document;
     }
 
     @Override
     @Transactional(readOnly = true)
     public List getArchivedDocuments(Long userId) {
-        List document;
-        String query = "Select d from Document d join d.users u where u in (:users) and documentState = 8";
-        document = getCurrentSession().createQuery(query)
-                .setParameter("users", userDao.findById(userId))
+        String query = "from Document where owner = :owner and documentState = 8";
+        return getCurrentSession().createQuery(query)
+                .setParameter("owner", userDao.findById(userId).getId())
                 .list();
-        return document;
     }
 }

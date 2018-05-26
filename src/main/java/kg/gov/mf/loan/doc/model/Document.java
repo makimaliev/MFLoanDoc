@@ -13,6 +13,7 @@ public class Document extends GenericModel {
     public Document() {}
 
     //region Document
+    private Long owner;
     private String title = "Title " + new Random().nextInt(100);
     private String description = "Description " + new Random().nextInt(100);
 
@@ -74,6 +75,10 @@ public class Document extends GenericModel {
     @JoinColumn(name = "senderInformation")
     private Information senderInformation;
 
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn
+    private Attachment senderAttachment;
+
     private String senderFileName;
     //endregion
 
@@ -109,6 +114,10 @@ public class Document extends GenericModel {
     @JoinColumn(name = "receiverInformation")
     private Information receiverInformation;
 
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn
+    private Attachment receiverAttachment;
+
     private String receiverFileName;
     //endregion
 
@@ -132,6 +141,13 @@ public class Document extends GenericModel {
     //endregion
 
     //region GET-SET
+    public Long getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Long owner) {
+        this.owner = owner;
+    }
 
     public State getDocumentState() {
         return documentState;
@@ -371,6 +387,22 @@ public class Document extends GenericModel {
 
     public void setReceiverFileName(String receiverFileName) {
         this.receiverFileName = receiverFileName;
+    }
+
+    public Attachment getSenderAttachment() {
+        return senderAttachment;
+    }
+
+    public void setSenderAttachment(Attachment senderAttachment) {
+        this.senderAttachment = senderAttachment;
+    }
+
+    public Attachment getReceiverAttachment() {
+        return receiverAttachment;
+    }
+
+    public void setReceiverAttachment(Attachment receiverAttachment) {
+        this.receiverAttachment = receiverAttachment;
     }
 
     //endregion

@@ -1,6 +1,5 @@
 package kg.gov.mf.loan.doc.dao;
 
-import kg.gov.mf.loan.doc.model.GenericModel;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -8,11 +7,11 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import javax.annotation.Resource;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 @Repository
+@Transactional
 public abstract class GenericDaoImpl<E> implements GenericDao<E>
 {
     private SessionFactory sessionFactory;

@@ -10,7 +10,18 @@ public enum State
                 public State next(Transition transition)
                 {
                     // REGISTER -> REGISTERED || NONE -> WAITING_FOR_APPROVAL
-                    return transition == REGISTER ? REGISTERED : WAITING_FOR_APPROVAL;
+                    if(transition == CREATE)
+                    {
+                        return DRAFT;
+                    }
+                    if(transition == REGISTER)
+                    {
+                        return REGISTERED;
+                    }
+                    else
+                    {
+                        return WAITING_FOR_APPROVAL;
+                    }
                 }
             },
     WAITING_FOR_APPROVAL
