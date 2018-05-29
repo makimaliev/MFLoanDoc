@@ -34,7 +34,7 @@ public class Document extends GenericModel {
     private DocumentTemplate documentTemplate;
 
     @Enumerated(EnumType.ORDINAL)
-    private State documentState = State.DRAFT;
+    private State documentState = State.NEW;
 
     @ManyToMany
     @JoinTable(name = "df_document_users",

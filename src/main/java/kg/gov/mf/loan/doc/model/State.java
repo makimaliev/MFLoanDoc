@@ -4,6 +4,14 @@ import static kg.gov.mf.loan.doc.model.Transition.*;
 
 public enum State
 {
+    NEW
+            {
+                @Override
+                public State next(Transition transition)
+                {
+                    return DRAFT;
+                }
+            },
     DRAFT
             {
                 @Override

@@ -9,4 +9,14 @@ public class DocumentStatus extends Catalog {
 
     public DocumentStatus() {
     }
+
+    private String actionName;
+
+    public String getActionName() {
+        return actionName;
+    }
+
+    public void setActionName(String actionName) {
+        this.actionName = actionName;
+    }
 }

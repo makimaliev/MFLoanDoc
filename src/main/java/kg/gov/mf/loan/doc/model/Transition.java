@@ -1,16 +1,15 @@
 package kg.gov.mf.loan.doc.model;
 
-public enum Transition {
-
-    REGISTER,
-    APPROVE,
-
-    REQUEST,
+public enum Transition
+{
+    NONE,
     CREATE,
+    REQUEST,
+    APPROVE,
     REJECT,
+    REGISTER,
     ACCEPT,
     START,
     DONE,
-    ARCHIVE,
-    NONE
+    ARCHIVE
 }
