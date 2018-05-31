@@ -69,6 +69,7 @@ public class Document extends GenericModel {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "senderDispatchData")
+    @OrderBy("id asc")
     private Set<DispatchData> senderDispatchData = new HashSet<>();
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -108,6 +109,7 @@ public class Document extends GenericModel {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "receiverDispatchData")
+    @OrderBy("id asc")
     private Set<DispatchData> receiverDispatchData = new HashSet<>();
 
     @ManyToOne(cascade = CascadeType.ALL)

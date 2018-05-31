@@ -7,20 +7,11 @@ public enum State
     NEW
             {
                 @Override
-                public State next(Transition transition)
-                {
-                    return DRAFT;
-                }
-            },
-    DRAFT
-            {
-                @Override
-                public State next(Transition transition)
-                {
-                    // REGISTER -> REGISTERED || NONE -> WAITING_FOR_APPROVAL
-                    if(transition == CREATE)
+                public State next(Transition transition) {
+
+                    if(transition == REQUEST)
                     {
-                        return DRAFT;
+                        return REQUESTED;
                     }
                     if(transition == REGISTER)
                     {
@@ -28,26 +19,61 @@ public enum State
                     }
                     else
                     {
-                        return WAITING_FOR_APPROVAL;
+                        return DRAFT;
                     }
                 }
+
+                @Override
+                public String stringValue()
+                {
+                    return "Новый";
+                }
             },
-    WAITING_FOR_APPROVAL
+    DRAFT
             {
                 @Override
-                public State next(Transition transition)
+                public State next(Transition transition) {
+                    if(transition == REGISTER)
+                    {
+                        return REGISTERED;
+                    }
+                    else
+                    {
+                        return REQUESTED;
+                    }
+                }
+
+                @Override
+                public String stringValue()
                 {
-                    // REJECT -> REJECTED || NONE -> APPROVED
+                    return "Создан";
+                }
+            },
+    REQUESTED
+            {
+                @Override
+                public State next(Transition transition) {
+
                     return transition == REJECT ? REJECTED : APPROVED;
+                }
+
+                @Override
+                public String stringValue()
+                {
+                    return "На расмотрении";
                 }
             },
     APPROVED
             {
                 @Override
-                public State next(Transition transition)
-                {
-                    // REGISTER -> REGISTERED || NONE -> ACCEPTED
+                public State next(Transition transition) {
                     return transition == REGISTER ? REGISTERED : ACCEPTED;
+                }
+
+                @Override
+                public String stringValue()
+                {
+                    return "Утверж";
                 }
             },
     REJECTED
@@ -57,14 +83,24 @@ public enum State
                 {
                     return DONE;
                 }
+
+                @Override
+                public String stringValue()
+                {
+                    return "";
+                }
             },
     REGISTERED
             {
                 @Override
-                public State next(Transition transition)
-                {
-                    // ACCEPT -> ACCEPTED || ANY -> ARCHIVED
+                public State next(Transition transition) {
                     return transition == Transition.ACCEPT ? ACCEPTED : ARCHIVED;
+                }
+
+                @Override
+                public String stringValue()
+                {
+                    return "";
                 }
             },
     ACCEPTED
@@ -74,6 +110,12 @@ public enum State
                 {
                     return STARTED;
                 }
+
+                @Override
+                public String stringValue()
+                {
+                    return "";
+                }
             },
     STARTED
             {
@@ -81,6 +123,12 @@ public enum State
                 public State next(Transition transition)
                 {
                     return DONE;
+                }
+
+                @Override
+                public String stringValue()
+                {
+                    return "";
                 }
             },
     DONE
@@ -90,6 +138,12 @@ public enum State
                 {
                     return ARCHIVED;
                 }
+
+                @Override
+                public String stringValue()
+                {
+                    return "";
+                }
             },
     ARCHIVED
             {
@@ -98,7 +152,14 @@ public enum State
                 {
                     return ARCHIVED;
                 }
+
+                @Override
+                public String stringValue()
+                {
+                    return "";
+                }
             };
 
     public abstract State next(Transition transition);
+    public abstract String stringValue();
 }
