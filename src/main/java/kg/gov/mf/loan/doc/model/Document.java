@@ -16,6 +16,7 @@ public class Document extends GenericModel {
     private Long owner;
     private String title = "Title " + new Random().nextInt(100);
     private String description = "Description " + new Random().nextInt(100);
+    private Boolean archived = false;
 
     @ManyToOne
     @JoinColumn(name = "generalStatus")
@@ -59,11 +60,11 @@ public class Document extends GenericModel {
     private Date senderDueDate;
 
     //*********** Responsible ***********************************************
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "senderResponsible")
     private Responsible senderResponsible;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "senderExecutor")
     private Executor senderExecutor;
 
@@ -76,11 +77,9 @@ public class Document extends GenericModel {
     @JoinColumn(name = "senderInformation")
     private Information senderInformation;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private Attachment senderAttachment;
-
-    private String senderFileName;
     //endregion
 
     //region Receiver Data
@@ -99,11 +98,11 @@ public class Document extends GenericModel {
     private Date receiverDueDate;
 
     //*********** Responsible ***********************************************
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "receiverResponsible")
     private Responsible receiverResponsible;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "receiverExecutor")
     private Executor receiverExecutor;
 
@@ -116,11 +115,9 @@ public class Document extends GenericModel {
     @JoinColumn(name = "receiverInformation")
     private Information receiverInformation;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn
     private Attachment receiverAttachment;
-
-    private String receiverFileName;
     //endregion
 
     //region Result Data
@@ -375,22 +372,6 @@ public class Document extends GenericModel {
         this.receiverDispatchData = receiverDispatchData;
     }
 
-    public String getSenderFileName() {
-        return senderFileName;
-    }
-
-    public void setSenderFileName(String senderFileName) {
-        this.senderFileName = senderFileName;
-    }
-
-    public String getReceiverFileName() {
-        return receiverFileName;
-    }
-
-    public void setReceiverFileName(String receiverFileName) {
-        this.receiverFileName = receiverFileName;
-    }
-
     public Attachment getSenderAttachment() {
         return senderAttachment;
     }
@@ -405,6 +386,14 @@ public class Document extends GenericModel {
 
     public void setReceiverAttachment(Attachment receiverAttachment) {
         this.receiverAttachment = receiverAttachment;
+    }
+
+    public Boolean getArchived() {
+        return archived;
+    }
+
+    public void setArchived(Boolean archived) {
+        this.archived = archived;
     }
 
     //endregion

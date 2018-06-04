@@ -24,4 +24,9 @@ public class DocumentServiceImpl extends GenericServiceImpl<Document> implements
     public List getArchivedDocuments(Long userId) {
         return dao.getArchivedDocuments(userId);
     }
+
+    @Override
+    public List getInvolvedDocuments(Long userId) {
+        return dao.getInvolvedDocuments(userId);
+    }
 }

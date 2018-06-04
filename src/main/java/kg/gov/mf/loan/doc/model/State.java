@@ -67,13 +67,27 @@ public enum State
             {
                 @Override
                 public State next(Transition transition) {
-                    return transition == REGISTER ? REGISTERED : ACCEPTED;
+                    
+                    if(transition == REGISTER)
+                    {
+                        return REGISTERED;
+                    }
+                    else if(transition == ACCEPT)
+                    {
+                        return ACCEPTED;
+                    }
+                    else
+                    {
+                        return DONE;
+                    }
+
+                    //return transition == REGISTER ? REGISTERED : ACCEPTED;
                 }
 
                 @Override
                 public String stringValue()
                 {
-                    return "Утверж";
+                    return "Утвержден";
                 }
             },
     REJECTED
@@ -87,7 +101,7 @@ public enum State
                 @Override
                 public String stringValue()
                 {
-                    return "";
+                    return "Отклонен";
                 }
             },
     REGISTERED
@@ -100,7 +114,7 @@ public enum State
                 @Override
                 public String stringValue()
                 {
-                    return "";
+                    return "Зарегистрирован";
                 }
             },
     ACCEPTED
@@ -114,7 +128,7 @@ public enum State
                 @Override
                 public String stringValue()
                 {
-                    return "";
+                    return "Принят";
                 }
             },
     STARTED
@@ -128,7 +142,7 @@ public enum State
                 @Override
                 public String stringValue()
                 {
-                    return "";
+                    return "Начат";
                 }
             },
     DONE
@@ -142,7 +156,7 @@ public enum State
                 @Override
                 public String stringValue()
                 {
-                    return "";
+                    return "Завершен";
                 }
             },
     ARCHIVED
@@ -156,7 +170,7 @@ public enum State
                 @Override
                 public String stringValue()
                 {
-                    return "";
+                    return "Архивирован";
                 }
             };
 

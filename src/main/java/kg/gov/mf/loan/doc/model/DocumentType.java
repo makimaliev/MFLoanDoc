@@ -1,8 +1,5 @@
 package kg.gov.mf.loan.doc.model;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +10,7 @@ public class DocumentType extends Catalog {
 
     public DocumentType() { }
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "documentType")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "documentType") //fetch = FetchType.EAGER,
     private Set<DocumentSubType> documentSubTypes = new HashSet<>(0);
 
     //region GET-SET

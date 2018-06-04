@@ -15,22 +15,18 @@ public class Responsible extends GenericModel {
 
     private int responsibleType;
 
-    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn
     private Set<Organization> organizations = new HashSet<>(0);
 
-    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn
     private Set<Department> departments = new HashSet<>(0);
 
-    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn
     private Set<Staff> staff = new HashSet<>(0);
 
-    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn
     private Set<Person> person = new HashSet<>(0);

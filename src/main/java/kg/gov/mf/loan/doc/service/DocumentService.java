@@ -7,4 +7,5 @@ public interface DocumentService extends GenericService<Document>
 {
     List<Document> getDocuments(String documentType, Long userId);
     List getArchivedDocuments(Long userId);
+    List getInvolvedDocuments(Long userId);
 }
