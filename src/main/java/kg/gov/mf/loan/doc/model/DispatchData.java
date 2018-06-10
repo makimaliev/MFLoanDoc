@@ -3,6 +3,7 @@ package kg.gov.mf.loan.doc.model;
 import kg.gov.mf.loan.admin.sys.model.User;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -22,17 +23,16 @@ public class DispatchData extends GenericModel {
     @JoinColumn(name="dispatchTo_id")
     private User dispatchTo;
 
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
-    @Temporal(TemporalType.DATE)
-    private Date dispatchInitTime = new Date();
+    @Column(columnDefinition = "datetime")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dispatchInitTime;
 
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
-    @Temporal(TemporalType.DATE)
+    @Column(columnDefinition = "datetime")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dispatchResponseTime;
 
-    @ManyToOne
-    @JoinColumn(name = "dispatchType")
-    private DocumentStatus dispatchType;
+    @Enumerated(EnumType.ORDINAL)
+    private State dispatchType;
 
     @ManyToOne
     @JoinColumn(name = "dispatchResult")
@@ -47,12 +47,20 @@ public class DispatchData extends GenericModel {
     private DispatchData dispatchData;
 
     //region GET-SET
-    public Date getDispatchInitTime() {
-        return dispatchInitTime;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDispatchInitTime(Date dispatchInitTime) {
-        this.dispatchInitTime = dispatchInitTime;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isParent() {
+        return isParent;
+    }
+
+    public void setParent(boolean parent) {
+        isParent = parent;
     }
 
     public User getDispatchBy() {
@@ -71,6 +79,14 @@ public class DispatchData extends GenericModel {
         this.dispatchTo = dispatchTo;
     }
 
+    public Date getDispatchInitTime() {
+        return dispatchInitTime;
+    }
+
+    public void setDispatchInitTime(Date dispatchInitTime) {
+        this.dispatchInitTime = dispatchInitTime;
+    }
+
     public Date getDispatchResponseTime() {
         return dispatchResponseTime;
     }
@@ -79,27 +95,11 @@ public class DispatchData extends GenericModel {
         this.dispatchResponseTime = dispatchResponseTime;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public boolean isParent() {
-        return isParent;
-    }
-
-    public void setParent(boolean parent) {
-        isParent = parent;
-    }
-
-    public DocumentStatus getDispatchType() {
+    public State getDispatchType() {
         return dispatchType;
     }
 
-    public void setDispatchType(DocumentStatus dispatchType) {
+    public void setDispatchType(State dispatchType) {
         this.dispatchType = dispatchType;
     }
 

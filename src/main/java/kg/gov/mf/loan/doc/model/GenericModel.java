@@ -1,5 +1,7 @@
 package kg.gov.mf.loan.doc.model;
 
+import org.hibernate.annotations.NaturalId;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -16,7 +18,14 @@ public abstract class GenericModel implements Serializable {
 
     private Long version = 1L;
 
+    @NaturalId
+    private String uuid = UUID.randomUUID().toString();
+
     public GenericModel() {
+    }
+
+    public String getUuid() {
+        return uuid;
     }
 
     public void setId(Long id) {
@@ -50,28 +59,4 @@ public abstract class GenericModel implements Serializable {
     public int hashCode() {
         return Objects.hash(id, version);
     }
-
-    /*
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (this.getId() != null ? this.getId().hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-
-        if (this == object)
-            return true;
-        if (object == null)
-            return false;
-        if (getClass() != object.getClass())
-            return false;
-
-        GenericModel other = (GenericModel)object;
-        return this.getId().equals(other.getId());
-    }
-
-	*/
 }

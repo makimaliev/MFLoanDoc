@@ -1,5 +1,7 @@
 package kg.gov.mf.loan.doc.service;
 
+import kg.gov.mf.loan.admin.sys.model.User;
+import kg.gov.mf.loan.admin.sys.service.UserService;
 import kg.gov.mf.loan.doc.dao.GenericDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,6 +16,9 @@ public abstract class GenericServiceImpl<E> implements GenericService<E>
 {
     @Autowired
     protected GenericDao<E> dao;
+
+    @Autowired
+    protected UserService userService;
 
     @Override
     public E save(E entity) {

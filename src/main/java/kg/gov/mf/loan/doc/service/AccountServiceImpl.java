@@ -32,4 +32,9 @@ public class AccountServiceImpl extends GenericServiceImpl<Account> implements A
     public List<Account> getPerson() {
         return dao.getAccounts("person");
     }
+
+    @Override
+    public List<Account> getByName(String internalName, String name) {
+        return dao.getByName(internalName, name);
+    }
 }

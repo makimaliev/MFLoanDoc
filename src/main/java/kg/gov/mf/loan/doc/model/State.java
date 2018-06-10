@@ -4,11 +4,11 @@ import static kg.gov.mf.loan.doc.model.Transition.*;
 
 public enum State
 {
-    NEW
+    NEW         // 0
             {
                 @Override
-                public State next(Transition transition) {
-
+                public State next(Transition transition)
+                {
                     if(transition == REQUEST)
                     {
                         return REQUESTED;
@@ -29,10 +29,11 @@ public enum State
                     return "Новый";
                 }
             },
-    DRAFT
+    DRAFT       // 1
             {
                 @Override
-                public State next(Transition transition) {
+                public State next(Transition transition)
+                {
                     if(transition == REGISTER)
                     {
                         return REGISTERED;
@@ -49,12 +50,12 @@ public enum State
                     return "Создан";
                 }
             },
-    REQUESTED
+    REQUESTED   // 2
             {
                 @Override
-                public State next(Transition transition) {
-
-                    return transition == REJECT ? REJECTED : APPROVED;
+                public State next(Transition transition)
+                {
+                    return transition == REJECT ? DRAFT : APPROVED;
                 }
 
                 @Override
@@ -63,11 +64,11 @@ public enum State
                     return "На расмотрении";
                 }
             },
-    APPROVED
+    APPROVED    // 3
             {
                 @Override
-                public State next(Transition transition) {
-                    
+                public State next(Transition transition)
+                {
                     if(transition == REGISTER)
                     {
                         return REGISTERED;
@@ -76,12 +77,14 @@ public enum State
                     {
                         return ACCEPTED;
                     }
+                    else if(transition == REJECT)
+                    {
+                        return DRAFT;
+                    }
                     else
                     {
                         return DONE;
                     }
-
-                    //return transition == REGISTER ? REGISTERED : ACCEPTED;
                 }
 
                 @Override
@@ -90,7 +93,7 @@ public enum State
                     return "Утвержден";
                 }
             },
-    REJECTED
+    REJECTED    // 4
             {
                 @Override
                 public State next(Transition transition)
@@ -104,11 +107,24 @@ public enum State
                     return "Отклонен";
                 }
             },
-    REGISTERED
+    REGISTERED  // 5
             {
                 @Override
-                public State next(Transition transition) {
-                    return transition == Transition.ACCEPT ? ACCEPTED : ARCHIVED;
+                public State next(Transition transition)
+                {
+                    //return transition == Transition.ACCEPT ? ACCEPTED : DONE;
+                    if(transition == ACCEPT)
+                    {
+                        return ACCEPTED;
+                    }
+                    else if(transition == REJECT)
+                    {
+                        return DRAFT;
+                    }
+                    else
+                    {
+                        return DONE;
+                    }
                 }
 
                 @Override
@@ -117,12 +133,12 @@ public enum State
                     return "Зарегистрирован";
                 }
             },
-    ACCEPTED
+    ACCEPTED    // 6
             {
                 @Override
                 public State next(Transition transition)
                 {
-                    return STARTED;
+                    return SENT;
                 }
 
                 @Override
@@ -131,7 +147,21 @@ public enum State
                     return "Принят";
                 }
             },
-    STARTED
+    SENT        // 7
+            {
+                @Override
+                public State next(Transition transition)
+                {
+                    return transition == REJECT ? ACCEPTED : STARTED;
+                }
+
+                @Override
+                public String stringValue()
+                {
+                    return "Принят";
+                }
+            },
+    STARTED     // 8
             {
                 @Override
                 public State next(Transition transition)
@@ -145,32 +175,18 @@ public enum State
                     return "Начат";
                 }
             },
-    DONE
+    DONE        // 9
             {
                 @Override
                 public State next(Transition transition)
                 {
-                    return ARCHIVED;
+                    return DONE;
                 }
 
                 @Override
                 public String stringValue()
                 {
                     return "Завершен";
-                }
-            },
-    ARCHIVED
-            {
-                @Override
-                public State next(Transition transition)
-                {
-                    return ARCHIVED;
-                }
-
-                @Override
-                public String stringValue()
-                {
-                    return "Архивирован";
                 }
             };
 

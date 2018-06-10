@@ -9,7 +9,7 @@ public enum Transition
     REJECT,
     REGISTER,
     ACCEPT,
+    SEND,
     START,
-    DONE,
-    ARCHIVE
+    DONE
 }

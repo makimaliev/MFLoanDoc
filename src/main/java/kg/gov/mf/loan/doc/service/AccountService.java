@@ -10,4 +10,5 @@ public interface AccountService extends GenericService<Account>
     List<Account> getDepartments();
     List<Account> getStaff();
     List<Account> getPerson();
+    List<Account> getByName(String internalName, String name);
 }

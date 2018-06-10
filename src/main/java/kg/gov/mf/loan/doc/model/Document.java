@@ -2,7 +2,7 @@ package kg.gov.mf.loan.doc.model;
 
 import kg.gov.mf.loan.admin.sys.model.Information;
 import kg.gov.mf.loan.admin.sys.model.User;
-import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -43,7 +43,6 @@ public class Document extends GenericModel {
             inverseJoinColumns = { @JoinColumn(name = "users_id") })
     private Set<User> users = new HashSet<>(0);
     //endregion
-
     //region Sender Data
     private String senderRegisteredNumber;
 
@@ -51,15 +50,12 @@ public class Document extends GenericModel {
     @JoinColumn(name = "senderStatus")
     private DocumentStatus senderStatus;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date senderRegisteredDate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date senderDueDate;
 
-    //*********** Responsible ***********************************************
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "senderResponsible")
     private Responsible senderResponsible;
@@ -77,11 +73,10 @@ public class Document extends GenericModel {
     @JoinColumn(name = "senderInformation")
     private Information senderInformation;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn
-    private Attachment senderAttachment;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "senderAttachment")
+    private Set<Attachment> senderAttachment = new HashSet<>();
     //endregion
-
     //region Receiver Data
     private String receiverRegisteredNumber;
 
@@ -89,15 +84,12 @@ public class Document extends GenericModel {
     @JoinColumn(name = "receiverStatus")
     private DocumentStatus receiverStatus;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date receiverRegisteredDate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date receiverDueDate;
 
-    //*********** Responsible ***********************************************
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "receiverResponsible")
     private Responsible receiverResponsible;
@@ -115,28 +107,9 @@ public class Document extends GenericModel {
     @JoinColumn(name = "receiverInformation")
     private Information receiverInformation;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn
-    private Attachment receiverAttachment;
-    //endregion
-
-    //region Result Data
-    private Long resultStatus;
-    private String resultDescription;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Temporal(TemporalType.DATE)
-    private Date resultCloseDate;
-
-    @ManyToOne
-    @JoinColumn(name = "resultInformation")
-    private Information resultInformation;
-
-    /*
-    @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true)
-    @JoinColumn(name = "resultResponsible")
-    private Responsible resultResponsible;
-    */
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "receiverAttachment")
+    private Set<Attachment> receiverAttachment = new HashSet<>();
     //endregion
 
     //region GET-SET
@@ -146,14 +119,6 @@ public class Document extends GenericModel {
 
     public void setOwner(Long owner) {
         this.owner = owner;
-    }
-
-    public State getDocumentState() {
-        return documentState;
-    }
-
-    public void setDocumentState(State documentState) {
-        this.documentState = documentState;
     }
 
     public String getTitle() {
@@ -170,6 +135,14 @@ public class Document extends GenericModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Boolean getArchived() {
+        return archived;
+    }
+
+    public void setArchived(Boolean archived) {
+        this.archived = archived;
     }
 
     public DocumentStatus getGeneralStatus() {
@@ -200,16 +173,24 @@ public class Document extends GenericModel {
         return documentTemplate;
     }
 
+    public void setDocumentTemplate(DocumentTemplate documentTemplate) {
+        this.documentTemplate = documentTemplate;
+    }
+
+    public State getDocumentState() {
+        return documentState;
+    }
+
+    public void setDocumentState(State documentState) {
+        this.documentState = documentState;
+    }
+
     public Set<User> getUsers() {
         return users;
     }
 
     public void setUsers(Set<User> users) {
         this.users = users;
-    }
-
-    public void setDocumentTemplate(DocumentTemplate documentTemplate) {
-        this.documentTemplate = documentTemplate;
     }
 
     public String getSenderRegisteredNumber() {
@@ -220,12 +201,12 @@ public class Document extends GenericModel {
         this.senderRegisteredNumber = senderRegisteredNumber;
     }
 
-    public Responsible getSenderResponsible() {
-        return senderResponsible;
+    public DocumentStatus getSenderStatus() {
+        return senderStatus;
     }
 
-    public void setSenderResponsible(Responsible senderResponsible) {
-        this.senderResponsible = senderResponsible;
+    public void setSenderStatus(DocumentStatus senderStatus) {
+        this.senderStatus = senderStatus;
     }
 
     public Date getSenderRegisteredDate() {
@@ -244,12 +225,28 @@ public class Document extends GenericModel {
         this.senderDueDate = senderDueDate;
     }
 
+    public Responsible getSenderResponsible() {
+        return senderResponsible;
+    }
+
+    public void setSenderResponsible(Responsible senderResponsible) {
+        this.senderResponsible = senderResponsible;
+    }
+
     public Executor getSenderExecutor() {
         return senderExecutor;
     }
 
     public void setSenderExecutor(Executor senderExecutor) {
         this.senderExecutor = senderExecutor;
+    }
+
+    public Set<DispatchData> getSenderDispatchData() {
+        return senderDispatchData;
+    }
+
+    public void setSenderDispatchData(Set<DispatchData> senderDispatchData) {
+        this.senderDispatchData = senderDispatchData;
     }
 
     public Information getSenderInformation() {
@@ -268,28 +265,12 @@ public class Document extends GenericModel {
         this.receiverRegisteredNumber = receiverRegisteredNumber;
     }
 
-    public DocumentStatus getSenderStatus() {
-        return senderStatus;
-    }
-
-    public void setSenderStatus(DocumentStatus senderStatus) {
-        this.senderStatus = senderStatus;
-    }
-
     public DocumentStatus getReceiverStatus() {
         return receiverStatus;
     }
 
     public void setReceiverStatus(DocumentStatus receiverStatus) {
         this.receiverStatus = receiverStatus;
-    }
-
-    public Responsible getReceiverResponsible() {
-        return receiverResponsible;
-    }
-
-    public void setReceiverResponsible(Responsible receiverResponsible) {
-        this.receiverResponsible = receiverResponsible;
     }
 
     public Date getReceiverRegisteredDate() {
@@ -308,60 +289,20 @@ public class Document extends GenericModel {
         this.receiverDueDate = receiverDueDate;
     }
 
+    public Responsible getReceiverResponsible() {
+        return receiverResponsible;
+    }
+
+    public void setReceiverResponsible(Responsible receiverResponsible) {
+        this.receiverResponsible = receiverResponsible;
+    }
+
     public Executor getReceiverExecutor() {
         return receiverExecutor;
     }
 
     public void setReceiverExecutor(Executor receiverExecutor) {
         this.receiverExecutor = receiverExecutor;
-    }
-
-    public Information getReceiverInformation() {
-        return receiverInformation;
-    }
-
-    public void setReceiverInformation(Information receiverInformation) {
-        this.receiverInformation = receiverInformation;
-    }
-
-    public Long getResultStatus() {
-        return resultStatus;
-    }
-
-    public void setResultStatus(Long resultStatus) {
-        this.resultStatus = resultStatus;
-    }
-
-    public String getResultDescription() {
-        return resultDescription;
-    }
-
-    public void setResultDescription(String resultDescription) {
-        this.resultDescription = resultDescription;
-    }
-
-    public Date getResultCloseDate() {
-        return resultCloseDate;
-    }
-
-    public void setResultCloseDate(Date resultCloseDate) {
-        this.resultCloseDate = resultCloseDate;
-    }
-
-    public Information getResultInformation() {
-        return resultInformation;
-    }
-
-    public void setResultInformation(Information resultInformation) {
-        this.resultInformation = resultInformation;
-    }
-
-    public Set<DispatchData> getSenderDispatchData() {
-        return senderDispatchData;
-    }
-
-    public void setSenderDispatchData(Set<DispatchData> senderDispatchData) {
-        this.senderDispatchData = senderDispatchData;
     }
 
     public Set<DispatchData> getReceiverDispatchData() {
@@ -372,29 +313,28 @@ public class Document extends GenericModel {
         this.receiverDispatchData = receiverDispatchData;
     }
 
-    public Attachment getSenderAttachment() {
+    public Information getReceiverInformation() {
+        return receiverInformation;
+    }
+
+    public void setReceiverInformation(Information receiverInformation) {
+        this.receiverInformation = receiverInformation;
+    }
+
+    public Set<Attachment> getSenderAttachment() {
         return senderAttachment;
     }
 
-    public void setSenderAttachment(Attachment senderAttachment) {
+    public void setSenderAttachment(Set<Attachment> senderAttachment) {
         this.senderAttachment = senderAttachment;
     }
 
-    public Attachment getReceiverAttachment() {
+    public Set<Attachment> getReceiverAttachment() {
         return receiverAttachment;
     }
 
-    public void setReceiverAttachment(Attachment receiverAttachment) {
+    public void setReceiverAttachment(Set<Attachment> receiverAttachment) {
         this.receiverAttachment = receiverAttachment;
     }
-
-    public Boolean getArchived() {
-        return archived;
-    }
-
-    public void setArchived(Boolean archived) {
-        this.archived = archived;
-    }
-
     //endregion
 }
