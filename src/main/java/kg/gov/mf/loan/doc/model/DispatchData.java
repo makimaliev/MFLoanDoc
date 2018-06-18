@@ -1,9 +1,7 @@
 package kg.gov.mf.loan.doc.model;
 
 import kg.gov.mf.loan.admin.sys.model.User;
-import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -15,19 +13,19 @@ public class DispatchData extends GenericModel {
     private String description;
     private boolean isParent;
 
-    @ManyToOne(optional=false)
-    @JoinColumn(name="dispatchBy_id")
+    @ManyToOne
+    @JoinColumn
     private User dispatchBy;
 
-    @ManyToOne(optional=false)
-    @JoinColumn(name="dispatchTo_id")
+    @ManyToOne
+    @JoinColumn
     private User dispatchTo;
 
-    @Column(columnDefinition = "datetime")
+    @Column(columnDefinition="DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dispatchInitTime;
 
-    @Column(columnDefinition = "datetime")
+    @Column(columnDefinition="DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dispatchResponseTime;
 

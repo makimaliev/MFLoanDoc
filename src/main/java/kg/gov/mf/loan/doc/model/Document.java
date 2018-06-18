@@ -15,8 +15,13 @@ public class Document extends GenericModel {
     //region Document
     private Long owner;
     private String title = "Title " + new Random().nextInt(100);
+    
+    @Column(columnDefinition="text")
     private String description = "Description " + new Random().nextInt(100);
     private Boolean archived = false;
+
+    @Transient
+    private String comment;
 
     @ManyToOne
     @JoinColumn(name = "generalStatus")
@@ -37,10 +42,8 @@ public class Document extends GenericModel {
     @Enumerated(EnumType.ORDINAL)
     private State documentState = State.NEW;
 
-    @ManyToMany
-    @JoinTable(name = "df_document_users",
-            joinColumns = { @JoinColumn(name = "Document_id") },
-            inverseJoinColumns = { @JoinColumn(name = "users_id") })
+    @ManyToMany(cascade = { CascadeType.MERGE }, fetch = FetchType.EAGER)
+    @JoinColumn
     private Set<User> users = new HashSet<>(0);
     //endregion
     //region Sender Data
@@ -50,10 +53,12 @@ public class Document extends GenericModel {
     @JoinColumn(name = "senderStatus")
     private DocumentStatus senderStatus;
 
-    @Temporal(TemporalType.DATE)
+    @Column(columnDefinition="DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date senderRegisteredDate;
 
-    @Temporal(TemporalType.DATE)
+    @Column(columnDefinition="DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date senderDueDate;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -84,10 +89,12 @@ public class Document extends GenericModel {
     @JoinColumn(name = "receiverStatus")
     private DocumentStatus receiverStatus;
 
-    @Temporal(TemporalType.DATE)
+    @Column(columnDefinition="DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date receiverRegisteredDate;
 
-    @Temporal(TemporalType.DATE)
+    @Column(columnDefinition="DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date receiverDueDate;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -113,6 +120,14 @@ public class Document extends GenericModel {
     //endregion
 
     //region GET-SET
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     public Long getOwner() {
         return owner;
     }

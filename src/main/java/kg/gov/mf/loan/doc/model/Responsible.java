@@ -2,6 +2,7 @@ package kg.gov.mf.loan.doc.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import kg.gov.mf.loan.admin.org.model.*;
+import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -32,9 +33,11 @@ public class Responsible extends GenericModel {
     private Set<Person> person = new HashSet<>(0);
 
     //region GET-SET
+
     public int getResponsibleType() {
         return responsibleType;
     }
+
     public void setResponsibleType(int responsibleType) {
         this.responsibleType = responsibleType;
     }
@@ -42,6 +45,7 @@ public class Responsible extends GenericModel {
     public Set<Organization> getOrganizations() {
         return organizations;
     }
+
     public void setOrganizations(Set<Organization> organizations) {
         this.organizations = organizations;
     }
@@ -49,6 +53,7 @@ public class Responsible extends GenericModel {
     public Set<Department> getDepartments() {
         return departments;
     }
+
     public void setDepartments(Set<Department> departments) {
         this.departments = departments;
     }
@@ -56,6 +61,7 @@ public class Responsible extends GenericModel {
     public Set<Staff> getStaff() {
         return staff;
     }
+
     public void setStaff(Set<Staff> staff) {
         this.staff = staff;
     }
@@ -63,8 +69,10 @@ public class Responsible extends GenericModel {
     public Set<Person> getPerson() {
         return person;
     }
+
     public void setPerson(Set<Person> person) {
         this.person = person;
     }
+
     //endregion
 }

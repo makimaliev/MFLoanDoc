@@ -31,7 +31,7 @@ public class DocumentDaoImpl extends GenericDaoImpl<Document> implements Documen
 
     @Override
     @Transactional(readOnly = true)
-    public List getArchivedDocuments(Long userId) {
+    public List<Document>  getArchivedDocuments(Long userId) {
         String query = "from Document where owner = :owner and archived = true";
         return getCurrentSession().createQuery(query)
                 .setParameter("owner", userId)
@@ -40,12 +40,11 @@ public class DocumentDaoImpl extends GenericDaoImpl<Document> implements Documen
 
     @Override
     @Transactional(readOnly = true)
-    public List getInvolvedDocuments(Long userId) {
-        List documents;
-        String query = "Select d from Document d join d.users u where u in (:usr) and owner <> :usr";
-        documents = getCurrentSession().createQuery(query)
+    public List<Document> getInvolvedDocuments(String documentType, Long userId) {
+        String query = "Select d from Document d join d.users u where u in (:usr) and d.documentType = :documentType";
+        return getCurrentSession().createQuery(query)
                 .setParameter("usr", userDao.findById(userId))
+                .setParameter("documentType", documentTypeDao.getByInternalName(documentType))
                 .list();
-        return documents;
     }
 }

@@ -40,31 +40,22 @@ public class DocumentServiceImpl extends GenericServiceImpl<Document> implements
     }
 
     @Override
-    public List getArchivedDocuments(Long userId) {
+    public List<Document> getArchivedDocuments(Long userId) {
         return dao.getArchivedDocuments(userId);
     }
 
     @Override
-    public List getInvolvedDocuments(Long userId) {
-        return dao.getInvolvedDocuments(userId);
+    public List<Document> getInvolvedDocuments(String documentType, Long userId) {
+        return dao.getInvolvedDocuments(documentType, userId);
     }
 
     @Override
     public Document create(Document document, String action) {
-
-        document = init(document, action);
-        document.setSenderStatus(document.getGeneralStatus());
-        return dao.create(document);
+        return null;
     }
 
     @Override
     public Document request(Document document, String action) {
-
-        document = init(document, action);
-        for(final Staff s : document.getSenderResponsible().getStaff()) {
-            taskService.add(addTask(document, s));
-        }
-
         return null;
     }
 

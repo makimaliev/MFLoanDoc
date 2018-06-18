@@ -1,6 +1,8 @@
 package kg.gov.mf.loan.doc.model;
 
 import kg.gov.mf.loan.admin.org.model.*;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -41,6 +43,7 @@ public class Executor extends GenericModel {
     public Set<Organization> getOrganizations() {
         return organizations;
     }
+
     public void setOrganizations(Set<Organization> organizations) {
         this.organizations = organizations;
     }
@@ -48,6 +51,7 @@ public class Executor extends GenericModel {
     public Set<Department> getDepartments() {
         return departments;
     }
+
     public void setDepartments(Set<Department> departments) {
         this.departments = departments;
     }
@@ -55,6 +59,7 @@ public class Executor extends GenericModel {
     public Set<Staff> getStaff() {
         return staff;
     }
+
     public void setStaff(Set<Staff> staff) {
         this.staff = staff;
     }
@@ -62,6 +67,7 @@ public class Executor extends GenericModel {
     public Set<Person> getPerson() {
         return person;
     }
+
     public void setPerson(Set<Person> person) {
         this.person = person;
     }

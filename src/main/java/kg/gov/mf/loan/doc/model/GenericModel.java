@@ -28,6 +28,10 @@ public abstract class GenericModel implements Serializable {
         return uuid;
     }
 
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -52,7 +56,7 @@ public abstract class GenericModel implements Serializable {
             return false;
         }
         GenericModel genericModel = (GenericModel) other;
-        return id.equals(genericModel.id) && Objects.equals(version, genericModel.version);
+        return uuid.equals(genericModel.uuid);
     }
 
     @Override

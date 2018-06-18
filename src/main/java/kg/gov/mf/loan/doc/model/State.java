@@ -61,7 +61,7 @@ public enum State
                 @Override
                 public String stringValue()
                 {
-                    return "На расмотрении";
+                    return "Отправлен на расмотрение";
                 }
             },
     APPROVED    // 3
@@ -117,6 +117,10 @@ public enum State
                     {
                         return ACCEPTED;
                     }
+                    else if(transition == SEND)
+                    {
+                        return SENT;
+                    }
                     else if(transition == REJECT)
                     {
                         return DRAFT;
@@ -158,7 +162,7 @@ public enum State
                 @Override
                 public String stringValue()
                 {
-                    return "Принят";
+                    return "Отправлен на исполнение";
                 }
             },
     STARTED     // 8

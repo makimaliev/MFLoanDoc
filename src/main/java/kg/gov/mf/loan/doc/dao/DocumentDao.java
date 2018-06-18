@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface DocumentDao extends GenericDao<Document>
 {
-    List getDocuments(String documentType, Long userId);
-    List getArchivedDocuments(Long userId);
-    List getInvolvedDocuments(Long userId);
+    List<Document> getDocuments(String documentType, Long userId);
+    List<Document> getArchivedDocuments(Long userId);
+    List<Document> getInvolvedDocuments(String documentType, Long userId);
 }
