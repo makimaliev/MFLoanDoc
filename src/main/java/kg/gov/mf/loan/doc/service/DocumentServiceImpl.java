@@ -1,10 +1,5 @@
 package kg.gov.mf.loan.doc.service;
 
-import com.sun.jmx.snmp.tasks.TaskServer;
-import kg.gov.mf.loan.admin.org.model.Department;
-import kg.gov.mf.loan.admin.org.model.Organization;
-import kg.gov.mf.loan.admin.org.model.Person;
-import kg.gov.mf.loan.admin.org.model.Staff;
 import kg.gov.mf.loan.doc.dao.DocumentDao;
 import kg.gov.mf.loan.doc.model.DispatchData;
 import kg.gov.mf.loan.doc.model.Document;
@@ -14,8 +9,6 @@ import kg.gov.mf.loan.task.model.Task;
 import kg.gov.mf.loan.task.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;

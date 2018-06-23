@@ -9,6 +9,26 @@ public class RegisterServiceImpl implements RegisterService{
 
     @Override
     public String generateRegistrationNumber() {
-        return "DOCR-" + new Random().nextInt(100);
+        return "ДОК-" + new Random().nextInt(100);
+    }
+
+    @Override
+    public String generateInternalRegistrationNumber() {
+        return "ДОК-" + new Random().nextInt(100);
+    }
+
+    @Override
+    public String generateIncomingRegistrationNumber() {
+        return "ВХ-" + new Random().nextInt(100);
+    }
+
+    @Override
+    public String generateOutgoingRegistrationNumber() {
+        return "ИХ-" + new Random().nextInt(100);
+    }
+
+    @Override
+    public String generateArchiveRegistrationNumber() {
+        return "АХВ-" + new Random().nextInt(100);
     }
 }

@@ -15,7 +15,7 @@ public class Document extends GenericModel {
     //region Document
     private Long owner;
     private String title = "Title " + new Random().nextInt(100);
-    
+
     @Column(columnDefinition="text")
     private String description = "Description " + new Random().nextInt(100);
     private Boolean archived = false;
