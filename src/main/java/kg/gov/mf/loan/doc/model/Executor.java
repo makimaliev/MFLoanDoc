@@ -1,8 +1,7 @@
 package kg.gov.mf.loan.doc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import kg.gov.mf.loan.admin.org.model.*;
-import org.hibernate.annotations.Where;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,19 +14,23 @@ public class Executor extends GenericModel {
 
     private int executorType;
 
-    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn
     private Set<Organization> organizations = new HashSet<>(0);
 
-    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn
     private Set<Department> departments = new HashSet<>(0);
 
-    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn
     private Set<Staff> staff = new HashSet<>(0);
 
-    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn
     private Set<Person> person = new HashSet<>(0);
 

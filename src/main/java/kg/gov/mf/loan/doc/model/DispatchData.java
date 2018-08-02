@@ -3,6 +3,8 @@ package kg.gov.mf.loan.doc.model;
 import kg.gov.mf.loan.admin.sys.model.User;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 @Table(name="cat_dispatch_data")
@@ -11,15 +13,9 @@ public class DispatchData extends GenericModel {
     public DispatchData() { }
 
     private String description;
-    private boolean isParent;
 
-    @ManyToOne
-    @JoinColumn
-    private User dispatchBy;
-
-    @ManyToOne
-    @JoinColumn
-    private User dispatchTo;
+    @Enumerated(EnumType.ORDINAL)
+    private State dispatchType;
 
     @Column(columnDefinition="DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
@@ -29,20 +25,13 @@ public class DispatchData extends GenericModel {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dispatchResponseTime;
 
-    @Enumerated(EnumType.ORDINAL)
-    private State dispatchType;
+    @ManyToOne
+    @JoinColumn(name = "dispatchBy")
+    private User dispatchBy;
 
     @ManyToOne
-    @JoinColumn(name = "dispatchResult")
-    private DispatchResult dispatchResult;
-
-    @ManyToOne
-    @JoinColumn(name = "dispatchTemplate")
-    private DispatchTemplate dispatchTemplate;
-
-    @ManyToOne
-    @JoinColumn(name = "dispatchData")
-    private DispatchData dispatchData;
+    @JoinColumn(name = "dispatchTo")
+    private User dispatchTo;
 
     //region GET-SET
     public String getDescription() {
@@ -51,14 +40,6 @@ public class DispatchData extends GenericModel {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public boolean isParent() {
-        return isParent;
-    }
-
-    public void setParent(boolean parent) {
-        isParent = parent;
     }
 
     public User getDispatchBy() {
@@ -99,30 +80,6 @@ public class DispatchData extends GenericModel {
 
     public void setDispatchType(State dispatchType) {
         this.dispatchType = dispatchType;
-    }
-
-    public DispatchResult getDispatchResult() {
-        return dispatchResult;
-    }
-
-    public void setDispatchResult(DispatchResult dispatchResult) {
-        this.dispatchResult = dispatchResult;
-    }
-
-    public DispatchTemplate getDispatchTemplate() {
-        return dispatchTemplate;
-    }
-
-    public void setDispatchTemplate(DispatchTemplate dispatchTemplate) {
-        this.dispatchTemplate = dispatchTemplate;
-    }
-
-    public DispatchData getDispatchData() {
-        return dispatchData;
-    }
-
-    public void setDispatchData(DispatchData dispatchData) {
-        this.dispatchData = dispatchData;
     }
     //endregion
 }

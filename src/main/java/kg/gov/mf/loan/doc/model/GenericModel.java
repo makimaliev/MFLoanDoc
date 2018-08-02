@@ -1,5 +1,6 @@
 package kg.gov.mf.loan.doc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -16,11 +17,15 @@ public abstract class GenericModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+	@JsonIgnore
+    @Version
     private Long version = 1L;
 
+    @JsonIgnore
     @NaturalId
     private String uuid = UUID.randomUUID().toString();
 
+    //region HIDDEN
     public GenericModel() {
     }
 
@@ -51,16 +56,26 @@ public abstract class GenericModel implements Serializable {
     @Override
     public boolean equals(Object other) {
 
-        if (other == this) return true;
-        if (!(other instanceof GenericModel)) {
-            return false;
-        }
-        GenericModel genericModel = (GenericModel) other;
-        return uuid.equals(genericModel.uuid);
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+
+        GenericModel that = (GenericModel) other;
+
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (uuid != null ? !uuid.equals(that.uuid) : that.uuid != null) return false;
+        return version != null ? version.equals(that.version) : that.version == null;
+
+
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, version);
+
+        //return Objects.hash(id, version);
+
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (version != null ? version.hashCode() : 0);
+        return result;
     }
+    //endregion
 }

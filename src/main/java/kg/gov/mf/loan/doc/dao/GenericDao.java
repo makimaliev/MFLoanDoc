@@ -6,6 +6,9 @@ public interface GenericDao<E> {
 
     E create(E entity);
     E edit(E entity);
+
+    //E save(E entity);
+
     void deleteById(E entity);
 
     E findById(Long id);

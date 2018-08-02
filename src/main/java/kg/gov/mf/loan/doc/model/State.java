@@ -13,7 +13,11 @@ public enum State
                     {
                         return REQUESTED;
                     }
-                    if(transition == REGISTER)
+                    else if(transition == TORECONCILE)
+                    {
+                        return PENDING;
+                    }
+                    else if(transition == REGISTER)
                     {
                         return REGISTERED;
                     }
@@ -24,8 +28,7 @@ public enum State
                 }
 
                 @Override
-                public String stringValue()
-                {
+                public String text() {
                     return "Новый";
                 }
             },
@@ -38,6 +41,10 @@ public enum State
                     {
                         return REGISTERED;
                     }
+                    else if(transition == TORECONCILE)
+                    {
+                        return PENDING;
+                    }
                     else
                     {
                         return REQUESTED;
@@ -45,26 +52,75 @@ public enum State
                 }
 
                 @Override
-                public String stringValue()
-                {
+                public String text() {
                     return "Создан";
                 }
             },
-    REQUESTED   // 2
+    PENDING     // 2
             {
                 @Override
                 public State next(Transition transition)
                 {
-                    return transition == REJECT ? DRAFT : APPROVED;
+                    if(transition == REJECT)
+                    {
+                        return DRAFT;
+                    }
+                    else
+                    {
+                        return RECONCILED;
+                    }
                 }
 
                 @Override
-                public String stringValue()
-                {
-                    return "Отправлен на расмотрение";
+                public String text() {
+                    return "Отправлен на согласование";
                 }
             },
-    APPROVED    // 3
+    REQUESTED   // 3
+            {
+                @Override
+                public State next(Transition transition)
+                {
+                    if(transition == REJECT)
+                    {
+                        return DRAFT;
+                    }
+                    else if(transition == RECONCILE)
+                    {
+                        return RECONCILED;
+                    }
+                    else
+                    {
+                        return APPROVED;
+                    }
+                }
+
+                @Override
+                public String text() {
+                    return "Отправлен на утверждение";
+                }
+            },
+    RECONCILED  // 4
+            {
+                @Override
+                public State next(Transition transition)
+                {
+                    if(transition == TORECONCILE)
+                    {
+                        return PENDING;
+                    }
+                    else
+                    {
+                        return REQUESTED;
+                    }
+                }
+
+                @Override
+                public String text() {
+                    return "Согласован";
+                }
+            },
+    APPROVED    // 5
             {
                 @Override
                 public State next(Transition transition)
@@ -88,31 +144,42 @@ public enum State
                 }
 
                 @Override
-                public String stringValue()
-                {
+                public String text() {
                     return "Утвержден";
                 }
             },
-    REJECTED    // 4
+    REJECTED    // 6
             {
                 @Override
                 public State next(Transition transition)
                 {
-                    return DONE;
+                    if(transition == REQUEST)
+                    {
+                        return REQUESTED;
+                    }
+                    else if(transition == TORECONCILE)
+                    {
+                        return RECONCILED;
+                    }
+                    else if(transition == ACCEPT)
+                    {
+                        return ACCEPTED;
+                    }
+                    else {
+                        return DONE;
+                    }
                 }
 
                 @Override
-                public String stringValue()
-                {
+                public String text() {
                     return "Отклонен";
                 }
             },
-    REGISTERED  // 5
+    REGISTERED  // 7
             {
                 @Override
                 public State next(Transition transition)
                 {
-                    //return transition == Transition.ACCEPT ? ACCEPTED : DONE;
                     if(transition == ACCEPT)
                     {
                         return ACCEPTED;
@@ -132,12 +199,11 @@ public enum State
                 }
 
                 @Override
-                public String stringValue()
-                {
+                public String text() {
                     return "Зарегистрирован";
                 }
             },
-    ACCEPTED    // 6
+    ACCEPTED    // 8
             {
                 @Override
                 public State next(Transition transition)
@@ -146,26 +212,37 @@ public enum State
                 }
 
                 @Override
-                public String stringValue()
-                {
+                public String text() {
                     return "Принят";
                 }
             },
-    SENT        // 7
+    SENT        // 9
             {
                 @Override
                 public State next(Transition transition)
                 {
-                    return transition == REJECT ? ACCEPTED : STARTED;
+                    if(transition == REJECT)
+                    {
+                        return ACCEPTED;
+                    }
+
+                    else if(transition == SEND)
+                    {
+                        return SENT;
+                    }
+
+                    else
+                    {
+                        return STARTED;
+                    }
                 }
 
                 @Override
-                public String stringValue()
-                {
+                public String text() {
                     return "Отправлен на исполнение";
                 }
             },
-    STARTED     // 8
+    STARTED     // 10
             {
                 @Override
                 public State next(Transition transition)
@@ -174,12 +251,11 @@ public enum State
                 }
 
                 @Override
-                public String stringValue()
-                {
+                public String text() {
                     return "Начат";
                 }
             },
-    DONE        // 9
+    DONE        // 11
             {
                 @Override
                 public State next(Transition transition)
@@ -188,12 +264,11 @@ public enum State
                 }
 
                 @Override
-                public String stringValue()
-                {
+                public String text() {
                     return "Завершен";
                 }
             };
 
     public abstract State next(Transition transition);
-    public abstract String stringValue();
+    public abstract String text();
 }

@@ -2,9 +2,6 @@ package kg.gov.mf.loan.doc.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import kg.gov.mf.loan.admin.org.model.*;
-import org.hibernate.annotations.Where;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.util.*;
 
@@ -16,24 +13,27 @@ public class Responsible extends GenericModel {
 
     private int responsibleType;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn
     private Set<Organization> organizations = new HashSet<>(0);
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn
     private Set<Department> departments = new HashSet<>(0);
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn
     private Set<Staff> staff = new HashSet<>(0);
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn
     private Set<Person> person = new HashSet<>(0);
 
     //region GET-SET
-
     public int getResponsibleType() {
         return responsibleType;
     }
@@ -73,6 +73,5 @@ public class Responsible extends GenericModel {
     public void setPerson(Set<Person> person) {
         this.person = person;
     }
-
     //endregion
 }

@@ -12,11 +12,12 @@ public class DocumentStatus extends Catalog {
 
     private String actionName;
 
+    //region GET-SET
     public String getActionName() {
         return actionName;
     }
-
     public void setActionName(String actionName) {
         this.actionName = actionName;
     }
+    //endregion
 }

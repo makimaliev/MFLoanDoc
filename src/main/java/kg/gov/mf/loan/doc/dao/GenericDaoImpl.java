@@ -44,6 +44,18 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E>
         return (E) getCurrentSession().merge(entity);
     }
 
+    /*
+    @Override
+    public E save(E entity) {
+        if (entity.) {
+            getCurrentSession().persist(entity);
+            return entity;
+        } else {
+            return (E)getCurrentSession().merge(entity);
+        }
+    }
+    */
+
     @Override
     @Transactional
     public void deleteById(E entity) {

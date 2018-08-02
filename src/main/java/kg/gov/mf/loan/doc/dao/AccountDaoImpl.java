@@ -21,9 +21,11 @@ public class AccountDaoImpl extends GenericDaoImpl<Account> implements AccountDa
 
     @Override
     @Transactional(readOnly = true)
-    public List<Account> getByName(String internalName, String name) {
-        List<Account> accounts = getCurrentSession().createQuery(" from Account where internalName = :internalName AND name LIKE '%"+ name +"%'")
+    public List<Account> getByName(String internalName, String name)
+    {
+        List<Account> accounts = getCurrentSession().createQuery(" from Account where internalName = :internalName AND name LIKE :name")
                 .setParameter("internalName", internalName)
+                .setParameter("name", "%" + name + "%")
                 .list();
         return accounts;
     }

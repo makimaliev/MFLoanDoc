@@ -1,40 +1,25 @@
 package kg.gov.mf.loan.doc.service;
 
 import kg.gov.mf.loan.doc.dao.DocumentDao;
-import kg.gov.mf.loan.doc.model.DispatchData;
 import kg.gov.mf.loan.doc.model.Document;
-import kg.gov.mf.loan.doc.model.DocumentStatus;
-import kg.gov.mf.loan.doc.model.Transition;
-import kg.gov.mf.loan.task.model.Task;
-import kg.gov.mf.loan.task.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
 public class DocumentServiceImpl extends GenericServiceImpl<Document> implements DocumentService
 {
     private DocumentDao dao;
-    private DocumentStatusService documentStatusService;
-    private TaskService taskService;
 
     @Autowired
-    public DocumentServiceImpl(DocumentDao dao, DocumentStatusService documentStatusService, TaskService taskService) {
+    public DocumentServiceImpl(DocumentDao dao) {
         this.dao = dao;
-        this.documentStatusService = documentStatusService;
-        this.taskService = taskService;
-    }
+     }
 
     @Override
     public List<Document> getDocuments(String documentType, Long userId) {
         return dao.getDocuments(documentType, userId);
-    }
-
-    @Override
-    public List<Document> getArchivedDocuments(Long userId) {
-        return dao.getArchivedDocuments(userId);
     }
 
     @Override
@@ -49,6 +34,11 @@ public class DocumentServiceImpl extends GenericServiceImpl<Document> implements
 
     @Override
     public Document request(Document document, String action) {
+        return null;
+    }
+
+    @Override
+    public Document reconcile(Document document, String action) {
         return null;
     }
 
@@ -84,66 +74,6 @@ public class DocumentServiceImpl extends GenericServiceImpl<Document> implements
 
     @Override
     public Document finish(Document document, String action) {
-        return null;
-    }
-
-    private DispatchData setDispatchData(String internalName, Document document) {
-
-        DispatchData dispatchData = new DispatchData();
-        dispatchData.setDescription(document.getDocumentState().stringValue());
-        dispatchData.setDispatchBy(userService.findById(document.getOwner()));
-        dispatchData.setDispatchTo(userService.findById(1L));
-        dispatchData.setDispatchInitTime(new Date());
-        dispatchData.setDispatchType(document.getDocumentState());
-
-        dispatchData.setParent(true);
-
-        return dispatchData;
-    }
-    private Document init(Document document, String action) {
-
-        DispatchData dispatchData = setDispatchData(action, document);
-        DocumentStatus documentStatus = documentStatusService.getByInternalName(action);
-
-        document.setGeneralStatus(documentStatus);
-        document.setDocumentState(document.getDocumentState().next(Transition.valueOf(action.toUpperCase())));
-        document.getSenderDispatchData().add(dispatchData);
-
-        return document;
-    }
-    private Task addTask(Document document, Object responsible) {
-
-        Integer responsibleType = document.getReceiverResponsible().getResponsibleType();
-        /*
-        Task task = new Task();
-        task.setSummary("Документ : ");
-        task.setDescription(document.getDescription());
-        task.setResolutionSummary(document.getDescription());
-        task.setProgress(document.getGeneralStatus().getInternalName().toUpperCase());
-        task.setIdentifiedByUserId(getUser().getId());
-        task.setModifiedByUserId(getUser().getId());
-        task.setObjectType("/doc/edit/" + document.getId());
-        task.setObjectId(document.getId());
-        task.setTargetResolutionDate(document.getReceiverDueDate() != null ? document.getReceiverDueDate() : new Date());
-        task.setCreatedBy(getUser());
-
-        if(responsibleType == 1)
-        {
-            task.setAssignedToUserId(getUser((Staff)responsible).getId());
-        }
-        else if(responsibleType == 2)
-        {
-            task.setAssignedToUserId(getUser((Department)responsible).getId());
-        }
-        else if(responsibleType == 3)
-        {
-            task.setAssignedToUserId(getUser((Organization) responsible).getId());
-        }
-        else
-        {
-            task.setAssignedToUserId(getUser((Person)responsible).getId());
-        }
-        */
         return null;
     }
 }
