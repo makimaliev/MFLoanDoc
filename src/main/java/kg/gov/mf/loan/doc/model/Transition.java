@@ -2,7 +2,7 @@ package kg.gov.mf.loan.doc.model;
 
 public enum Transition
 {
-    NONE
+    NONE            // 0
             {
                 @Override
                 public State state() {
@@ -14,19 +14,19 @@ public enum Transition
                     return "";
                 }
             },
-    CREATE
+    CREATE          // 1
             {
                 @Override
                 public State state() {
-                    return State.NEW;
+                    return State.DRAFT;
                 }
 
                 @Override
                 public String text() {
-                    return "Сохранить";
+                    return "Создать";
                 }
             },
-    TORECONCILE
+    TORECONCILE     // 2
             {
                 @Override
                 public State state() {
@@ -38,7 +38,7 @@ public enum Transition
                     return "На согласование";
                 }
             },
-    RECONCILE
+    RECONCILE       // 3
             {
                 @Override
                 public State state() {
@@ -50,7 +50,7 @@ public enum Transition
                     return "Согласовать";
                 }
             },
-    REQUEST
+    REQUEST         // 4
             {
                 @Override
                 public State state() {
@@ -62,7 +62,7 @@ public enum Transition
                     return "На рассмотрение";
                 }
             },
-    APPROVE
+    APPROVE         // 5
             {
                 @Override
                 public State state() {
@@ -74,7 +74,7 @@ public enum Transition
                     return "Утвердить";
                 }
             },
-    REJECT
+    REJECT          // 6
             {
                 @Override
                 public State state() {
@@ -86,7 +86,7 @@ public enum Transition
                     return "Отклонить";
                 }
             },
-    REGISTER
+    REGISTER        // 7
             {
                 @Override
                 public State state() {
@@ -98,7 +98,7 @@ public enum Transition
                     return "Зарегистрировать";
                 }
             },
-    ACCEPT
+    ACCEPT          // 8
             {
                 @Override
                 public State state() {
@@ -110,7 +110,7 @@ public enum Transition
                     return "Принять";
                 }
             },
-    SEND
+    SEND            // 9
             {
                 @Override
                 public State state() {
@@ -122,7 +122,7 @@ public enum Transition
                     return "Отправить на исполнение";
                 }
             },
-    START
+    START           // 10
             {
                 @Override
                 public State state() {
@@ -134,7 +134,7 @@ public enum Transition
                     return "Начать";
                 }
             },
-    DONE
+    DONE            // 11
             {
                 @Override
                 public State state() {

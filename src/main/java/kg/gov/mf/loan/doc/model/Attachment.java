@@ -15,6 +15,16 @@ public class Attachment extends Catalog {
 
     private String mimeType;
 
+    private String pageIndexNo;
+
+    public String getPageIndexNo() {
+        return pageIndexNo;
+    }
+
+    public void setPageIndexNo(String pageIndexNo) {
+        this.pageIndexNo = pageIndexNo;
+    }
+
     public String getMimeType() {
         return mimeType;
     }

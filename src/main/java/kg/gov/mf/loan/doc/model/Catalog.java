@@ -3,11 +3,12 @@ package kg.gov.mf.loan.doc.model;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class Catalog extends GenericModel {
-
+public abstract class Catalog extends GenericModel
+{
 	private String name;
     private String internalName;
 
+    //region GET-SET
     public String getName() {
         return name;
     }
@@ -20,4 +21,5 @@ public abstract class Catalog extends GenericModel {
     public void setInternalName(String internalName) {
         this.internalName = internalName;
     }
+    //endregion
 }

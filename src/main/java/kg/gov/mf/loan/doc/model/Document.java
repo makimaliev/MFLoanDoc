@@ -20,6 +20,8 @@ public class Document extends GenericModel {
     @Column(columnDefinition="text")
     private String description = "Description " + new Random().nextInt(100);
 
+    private String indexNo;
+
     @Transient
     private String comment;
 
@@ -97,7 +99,16 @@ public class Document extends GenericModel {
     @JoinColumn(name = "receiverAttachment")
     private Set<Attachment> receiverAttachment = new HashSet<>();
     //endregion
-    //region GET-SET
+    //region GET-SET.
+
+    public String getIndexNo() {
+        return indexNo;
+    }
+
+    public void setIndexNo(String indexNo) {
+        this.indexNo = indexNo;
+    }
+
     public Long getOwner() {
         return owner;
     }

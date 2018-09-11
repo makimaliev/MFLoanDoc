@@ -1,10 +1,9 @@
 package kg.gov.mf.loan.doc.service;
 
+import kg.gov.mf.loan.doc.model.Document;
+
 public interface RegisterService
 {
     String generateRegistrationNumber();
-    String generateInternalRegistrationNumber();
-    String generateIncomingRegistrationNumber();
-    String generateOutgoingRegistrationNumber();
-    String generateArchiveRegistrationNumber();
+    String generateRegistrationNumber(Document document);
 }
