@@ -1,12 +1,14 @@
 package kg.gov.mf.loan.doc.service;
 
-import kg.gov.mf.loan.admin.org.model.Department;
 import kg.gov.mf.loan.doc.dao.CounterDao;
 import kg.gov.mf.loan.doc.model.Counter;
+import kg.gov.mf.loan.service.GenericServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class CounterServiceImpl extends GenericServiceImpl<Counter> implements CounterService
 {
     @Autowired

@@ -6,11 +6,14 @@ import kg.gov.mf.loan.doc.model.Document;
 import kg.gov.mf.loan.doc.model.State;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
+@Transactional
 public class RegisterServiceImpl implements RegisterService{
 
     private CounterService counterService;

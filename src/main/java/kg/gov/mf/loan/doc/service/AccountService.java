@@ -1,6 +1,7 @@
 package kg.gov.mf.loan.doc.service;
 
 import kg.gov.mf.loan.doc.model.Account;
+import kg.gov.mf.loan.service.GenericService;
 
 import java.util.List;
 

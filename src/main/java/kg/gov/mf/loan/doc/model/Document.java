@@ -1,6 +1,8 @@
 package kg.gov.mf.loan.doc.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import kg.gov.mf.loan.model.GenericModel;
+import kg.gov.mf.loan.util.MFEntityListener;
 import kg.gov.mf.loan.admin.org.model.Staff;
 import kg.gov.mf.loan.admin.sys.model.User;
 import javax.persistence.*;
@@ -8,6 +10,7 @@ import java.util.*;
 
 @Entity
 @Table(name="df_document")
+@EntityListeners(MFEntityListener.class)
 public class Document extends GenericModel {
 
     public Document() {}

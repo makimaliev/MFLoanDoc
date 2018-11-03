@@ -1,6 +1,7 @@
 package kg.gov.mf.loan.doc.service;
 
 import kg.gov.mf.loan.doc.model.Counter;
+import kg.gov.mf.loan.service.GenericService;
 
 public interface CounterService extends GenericService<Counter>
 {

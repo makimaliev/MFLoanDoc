@@ -6,7 +6,6 @@ import javax.persistence.*;
 
 @Entity
 @Immutable
-@Table(name="accounts")
 public class Account extends Catalog
 {
     public Account() {}

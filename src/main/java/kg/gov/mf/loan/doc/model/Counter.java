@@ -1,5 +1,7 @@
 package kg.gov.mf.loan.doc.model;
 
+import kg.gov.mf.loan.model.GenericModel;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 

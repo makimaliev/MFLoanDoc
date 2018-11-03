@@ -1,10 +1,10 @@
 package kg.gov.mf.loan.doc.dao;
 
 import kg.gov.mf.loan.admin.sys.dao.UserDao;
+import kg.gov.mf.loan.dao.GenericDaoImpl;
 import kg.gov.mf.loan.doc.model.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
@@ -20,22 +20,18 @@ public class DocumentDaoImpl extends GenericDaoImpl<Document> implements Documen
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List getDocuments(String documentType, Long userId) {
-        String query = "from Document d where owner = :owner and d.documentType = :documentTypee";
-        return getCurrentSession().createQuery(query)
+        return entityManager.createQuery("Select d from Document d where d.owner = :owner and d.documentType = :documentType")
                 .setParameter("documentType", documentTypeDao.getByInternalName(documentType))
                 .setParameter("owner", userId)
-                .list();
+                .getResultList();
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public List<Document> getInvolvedDocuments(String documentType, Long userId) {
-        String query = "Select d from Document d join d.users u where u in (:usr) and d.documentType = :documentType";
-        return getCurrentSession().createQuery(query)
+    public List getInvolvedDocuments(String documentType, Long userId) {
+        return entityManager.createQuery("Select d from Document d join d.users u where u in (:usr) and d.documentType = :documentType")
                 .setParameter("documentType", documentTypeDao.getByInternalName(documentType))
                 .setParameter("usr", userDao.findById(userId))
-                .list();
+                .getResultList();
     }
 }

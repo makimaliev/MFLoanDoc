@@ -1,6 +1,8 @@
 package kg.gov.mf.loan.doc.service;
 
 import kg.gov.mf.loan.doc.model.Document;
+import kg.gov.mf.loan.service.GenericService;
+
 import java.util.List;
 
 public interface DocumentService extends GenericService<Document>

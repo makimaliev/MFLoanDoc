@@ -1,6 +1,8 @@
 package kg.gov.mf.loan.doc.model;
 
 import kg.gov.mf.loan.admin.sys.model.User;
+import kg.gov.mf.loan.model.GenericModel;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.LinkedList;

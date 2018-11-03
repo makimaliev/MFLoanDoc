@@ -1,7 +1,7 @@
 package kg.gov.mf.loan.doc.formatter;
 
-import kg.gov.mf.loan.doc.model.GenericModel;
-import kg.gov.mf.loan.doc.service.GenericService;
+import kg.gov.mf.loan.model.GenericModel;
+import kg.gov.mf.loan.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.Formatter;
 import java.text.ParseException;
@@ -15,7 +15,7 @@ public class GenericFormatter<E> implements Formatter<E> {
     @Override
     public E parse(String text, Locale locale) throws ParseException {
         Long id = Long.valueOf(text);
-        return this.service.findById(id);
+        return this.service.getById(id);
     }
 
     @Override

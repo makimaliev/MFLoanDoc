@@ -1,5 +1,6 @@
 package kg.gov.mf.loan.doc.dao;
 
+import kg.gov.mf.loan.dao.GenericDao;
 import kg.gov.mf.loan.doc.model.DispatchType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

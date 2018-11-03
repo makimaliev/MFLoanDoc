@@ -1,32 +1,27 @@
 package kg.gov.mf.loan.doc.dao;
 
+import kg.gov.mf.loan.dao.GenericDaoImpl;
 import kg.gov.mf.loan.doc.model.Account;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Repository
 public class AccountDaoImpl extends GenericDaoImpl<Account> implements AccountDao
 {
     @Override
-    @Transactional(readOnly = true)
-    public List<Account> getAccounts(String internalName)
+    public List getAccounts(String internalName)
     {
-        List<Account> accounts = getCurrentSession().createQuery(" from Account where internalName = :internalName")
+        return entityManager.createQuery("Select a from Account a where a.internalName = :internalName")
                 .setParameter("internalName", internalName)
-                .list();
-        return accounts;
+                .getResultList();
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public List<Account> getByName(String internalName, String name)
+    public List getByName(String internalName, String name)
     {
-        List<Account> accounts = getCurrentSession().createQuery(" from Account where internalName = :internalName AND name LIKE :name")
+        return entityManager.createQuery("Select a from Account a where a.internalName = :internalName AND a.name LIKE :name")
                 .setParameter("internalName", internalName)
                 .setParameter("name", "%" + name + "%")
-                .list();
-        return accounts;
+                .getResultList();
     }
 }
