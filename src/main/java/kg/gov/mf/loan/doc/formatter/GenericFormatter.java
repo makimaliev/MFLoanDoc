@@ -1,9 +1,10 @@
 package kg.gov.mf.loan.doc.formatter;
 
-import kg.gov.mf.loan.model.GenericModel;
-import kg.gov.mf.loan.service.GenericService;
+import kg.gov.mf.loan.core.model.GenericModel;
+import kg.gov.mf.loan.core.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.Formatter;
+
 import java.text.ParseException;
 import java.util.Locale;
 

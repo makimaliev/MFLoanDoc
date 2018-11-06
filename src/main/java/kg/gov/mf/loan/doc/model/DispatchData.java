@@ -1,12 +1,10 @@
 package kg.gov.mf.loan.doc.model;
 
 import kg.gov.mf.loan.admin.sys.model.User;
-import kg.gov.mf.loan.model.GenericModel;
+import kg.gov.mf.loan.core.model.GenericModel;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
 @Entity
 @Table(name="cat_dispatch_data")

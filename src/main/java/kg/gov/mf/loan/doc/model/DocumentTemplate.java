@@ -1,6 +1,7 @@
 package kg.gov.mf.loan.doc.model;
 
 import kg.gov.mf.loan.admin.sys.model.Information;
+
 import javax.persistence.*;
 
 @Entity

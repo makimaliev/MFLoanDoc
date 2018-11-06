@@ -1,16 +1,32 @@
 package kg.gov.mf.loan.doc.dao;
 
-import kg.gov.mf.loan.dao.GenericDaoImpl;
+import kg.gov.mf.loan.core.dao.GenericDaoImpl;
 import kg.gov.mf.loan.doc.model.Counter;
 import org.springframework.stereotype.Repository;
+
+import javax.persistence.NoResultException;
 
 @Repository
 public class CounterDaoImpl extends GenericDaoImpl<Counter> implements CounterDao
 {
     @Override
     public Counter getByDepartment(Long department) {
-        return (Counter)entityManager.createQuery("Select c from Counter c where c.department = :department")
-                .setParameter("department", department)
-                .getSingleResult();
+        Counter counter;
+
+        try {
+            counter = (Counter) entityManager.createQuery("Select c from Counter c where c.department = :department")
+                    .setParameter("department", department)
+                    .getSingleResult();
+        }
+        catch (NoResultException nre)
+        {
+            counter = new Counter();
+            counter.setDepartment(department);
+            counter.setIncoming(1L);
+            counter.setOutgoing(1L);
+            //entityManager.persist(counter);
+            entityManager.merge(counter);
+        }
+        return counter;
     }
 }

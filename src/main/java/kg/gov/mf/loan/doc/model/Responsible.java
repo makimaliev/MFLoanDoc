@@ -1,11 +1,15 @@
 package kg.gov.mf.loan.doc.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import kg.gov.mf.loan.admin.org.model.*;
-import kg.gov.mf.loan.model.GenericModel;
+import kg.gov.mf.loan.admin.org.model.Department;
+import kg.gov.mf.loan.admin.org.model.Organization;
+import kg.gov.mf.loan.admin.org.model.Person;
+import kg.gov.mf.loan.admin.org.model.Staff;
+import kg.gov.mf.loan.core.model.GenericModel;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="cat_responsible")

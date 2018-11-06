@@ -2,7 +2,7 @@ package kg.gov.mf.loan.doc.model;
 
 import jdk.nashorn.internal.ir.annotations.Immutable;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
 
 @Entity
 @Immutable
