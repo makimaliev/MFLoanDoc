@@ -70,7 +70,6 @@ public class RegisterServiceImpl implements RegisterService{
         }
 
         /*
-
         {No} - Номер документа
         {ВД} - Вид документа
         {ТД} - Тип документа
@@ -80,7 +79,6 @@ public class RegisterServiceImpl implements RegisterService{
         {ММ} - Месяц (две цифры)
         {ГГ} - Год (две цифры)
         {ГГГГ} - Год (четыре цифры)
-
         */
 
         Map<String, String> fmt = new HashMap<>();

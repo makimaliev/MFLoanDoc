@@ -26,7 +26,7 @@ public class CounterServiceImpl extends GenericServiceImpl<Counter> implements C
         Long incoming = counter.getIncoming();
         counter.setIncoming(++incoming);
 
-        dao.edit(counter);
+        dao.update(counter);
     }
 
     @Override
@@ -34,8 +34,8 @@ public class CounterServiceImpl extends GenericServiceImpl<Counter> implements C
     {
         Counter counter = dao.getByDepartment(department);
         Long outgoing = counter.getOutgoing();
-        counter.setIncoming(++outgoing);
+        counter.setOutgoing(++outgoing);
 
-        dao.edit(counter);
+        dao.update(counter);
     }
 }

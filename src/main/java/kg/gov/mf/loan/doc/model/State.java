@@ -76,7 +76,27 @@ public enum State
                     return "Отправлен на согласование";
                 }
             },
-    REQUESTED   // 3
+    RECONCILED  // 3
+            {
+                @Override
+                public State next(Transition transition)
+                {
+                    if(transition == TORECONCILE)
+                    {
+                        return PENDING;
+                    }
+                    else
+                    {
+                        return REQUESTED;
+                    }
+                }
+
+                @Override
+                public String text() {
+                    return "Согласован";
+                }
+            },
+    REQUESTED   // 4
             {
                 @Override
                 public State next(Transition transition)
@@ -98,26 +118,6 @@ public enum State
                 @Override
                 public String text() {
                     return "Отправлен на утверждение";
-                }
-            },
-    RECONCILED  // 4
-            {
-                @Override
-                public State next(Transition transition)
-                {
-                    if(transition == TORECONCILE)
-                    {
-                        return PENDING;
-                    }
-                    else
-                    {
-                        return REQUESTED;
-                    }
-                }
-
-                @Override
-                public String text() {
-                    return "Согласован";
                 }
             },
     APPROVED    // 5
