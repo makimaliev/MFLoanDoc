@@ -1,7 +1,7 @@
 package kg.gov.mf.loan.doc.model;
 
 import kg.gov.mf.loan.admin.sys.model.User;
-import kg.gov.mf.loan.core.model.GenericModel;
+import kg.gov.mf.loan.task.model.GenericModel;
 
 import javax.persistence.*;
 import java.util.Date;

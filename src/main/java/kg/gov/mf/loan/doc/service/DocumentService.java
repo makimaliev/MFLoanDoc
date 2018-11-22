@@ -1,6 +1,6 @@
 package kg.gov.mf.loan.doc.service;
 
-import kg.gov.mf.loan.core.service.GenericService;
+import kg.gov.mf.loan.task.service.GenericService;
 import kg.gov.mf.loan.doc.model.Document;
 
 import java.util.List;

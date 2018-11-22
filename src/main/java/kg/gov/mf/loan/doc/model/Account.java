@@ -1,7 +1,7 @@
 package kg.gov.mf.loan.doc.model;
 
 import jdk.nashorn.internal.ir.annotations.Immutable;
-import kg.gov.mf.loan.core.model.Catalog;
+import kg.gov.mf.loan.task.model.Catalog;
 
 import javax.persistence.*;
 

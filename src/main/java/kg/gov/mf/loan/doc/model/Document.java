@@ -3,8 +3,8 @@ package kg.gov.mf.loan.doc.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import kg.gov.mf.loan.admin.org.model.Staff;
 import kg.gov.mf.loan.admin.sys.model.User;
-import kg.gov.mf.loan.core.model.GenericModel;
-import kg.gov.mf.loan.core.util.MFEntityListener;
+import kg.gov.mf.loan.task.model.GenericModel;
+import kg.gov.mf.loan.task.listener.MFEntityListener;
 
 import javax.persistence.*;
 import java.util.*;

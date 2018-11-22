@@ -1,6 +1,6 @@
 package kg.gov.mf.loan.doc.model;
 
-import kg.gov.mf.loan.core.model.Catalog;
+import kg.gov.mf.loan.task.model.Catalog;
 
 import javax.persistence.*;
 import java.util.HashSet;

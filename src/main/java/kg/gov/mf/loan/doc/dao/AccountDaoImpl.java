@@ -1,7 +1,7 @@
 package kg.gov.mf.loan.doc.dao;
 
-import kg.gov.mf.loan.core.dao.GenericDaoImpl;
 import kg.gov.mf.loan.doc.model.Account;
+import kg.gov.mf.loan.task.dao.GenericDaoImpl;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

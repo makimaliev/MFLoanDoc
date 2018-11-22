@@ -1,6 +1,6 @@
 package kg.gov.mf.loan.doc.service;
 
-import kg.gov.mf.loan.core.service.GenericServiceImpl;
+import kg.gov.mf.loan.task.service.GenericServiceImpl;
 import kg.gov.mf.loan.doc.dao.DispatchTypeDao;
 import kg.gov.mf.loan.doc.model.DispatchType;
 import org.springframework.beans.factory.annotation.Autowired;

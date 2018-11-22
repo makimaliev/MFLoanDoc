@@ -5,7 +5,7 @@ import kg.gov.mf.loan.admin.org.model.Department;
 import kg.gov.mf.loan.admin.org.model.Organization;
 import kg.gov.mf.loan.admin.org.model.Person;
 import kg.gov.mf.loan.admin.org.model.Staff;
-import kg.gov.mf.loan.core.model.GenericModel;
+import kg.gov.mf.loan.task.model.GenericModel;
 
 import javax.persistence.*;
 import java.util.HashSet;
