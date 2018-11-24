@@ -21,7 +21,7 @@ public class DocumentDaoImpl extends GenericDaoImpl<Document> implements Documen
     }
 
     @Override
-    public List getDocuments(String documentType, Long userId) {
+    public List getDocuments(String documentType, long userId) {
         return entityManager.createQuery("Select d from Document d where d.owner = :owner and d.documentType = :documentType")
                 .setParameter("documentType", documentTypeDao.getByInternalName(documentType))
                 .setParameter("owner", userId)
@@ -29,7 +29,7 @@ public class DocumentDaoImpl extends GenericDaoImpl<Document> implements Documen
     }
 
     @Override
-    public List getInvolvedDocuments(String documentType, Long userId) {
+    public List getInvolvedDocuments(String documentType, long userId) {
         return entityManager.createQuery("Select d from Document d join d.users u where u in (:usr) and d.documentType = :documentType")
                 .setParameter("documentType", documentTypeDao.getByInternalName(documentType))
                 .setParameter("usr", userDao.findById(userId))

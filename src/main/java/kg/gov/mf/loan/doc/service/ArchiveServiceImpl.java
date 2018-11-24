@@ -17,7 +17,7 @@ public class ArchiveServiceImpl extends GenericServiceImpl<Archive> implements A
     private ArchiveDao dao;
 
     @Override
-    public Archive findByIdWD(Long id)
+    public Archive findByIdWD(long id)
     {
         return dao.findByIdWD(id);
     }

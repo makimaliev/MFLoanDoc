@@ -9,32 +9,32 @@ import javax.persistence.Table;
 @Table(name="df_counter")
 public class Counter extends GenericModel
 {
-    private Long department;
-    private Long incoming;
-    private Long outgoing;
+    private long department;
+    private long incoming;
+    private long outgoing;
 
     //region GET-SET
-    public Long getDepartment() {
+    public long getDepartment() {
         return department;
     }
 
-    public void setDepartment(Long department) {
+    public void setDepartment(long department) {
         this.department = department;
     }
 
-    public Long getIncoming() {
+    public long getIncoming() {
         return incoming;
     }
 
-    public void setIncoming(Long incoming) {
+    public void setIncoming(long incoming) {
         this.incoming = incoming;
     }
 
-    public Long getOutgoing() {
+    public long getOutgoing() {
         return outgoing;
     }
 
-    public void setOutgoing(Long outgoing) {
+    public void setOutgoing(long outgoing) {
         this.outgoing = outgoing;
     }
     //endregion

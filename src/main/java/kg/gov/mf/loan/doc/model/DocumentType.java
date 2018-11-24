@@ -1,5 +1,6 @@
 package kg.gov.mf.loan.doc.model;
 
+import kg.gov.mf.loan.task.listener.MFEntityListener;
 import kg.gov.mf.loan.task.model.Catalog;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="cat_document_type")
+@EntityListeners(MFEntityListener.class)
 public class DocumentType extends Catalog {
 
     private String code;

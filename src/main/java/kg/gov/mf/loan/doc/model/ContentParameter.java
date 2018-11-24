@@ -11,11 +11,11 @@ public class ContentParameter extends Catalog {
 
     private int position;
     private String format;
-    private Long systemObjectTypeId;
+    private long systemObjectTypeId;
     private String fieldName;
     private int fieldPosition;
-    private Long fieldTypeId;
-    private Long classificator;
+    private long fieldTypeId;
+    private long classificator;
     private double constantValue;
     private String constantText;
 
@@ -35,11 +35,11 @@ public class ContentParameter extends Catalog {
         this.format = format;
     }
 
-    public Long getSystemObjectTypeId() {
+    public long getSystemObjectTypeId() {
         return systemObjectTypeId;
     }
 
-    public void setSystemObjectTypeId(Long systemObjectTypeId) {
+    public void setSystemObjectTypeId(long systemObjectTypeId) {
         this.systemObjectTypeId = systemObjectTypeId;
     }
 
@@ -59,19 +59,19 @@ public class ContentParameter extends Catalog {
         this.fieldPosition = fieldPosition;
     }
 
-    public Long getFieldTypeId() {
+    public long getFieldTypeId() {
         return fieldTypeId;
     }
 
-    public void setFieldTypeId(Long fieldTypeId) {
+    public void setFieldTypeId(long fieldTypeId) {
         this.fieldTypeId = fieldTypeId;
     }
 
-    public Long getClassificator() {
+    public long getClassificator() {
         return classificator;
     }
 
-    public void setClassificator(Long classificator) {
+    public void setClassificator(long classificator) {
         this.classificator = classificator;
     }
 

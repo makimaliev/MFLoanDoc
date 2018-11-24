@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface ArchiveService extends GenericService<Archive>
 {
-    Archive findByIdWD(Long id);
+    Archive findByIdWD(long id);
     List<Archive> findAllWD();
 }

@@ -8,5 +8,5 @@ import java.util.List;
 public interface DocumentSubTypeService extends GenericService<DocumentSubType>
 {
     DocumentSubType getByInternalName(String internalName);
-    List<DocumentSubType> getByDocumentType(Long id);
+    List<DocumentSubType> getByDocumentType(long id);
 }

@@ -1,12 +1,14 @@
 package kg.gov.mf.loan.doc.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import kg.gov.mf.loan.task.listener.MFEntityListener;
 import kg.gov.mf.loan.task.model.Catalog;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name="cat_document_subtype")
+@EntityListeners(MFEntityListener.class)
 public class DocumentSubType extends Catalog
 {
     private String code;

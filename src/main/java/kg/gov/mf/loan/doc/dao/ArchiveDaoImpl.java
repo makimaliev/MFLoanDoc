@@ -10,7 +10,7 @@ import java.util.List;
 public class ArchiveDaoImpl extends GenericDaoImpl<Archive> implements ArchiveDao {
 
     @Override
-    public Archive findByIdWD(Long id) {
+    public Archive findByIdWD(long id) {
         return entityManager.find(Archive.class, id);
     }
 

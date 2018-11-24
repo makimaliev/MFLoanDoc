@@ -18,7 +18,7 @@ public class Document extends GenericModel {
 
     //region Document
     @JsonIgnore
-    private Long owner;
+    private long owner;
     private String title = "Title " + new Random().nextInt(100);
 
     @Column(columnDefinition="text")
@@ -113,11 +113,11 @@ public class Document extends GenericModel {
         this.indexNo = indexNo;
     }
 
-    public Long getOwner() {
+    public long getOwner() {
         return owner;
     }
 
-    public void setOwner(Long owner) {
+    public void setOwner(long owner) {
         this.owner = owner;
     }
 

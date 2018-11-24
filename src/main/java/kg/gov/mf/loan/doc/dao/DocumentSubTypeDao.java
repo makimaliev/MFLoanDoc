@@ -8,5 +8,5 @@ import java.util.List;
 public interface DocumentSubTypeDao extends GenericDao<DocumentSubType>
 {
     DocumentSubType getByInternalName(String internalName);
-    List<DocumentSubType> getByDocumentType(Long id);
+    List<DocumentSubType> getByDocumentType(long id);
 }

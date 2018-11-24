@@ -15,25 +15,25 @@ public class CounterServiceImpl extends GenericServiceImpl<Counter> implements C
     private CounterDao dao;
 
     @Override
-    public Counter getByDepartment(Long department) {
+    public Counter getByDepartment(long department) {
         return dao.getByDepartment(department);
     }
 
     @Override
-    public void updateIncoming(Long department)
+    public void updateIncoming(long department)
     {
         Counter counter = dao.getByDepartment(department);
-        Long incoming = counter.getIncoming();
+        long incoming = counter.getIncoming();
         counter.setIncoming(++incoming);
 
         dao.update(counter);
     }
 
     @Override
-    public void updateOutgoing(Long department)
+    public void updateOutgoing(long department)
     {
         Counter counter = dao.getByDepartment(department);
-        Long outgoing = counter.getOutgoing();
+        long outgoing = counter.getOutgoing();
         counter.setOutgoing(++outgoing);
 
         dao.update(counter);

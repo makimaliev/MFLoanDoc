@@ -18,7 +18,7 @@ public class DocumentSubTypeDaoImpl extends GenericDaoImpl<DocumentSubType> impl
     }
 
     @Override
-    public List getByDocumentType(Long id) {
+    public List getByDocumentType(long id) {
         return entityManager.createQuery("Select d from DocumentSubType d where d.documentType = :documentType")
                 .setParameter("documentType", id)
                 .getResultList();

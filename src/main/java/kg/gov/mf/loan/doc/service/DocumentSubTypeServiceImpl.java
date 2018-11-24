@@ -22,7 +22,7 @@ public class DocumentSubTypeServiceImpl extends GenericServiceImpl<DocumentSubTy
     }
 
     @Override
-    public List<DocumentSubType> getByDocumentType(Long id) {
+    public List<DocumentSubType> getByDocumentType(long id) {
         return dao.getByDocumentType(id);
     }
 }

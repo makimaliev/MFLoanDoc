@@ -10,7 +10,7 @@ import javax.persistence.NoResultException;
 public class CounterDaoImpl extends GenericDaoImpl<Counter> implements CounterDao
 {
     @Override
-    public Counter getByDepartment(Long department) {
+    public Counter getByDepartment(long department) {
         Counter counter;
 
         try {
@@ -22,8 +22,8 @@ public class CounterDaoImpl extends GenericDaoImpl<Counter> implements CounterDa
         {
             counter = new Counter();
             counter.setDepartment(department);
-            counter.setIncoming(1L);
-            counter.setOutgoing(1L);
+            counter.setIncoming(1);
+            counter.setOutgoing(1);
             //entityManager.persist(counter);
             entityManager.merge(counter);
         }

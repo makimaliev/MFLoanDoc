@@ -33,7 +33,7 @@ public class RegisterServiceImpl implements RegisterService{
     @Override
     public String generateRegistrationNumber(Document document) {
 
-        Long counter;
+        long counter;
         User user = userService.findById(document.getOwner());
         String format = document.getDocumentType().getRegNoFormat();
 
@@ -44,7 +44,7 @@ public class RegisterServiceImpl implements RegisterService{
         Integer month = cal.get(Calendar.MONTH);
         Integer year = cal.get(Calendar.YEAR);
 
-        Long department = user.getStaff().getDepartment().getId();
+        long department = user.getStaff().getDepartment().getId();
 
         if (document.getDocumentType().getInternalName().equals("incoming"))
         {
