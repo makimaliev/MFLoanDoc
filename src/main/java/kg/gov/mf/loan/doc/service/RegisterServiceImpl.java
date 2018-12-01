@@ -85,7 +85,7 @@ public class RegisterServiceImpl implements RegisterService{
         fmt.put("No", String.valueOf(counter));
         fmt.put("ВД", document.getDocumentType().getCode());
         fmt.put("ТД", document.getDocumentSubType().getCode());
-        fmt.put("КО", Objects.requireNonNull(user.getStaff().getDepartment().getDescription(), ""));
+        fmt.put("КО", Objects.toString(user.getStaff().getDepartment().getDescription(), ""));
         fmt.put("КС", String.valueOf(user.getId()));
         fmt.put("ДД", String.valueOf(day));
         fmt.put("ММ", String.valueOf(month));

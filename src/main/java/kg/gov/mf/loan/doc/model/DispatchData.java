@@ -9,7 +9,6 @@ import java.util.Date;
 
 @Entity
 @Table(name="cat_dispatch_data")
-@EntityListeners(MFEntityListener.class)
 public class DispatchData extends GenericModel {
 
     public DispatchData() { }
