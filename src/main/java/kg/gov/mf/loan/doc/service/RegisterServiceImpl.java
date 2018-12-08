@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -36,13 +37,6 @@ public class RegisterServiceImpl implements RegisterService{
         long counter;
         User user = userService.findById(document.getOwner());
         String format = document.getDocumentType().getRegNoFormat();
-
-        Date date = new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        Integer day = cal.get(Calendar.DAY_OF_MONTH);
-        Integer month = cal.get(Calendar.MONTH);
-        Integer year = cal.get(Calendar.YEAR);
 
         long department = user.getStaff().getDepartment().getId();
 
@@ -81,16 +75,26 @@ public class RegisterServiceImpl implements RegisterService{
         {ГГГГ} - Год (четыре цифры)
         */
 
+        Date date = new Date();
+        DecimalFormat dFormat= new DecimalFormat("00");
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+
+        String day = dFormat.format(cal.get(Calendar.DAY_OF_MONTH));
+        String month = dFormat.format(cal.get(Calendar.MONTH) + 1);
+        String year = String.valueOf(cal.get(Calendar.YEAR));
+
         Map<String, String> fmt = new HashMap<>();
         fmt.put("No", String.valueOf(counter));
         fmt.put("ВД", document.getDocumentType().getCode());
         fmt.put("ТД", document.getDocumentSubType().getCode());
         fmt.put("КО", Objects.toString(user.getStaff().getDepartment().getDescription(), ""));
         fmt.put("КС", String.valueOf(user.getId()));
-        fmt.put("ДД", String.valueOf(day));
-        fmt.put("ММ", String.valueOf(month));
-        fmt.put("ГГ", String.valueOf(year).substring(2));
-        fmt.put("ГГГГ", String.valueOf(year));
+        fmt.put("ДД", day);
+        fmt.put("ММ", month);
+        fmt.put("ГГ", year.substring(2));
+        fmt.put("ГГГГ", year);
 
         for(Map.Entry<String, String> entry : fmt.entrySet())
         {
