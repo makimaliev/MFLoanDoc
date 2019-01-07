@@ -48,7 +48,7 @@ public class Document extends GenericModel {
     private Date documentDueDate;
 
     @JsonIgnore
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private State documentState = State.NEW;
 
     @JsonIgnore
@@ -61,6 +61,11 @@ public class Document extends GenericModel {
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinColumn
     private Set<User> users = new HashSet<>(0);
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @JoinColumn(name = "documentAttachments")
+    private Set<Attachment> attachments = new HashSet<>();
 
     //endregion
     //region Sender Data
@@ -77,11 +82,6 @@ public class Document extends GenericModel {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "senderExecutor")
     private Executor senderExecutor;
-
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "senderAttachment")
-    private Set<Attachment> senderAttachment = new HashSet<>();
     //endregion
     //region Receiver Data
     private String receiverRegisteredNumber;
@@ -97,13 +97,15 @@ public class Document extends GenericModel {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "receiverExecutor")
     private Executor receiverExecutor;
-
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "receiverAttachment")
-    private Set<Attachment> receiverAttachment = new HashSet<>();
     //endregion
     //region GET-SET.
+    public Set<Attachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(Set<Attachment> attachments) {
+        this.attachments = attachments;
+    }
 
     public String getIndexNo() {
         return indexNo;
@@ -241,14 +243,6 @@ public class Document extends GenericModel {
         this.senderExecutor = senderExecutor;
     }
 
-    public Set<Attachment> getSenderAttachment() {
-        return senderAttachment;
-    }
-
-    public void setSenderAttachment(Set<Attachment> senderAttachment) {
-        this.senderAttachment = senderAttachment;
-    }
-
     public String getReceiverRegisteredNumber() {
         return receiverRegisteredNumber;
     }
@@ -279,14 +273,6 @@ public class Document extends GenericModel {
 
     public void setReceiverExecutor(Executor receiverExecutor) {
         this.receiverExecutor = receiverExecutor;
-    }
-
-    public Set<Attachment> getReceiverAttachment() {
-        return receiverAttachment;
-    }
-
-    public void setReceiverAttachment(Set<Attachment> receiverAttachment) {
-        this.receiverAttachment = receiverAttachment;
     }
     //endregion
 }

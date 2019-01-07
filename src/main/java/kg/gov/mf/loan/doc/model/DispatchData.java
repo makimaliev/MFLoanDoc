@@ -15,7 +15,7 @@ public class DispatchData extends GenericModel {
 
     private String description;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private State dispatchType;
 
     @Column(columnDefinition="DATETIME")

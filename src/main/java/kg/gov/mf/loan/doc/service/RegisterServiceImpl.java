@@ -2,6 +2,7 @@ package kg.gov.mf.loan.doc.service;
 
 import kg.gov.mf.loan.admin.sys.model.User;
 import kg.gov.mf.loan.admin.sys.service.UserService;
+import kg.gov.mf.loan.doc.model.Counter;
 import kg.gov.mf.loan.doc.model.Document;
 import kg.gov.mf.loan.doc.model.State;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,39 +28,41 @@ public class RegisterServiceImpl implements RegisterService{
     }
 
     @Override
-    public String generateRegistrationNumber() {
-        return "ДОК-" + new Random().nextInt(100);
-    }
-
-    @Override
     public String generateRegistrationNumber(Document document) {
 
-        long counter;
+        Counter counter;
+        long c;
+
         User user = userService.findById(document.getOwner());
-        String format = document.getDocumentType().getRegNoFormat();
 
         long department = user.getStaff().getDepartment().getId();
 
         if (document.getDocumentType().getInternalName().equals("incoming"))
         {
-            counter = counterService.getByDepartment(department).getIncoming();
-            counterService.updateIncoming(department);
+            counter = counterService.getCounter(0,0);
+            c = counter.getIncoming();
+            //counterService.updateIncoming(counter);
         }
         else if(document.getDocumentType().getInternalName().equals("outgoing"))
         {
-            counter = counterService.getByDepartment(department).getOutgoing();
-            counterService.updateOutgoing(department);
+            counter = counterService.getCounter(department, 0);
+            c = counter.getOutgoing();
+            //counterService.updateOutgoing(counter);
         }
         else
         {
             if(document.getDocumentState().ordinal() < State.REGISTERED.ordinal()) {
-                counter = counterService.getByDepartment(0L).getIncoming();
-                counterService.updateIncoming(0L);
+                counter = counterService.getCounter(department, document.getDocumentSubType().getId());
+                c = counter.getIncoming();
+                counter.setIncoming(c+1);
+                //counterService.updateIncoming(counter);
             }
             else
             {
-                counter = counterService.getByDepartment(0L).getOutgoing();
-                counterService.updateOutgoing(0L);
+                counter = counterService.getCounter(department, document.getDocumentSubType().getId());
+                c = counter.getOutgoing();
+                counter.setOutgoing(c+1);
+                //counterService.updateOutgoing(counter);
             }
         }
 
@@ -86,7 +89,7 @@ public class RegisterServiceImpl implements RegisterService{
         String year = String.valueOf(cal.get(Calendar.YEAR));
 
         Map<String, String> fmt = new HashMap<>();
-        fmt.put("No", String.valueOf(counter));
+        fmt.put("No", String.valueOf(c));
         fmt.put("ВД", document.getDocumentType().getCode());
         fmt.put("ТД", document.getDocumentSubType().getCode());
         fmt.put("КО", Objects.toString(user.getStaff().getDepartment().getDescription(), ""));
@@ -95,6 +98,8 @@ public class RegisterServiceImpl implements RegisterService{
         fmt.put("ММ", month);
         fmt.put("ГГ", year.substring(2));
         fmt.put("ГГГГ", year);
+
+        String format = document.getDocumentType().getRegNoFormat();
 
         for(Map.Entry<String, String> entry : fmt.entrySet())
         {

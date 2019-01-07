@@ -1,11 +1,11 @@
 package kg.gov.mf.loan.doc.service;
 
-import kg.gov.mf.loan.task.service.GenericService;
 import kg.gov.mf.loan.doc.model.Counter;
+import kg.gov.mf.loan.doc.model.Document;
+import kg.gov.mf.loan.task.service.GenericService;
 
 public interface CounterService extends GenericService<Counter>
 {
-    Counter getByDepartment(long department);
-    void updateIncoming(long department);
-    void updateOutgoing(long department);
+    Counter getCounter(long department, long documentSubType);
+    String generateRegistrationNumber(Document document);
 }

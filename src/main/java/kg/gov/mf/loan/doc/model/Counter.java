@@ -2,14 +2,14 @@ package kg.gov.mf.loan.doc.model;
 
 import kg.gov.mf.loan.task.model.GenericModel;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="df_counter")
 public class Counter extends GenericModel
 {
     private long department;
+    private long documentSubType;
     private long incoming;
     private long outgoing;
 
@@ -20,6 +20,14 @@ public class Counter extends GenericModel
 
     public void setDepartment(long department) {
         this.department = department;
+    }
+
+    public long getDocumentSubType() {
+        return documentSubType;
+    }
+
+    public void setDocumentSubType(long documentSubType) {
+        this.documentSubType = documentSubType;
     }
 
     public long getIncoming() {
