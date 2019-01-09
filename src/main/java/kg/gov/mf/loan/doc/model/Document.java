@@ -19,12 +19,14 @@ public class Document extends GenericModel {
     //region Document
     @JsonIgnore
     private long owner;
-    private String title = "Title " + new Random().nextInt(100);
+    private String title = "Относительно";
 
     @Column(columnDefinition="text")
-    private String description = "Description " + new Random().nextInt(100);
+    private String description = " ";
 
     private String indexNo;
+    private int pageCount = 1;
+    private boolean received = true;
 
     @Transient
     private String comment;
@@ -99,6 +101,22 @@ public class Document extends GenericModel {
     private Executor receiverExecutor;
     //endregion
     //region GET-SET.
+    public boolean isReceived() {
+        return received;
+    }
+
+    public void setReceived(boolean received) {
+        this.received = received;
+    }
+
+    public int getPageCount() {
+        return pageCount;
+    }
+
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
+    }
+
     public Set<Attachment> getAttachments() {
         return attachments;
     }

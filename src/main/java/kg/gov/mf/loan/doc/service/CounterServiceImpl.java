@@ -45,19 +45,19 @@ public class CounterServiceImpl extends GenericServiceImpl<Counter> implements C
         }
         else if(document.getDocumentType().getInternalName().equals("outgoing"))
         {
-            counter = getCounter(department, 0);
+            counter = getCounter(0, 0);
             c = counter.getOutgoing();
             updateOutgoing(counter);
         }
         else
         {
             if(document.getDocumentState() == State.REQUESTED) {
-                counter = getCounter(department, document.getDocumentSubType().getId());
+                counter = getCounter(department, 0);
                 c = counter.getOutgoing();
                 updateOutgoing(counter);
             }
             else {
-                counter = getCounter(department, document.getDocumentSubType().getId());
+                counter = getCounter(department, 0);
                 c = counter.getIncoming();
                 updateIncoming(counter);
             }

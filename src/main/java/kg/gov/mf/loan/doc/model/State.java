@@ -213,7 +213,7 @@ public enum State
 
                 @Override
                 public String text() {
-                    return "Принят";
+                    return "Принят на исполнение";
                 }
             },
     SENT        // 9
