@@ -19,19 +19,17 @@ public class Attachment extends Catalog {
         this.mimeType = mimeType;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "author")
-    private User author;
+    private long author;
 
     private String mimeType;
 
     private String pageIndexNo;
 
-    public User getAuthor() {
+    public long getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(long author) {
         this.author = author;
     }
 

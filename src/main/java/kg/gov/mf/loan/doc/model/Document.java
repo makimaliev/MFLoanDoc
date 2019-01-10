@@ -19,7 +19,7 @@ public class Document extends GenericModel {
     //region Document
     @JsonIgnore
     private long owner;
-    private String title = "Относительно";
+    private String title;
 
     @Column(columnDefinition="text")
     private String description = " ";
