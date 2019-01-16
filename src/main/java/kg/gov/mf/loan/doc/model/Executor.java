@@ -9,6 +9,7 @@ import kg.gov.mf.loan.task.model.GenericModel;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -22,22 +23,22 @@ public class Executor extends GenericModel {
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn
-    private Set<Organization> organizations = new HashSet<>(0);
+    private Set<Organization> organizations = new LinkedHashSet<>(0);
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn
-    private Set<Department> departments = new HashSet<>(0);
+    private Set<Department> departments = new LinkedHashSet<>(0);
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn
-    private Set<Staff> staff = new HashSet<>(0);
+    private Set<Staff> staff = new LinkedHashSet<>(0);
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn
-    private Set<Person> person = new HashSet<>(0);
+    private Set<Person> person = new LinkedHashSet<>(0);
 
     //region GET-SET
     public int getExecutorType() {

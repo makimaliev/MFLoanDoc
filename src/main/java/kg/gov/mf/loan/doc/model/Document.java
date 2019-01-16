@@ -26,6 +26,7 @@ public class Document extends GenericModel {
 
     private String indexNo;
     private int pageCount = 1;
+    private long docIndex;
     private boolean received = true;
 
     @Transient
@@ -101,6 +102,14 @@ public class Document extends GenericModel {
     private Executor receiverExecutor;
     //endregion
     //region GET-SET.
+    public long getDocIndex() {
+        return docIndex;
+    }
+
+    public void setDocIndex(long docIndex) {
+        this.docIndex = docIndex;
+    }
+
     public boolean isReceived() {
         return received;
     }
