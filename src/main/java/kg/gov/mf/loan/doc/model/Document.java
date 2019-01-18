@@ -58,17 +58,17 @@ public class Document extends GenericModel {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "dispatchData")
     @OrderBy("id asc")
-    private Set<DispatchData> dispatchData = new HashSet<>(0);
+    private Set<DispatchData> dispatchData = new LinkedHashSet<>(0);
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinColumn
-    private Set<User> users = new HashSet<>(0);
+    private Set<User> users = new LinkedHashSet<>(0);
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "documentAttachments")
-    private Set<Attachment> attachments = new HashSet<>();
+    private Set<Attachment> attachments = new LinkedHashSet<>(0);
 
     //endregion
     //region Sender Data
