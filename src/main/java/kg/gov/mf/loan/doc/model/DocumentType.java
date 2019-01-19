@@ -1,5 +1,6 @@
 package kg.gov.mf.loan.doc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import kg.gov.mf.loan.task.listener.MFEntityListener;
 import kg.gov.mf.loan.task.model.Catalog;
 
@@ -18,9 +19,11 @@ public class DocumentType extends Catalog {
 
     public DocumentType() { }
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "documentType")
     private Set<DocumentSubType> documentSubTypes = new HashSet<>(0);
 
+    @JsonIgnore
     @Transient
     private Map<State, Boolean> stages;
 

@@ -18,6 +18,9 @@ public class Responsible extends GenericModel {
 
     private int responsibleType;
 
+    @Column(columnDefinition="text")
+    private String responsibleName;
+
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn
@@ -39,6 +42,14 @@ public class Responsible extends GenericModel {
     private Set<Person> person = new LinkedHashSet<>(0);
 
     //region GET-SET
+    public String getResponsibleName() {
+        return responsibleName;
+    }
+
+    public void setResponsibleName(String responsibleName) {
+        this.responsibleName = responsibleName;
+    }
+
     public int getResponsibleType() {
         return responsibleType;
     }
