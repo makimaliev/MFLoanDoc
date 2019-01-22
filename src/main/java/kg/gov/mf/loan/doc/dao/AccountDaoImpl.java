@@ -12,7 +12,7 @@ public class AccountDaoImpl extends GenericDaoImpl<Account> implements AccountDa
     @Override
     public List getAccounts(String internalName) {
 
-        return entityManager.createQuery("Select a from Account a where a.internalName = :internalName")
+        return entityManager.createQuery("Select a from Account a where a.internalName = :internalName order by a.name")
                 .setParameter("internalName", internalName)
                 .getResultList();
     }
@@ -20,7 +20,7 @@ public class AccountDaoImpl extends GenericDaoImpl<Account> implements AccountDa
     @Override
     public List getByName(String internalName, String name) {
 
-        return entityManager.createQuery("Select a from Account a where a.internalName = :internalName AND a.name LIKE :name")
+        return entityManager.createQuery("Select a from Account a where a.internalName = :internalName AND a.name LIKE :name order by a.name")
                 .setParameter("internalName", internalName)
                 .setParameter("name", "%" + name + "%")
                 .getResultList();

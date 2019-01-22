@@ -22,11 +22,13 @@ public class CounterServiceImpl extends GenericServiceImpl<Counter> implements C
 {
     private CounterDao dao;
     private UserService userService;
+    private DocumentService documentService;
 
     @Autowired
-    public CounterServiceImpl(CounterDao dao, UserService userService) {
+    public CounterServiceImpl(CounterDao dao, UserService userService, DocumentService documentService) {
         this.userService = userService;
         this.dao = dao;
+        this.documentService = documentService;
     }
 
     @Override
@@ -62,6 +64,8 @@ public class CounterServiceImpl extends GenericServiceImpl<Counter> implements C
                 updateIncoming(counter);
             }
         }
+        document.setDocIndex(c);
+        documentService.update(document);
 
         /*
         {No} - Номер документа

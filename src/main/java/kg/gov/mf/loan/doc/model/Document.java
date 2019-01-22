@@ -76,6 +76,8 @@ public class Document extends GenericModel {
     @JoinColumn(name = "documentAttachments")
     private Set<Attachment> attachments = new LinkedHashSet<>(0);
 
+    private Long[] documentLinks;
+
     //endregion
     //region Sender Data
     private String senderRegisteredNumber;
@@ -108,6 +110,15 @@ public class Document extends GenericModel {
     private Executor receiverExecutor;
     //endregion
     //region GET-SET.
+
+    public Long[] getDocumentLinks() {
+        return documentLinks;
+    }
+
+    public void setDocumentLinks(Long[] documentLinks) {
+        this.documentLinks = documentLinks;
+    }
+
     public long getDocIndex() {
         return docIndex;
     }

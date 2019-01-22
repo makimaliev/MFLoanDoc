@@ -21,8 +21,8 @@ public class DocumentServiceImpl extends GenericServiceImpl<Document> implements
      }
 
     @Override
-    public List<Document> getDocuments(String documentType, long userId) {
-        return dao.getDocuments(documentType, userId);
+    public List<Document> getDocuments(long userId) {
+        return dao.getDocuments(userId);
     }
 
     @Override

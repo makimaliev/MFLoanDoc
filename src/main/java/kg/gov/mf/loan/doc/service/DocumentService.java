@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DocumentService extends GenericService<Document>
 {
-    List<Document> getDocuments(String documentType, long userId);
+    List<Document> getDocuments(long userId);
     List<Document> getInvolvedDocuments(String documentType, long userId);
 
     Document create(Document document, String action);
