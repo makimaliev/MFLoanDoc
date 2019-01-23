@@ -24,12 +24,10 @@ public class Document extends GenericModel {
     @Column(columnDefinition="text")
     private String description = " ";
 
-    @JsonIgnore
     private String indexNo;
-    @JsonIgnore
     private int pageCount = 1;
-    @JsonIgnore
     private long docIndex;
+
     @JsonIgnore
     private boolean received = true;
 
