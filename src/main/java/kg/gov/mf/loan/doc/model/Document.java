@@ -1,6 +1,7 @@
 package kg.gov.mf.loan.doc.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import kg.gov.mf.loan.admin.org.model.Staff;
 import kg.gov.mf.loan.admin.sys.model.User;
 import kg.gov.mf.loan.task.model.GenericModel;
@@ -18,7 +19,10 @@ public class Document extends GenericModel {
 
     //region Document
     @JsonIgnore
-    private long owner;
+    @ManyToOne
+    @JoinColumn(name = "owner")
+    private User owner;
+
     private String title;
 
     @Column(columnDefinition="text")
@@ -157,11 +161,11 @@ public class Document extends GenericModel {
         this.indexNo = indexNo;
     }
 
-    public long getOwner() {
+    public User getOwner() {
         return owner;
     }
 
-    public void setOwner(long owner) {
+    public void setOwner(User owner) {
         this.owner = owner;
     }
 

@@ -34,7 +34,7 @@ public class CounterServiceImpl extends GenericServiceImpl<Counter> implements C
     @Override
     public String generateRegistrationNumber(Document document) {
 
-        User user = userService.findById(document.getOwner());
+        User user = document.getOwner();
         Counter counter;
         long department = user.getStaff().getDepartment().getId();
         long c;

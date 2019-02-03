@@ -33,7 +33,7 @@ public class RegisterServiceImpl implements RegisterService{
         Counter counter;
         long c;
 
-        User user = userService.findById(document.getOwner());
+        User user = document.getOwner();
 
         long department = user.getStaff().getDepartment().getId();
 
