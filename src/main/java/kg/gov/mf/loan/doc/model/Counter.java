@@ -9,6 +9,7 @@ import javax.persistence.*;
 public class Counter extends GenericModel
 {
     private long department;
+    private long documentType;
     private long documentSubType;
     private long incoming;
     private long outgoing;
@@ -20,6 +21,14 @@ public class Counter extends GenericModel
 
     public void setDepartment(long department) {
         this.department = department;
+    }
+
+    public long getDocumentType() {
+        return documentType;
+    }
+
+    public void setDocumentType(long documentType) {
+        this.documentType = documentType;
     }
 
     public long getDocumentSubType() {

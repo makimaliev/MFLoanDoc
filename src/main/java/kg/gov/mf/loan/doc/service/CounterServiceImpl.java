@@ -34,35 +34,44 @@ public class CounterServiceImpl extends GenericServiceImpl<Counter> implements C
     @Override
     public String generateRegistrationNumber(Document document) {
 
-        User user = document.getOwner();
+        User user = userService.findById(document.getOwner().getId());
+
         Counter counter;
         long department = user.getStaff().getDepartment().getId();
+        long documentType = document.getDocumentType().getId();
+        long documentSubType = document.getDocumentSubType().getId();
         long c;
 
         if (document.getDocumentType().getInternalName().equals("incoming"))
         {
-            counter = getCounter(0,0);
+            counter = getCounter(0, 0,0);
             c = counter.getIncoming();
             updateIncoming(counter);
         }
         else if(document.getDocumentType().getInternalName().equals("outgoing"))
         {
-            counter = getCounter(0, 0);
+            counter = getCounter(0, 0, 0);
             c = counter.getOutgoing();
             updateOutgoing(counter);
         }
-        else
+        else if(document.getDocumentType().getInternalName().equals("internal"))
         {
             if(document.getDocumentState() == State.REQUESTED) {
-                counter = getCounter(department, 0);
+                counter = getCounter(department, documentType,0);
                 c = counter.getOutgoing();
                 updateOutgoing(counter);
             }
             else {
-                counter = getCounter(department, 0);
+                counter = getCounter(department, documentType,0);
                 c = counter.getIncoming();
                 updateIncoming(counter);
             }
+        }
+        else
+        {
+            counter = getCounter(department, documentType, documentSubType);
+            c = counter.getOutgoing();
+            updateOutgoing(counter);
         }
         document.setDocIndex(c);
         documentService.update(document);
@@ -118,8 +127,8 @@ public class CounterServiceImpl extends GenericServiceImpl<Counter> implements C
         return format;
     }
 
-    public Counter getCounter(long department, long documentSubType) {
-        return dao.getCounter(department, documentSubType);
+    public Counter getCounter(long department, long documentType, long documentSubType) {
+        return dao.getCounter(department, documentType, documentSubType);
     }
 
     private void updateIncoming(Counter counter) {

@@ -6,6 +6,7 @@ import kg.gov.mf.loan.admin.org.model.Staff;
 import kg.gov.mf.loan.admin.sys.model.User;
 import kg.gov.mf.loan.task.model.GenericModel;
 import kg.gov.mf.loan.task.listener.MFEntityListener;
+import kg.gov.mf.loan.task.model.Task;
 
 import javax.persistence.*;
 import java.util.*;
@@ -18,7 +19,6 @@ public class Document extends GenericModel {
     public Document() {}
 
     //region Document
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "owner")
     private User owner;
@@ -58,7 +58,6 @@ public class Document extends GenericModel {
     @Temporal(TemporalType.DATE)
     private Date documentDueDate;
 
-    @JsonIgnore
     @Enumerated(EnumType.STRING)
     private State documentState = State.NEW;
 
@@ -67,6 +66,13 @@ public class Document extends GenericModel {
     @JoinColumn(name = "dispatchData")
     @OrderBy("id asc")
     private Set<DispatchData> dispatchData = new LinkedHashSet<>(0);
+
+    /*
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @JoinColumn
+    private Set<Task> tasks = new LinkedHashSet<>(0);
+    */
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
@@ -79,6 +85,10 @@ public class Document extends GenericModel {
     private Set<Attachment> attachments = new LinkedHashSet<>(0);
 
     private Long[] documentLinks;
+
+    @Transient
+    @Basic(fetch=FetchType.EAGER)
+    private String stateString;
 
     //endregion
     //region Sender Data
@@ -112,6 +122,14 @@ public class Document extends GenericModel {
     private Executor receiverExecutor;
     //endregion
     //region GET-SET.
+
+    public String getStateString() {
+        return stateString;
+    }
+
+    public void setStateString() {
+        this.stateString = this.documentState.text();
+    }
 
     public Long[] getDocumentLinks() {
         return documentLinks;
