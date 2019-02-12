@@ -19,22 +19,8 @@ public class Document extends GenericModel {
     public Document() {}
 
     //region Document
-    @ManyToOne
-    @JoinColumn(name = "owner")
-    private User owner;
-
-    private String title;
-
-    @Column(columnDefinition="text")
-    private String description = " ";
-
-    private String indexNo;
-    private int pageCount = 1;
-    private long docIndex;
-
-    @JsonIgnore
-    private boolean received = true;
-
+    //Transient variables
+    //******************************************************************************************************************
     @Transient
     @JsonIgnore
     private String comment;
@@ -46,6 +32,26 @@ public class Document extends GenericModel {
     @Transient
     @JsonIgnore
     private List<Staff> executor;
+
+    //Outgoing
+    //******************************************************************************************************************
+    private String indexNo;     // Page number
+    private int pageCount = 1;
+    private long docIndex;      // Counter
+
+    @JsonIgnore
+    private boolean received = true;
+
+    //Incoming
+    //******************************************************************************************************************
+    @ManyToOne
+    @JoinColumn(name = "owner")
+    private User owner;
+
+    private String title;
+
+    @Column(columnDefinition="text")
+    private String description = " ";
 
     @ManyToOne
     @JoinColumn(name = "documentType", foreignKey = @ForeignKey(name = "DOCUMENT_TYPE_ID_FK"))
@@ -86,10 +92,6 @@ public class Document extends GenericModel {
 
     private Long[] documentLinks;
 
-    @Transient
-    @Basic(fetch=FetchType.EAGER)
-    private String stateString;
-
     //endregion
     //region Sender Data
     private String senderRegisteredNumber;
@@ -122,15 +124,6 @@ public class Document extends GenericModel {
     private Executor receiverExecutor;
     //endregion
     //region GET-SET.
-
-    public String getStateString() {
-        return stateString;
-    }
-
-    public void setStateString() {
-        this.stateString = this.documentState.text();
-    }
-
     public Long[] getDocumentLinks() {
         return documentLinks;
     }

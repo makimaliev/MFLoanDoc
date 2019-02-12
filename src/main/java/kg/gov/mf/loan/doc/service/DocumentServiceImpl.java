@@ -1,5 +1,6 @@
 package kg.gov.mf.loan.doc.service;
 
+import kg.gov.mf.loan.doc.model.DocumentType;
 import kg.gov.mf.loan.task.service.GenericServiceImpl;
 import kg.gov.mf.loan.doc.dao.DocumentDao;
 import kg.gov.mf.loan.doc.model.Document;
@@ -21,13 +22,23 @@ public class DocumentServiceImpl extends GenericServiceImpl<Document> implements
      }
 
     @Override
-    public List<Document> getDocuments(long userId) {
-        return dao.getDocuments(userId);
+    public List searchOutgoingDocuments(String documentNo) {
+        return dao.searchOutgoingDocuments(documentNo);
     }
 
     @Override
-    public List<Document> getInvolvedDocuments(String documentType, long userId) {
-        return dao.getInvolvedDocuments(documentType, userId);
+    public int count(String documentType) {
+        return dao.count(documentType);
+    }
+
+    @Override
+    public List list(String documentType, String documentSubType, long userId, int firstResult, int maxResults, String column, String direction, String[] columns, String searchValue) {
+        return dao.list(documentType, documentSubType, userId, firstResult, maxResults, column, direction, columns, searchValue);
+    }
+
+    @Override
+    public List<Document> getDocuments(long userId, String documentType, String documentSubType) {
+        return dao.getDocuments(userId, documentType, documentSubType);
     }
 
     @Override
