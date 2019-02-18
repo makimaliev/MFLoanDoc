@@ -32,6 +32,11 @@ public class CounterServiceImpl extends GenericServiceImpl<Counter> implements C
     }
 
     @Override
+    public Long getNumber() {
+        return dao.getNumber();
+    }
+
+    @Override
     public String generateRegistrationNumber(Document document) {
 
         User user = userService.findById(document.getOwner().getId());

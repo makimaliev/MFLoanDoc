@@ -1,5 +1,6 @@
 package kg.gov.mf.loan.doc.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import kg.gov.mf.loan.admin.org.model.Staff;
@@ -18,12 +19,22 @@ public class Document extends GenericModel {
 
     public Document() {}
 
+    private boolean viewed = false;
+
     //region Document
     //Transient variables
     //******************************************************************************************************************
     @Transient
     @JsonIgnore
     private String comment;
+
+    @Transient
+    @JsonIgnore
+    private String resolution;
+
+    @Transient
+    @JsonIgnore
+    private Date taskDueDate;
 
     @Transient
     @JsonIgnore
@@ -61,6 +72,7 @@ public class Document extends GenericModel {
     @JoinColumn(name = "documentSubType", foreignKey = @ForeignKey(name = "DOCUMENT_SUBTYPE_ID_FK"))
 	private DocumentSubType documentSubType;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @Temporal(TemporalType.DATE)
     private Date documentDueDate;
 
@@ -96,6 +108,7 @@ public class Document extends GenericModel {
     //region Sender Data
     private String senderRegisteredNumber;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @Column(columnDefinition="DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date senderRegisteredDate;
@@ -111,6 +124,7 @@ public class Document extends GenericModel {
     //region Receiver Data
     private String receiverRegisteredNumber;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @Column(columnDefinition="DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date receiverRegisteredDate;
@@ -124,6 +138,30 @@ public class Document extends GenericModel {
     private Executor receiverExecutor;
     //endregion
     //region GET-SET.
+    public boolean isViewed() {
+        return viewed;
+    }
+
+    public void setViewed(boolean viewed) {
+        this.viewed = viewed;
+    }
+
+    public Date getTaskDueDate() {
+        return taskDueDate;
+    }
+
+    public void setTaskDueDate(Date taskDueDate) {
+        this.taskDueDate = taskDueDate;
+    }
+
+    public String getResolution() {
+        return resolution;
+    }
+
+    public void setResolution(String resolution) {
+        this.resolution = resolution;
+    }
+
     public Long[] getDocumentLinks() {
         return documentLinks;
     }

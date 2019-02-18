@@ -6,4 +6,5 @@ import kg.gov.mf.loan.task.dao.GenericDao;
 public interface CounterDao  extends GenericDao<Counter>
 {
     Counter getCounter(long department, long documentType, long documentSubType);
+    Long getNumber();
 }

@@ -1,17 +1,15 @@
 package kg.gov.mf.loan.doc.dao;
 
 import kg.gov.mf.loan.admin.sys.dao.UserDao;
-import kg.gov.mf.loan.doc.model.DocumentSubType;
+import kg.gov.mf.loan.doc.model.Document;
 import kg.gov.mf.loan.doc.model.DocumentType;
 import kg.gov.mf.loan.task.dao.GenericDaoImpl;
-import kg.gov.mf.loan.doc.model.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
@@ -43,7 +41,7 @@ public class DocumentDaoImpl extends GenericDaoImpl<Document> implements Documen
         q += userId != 0 ? " and u in (:usr)" : "";
         q += documentType != null ? " and d.documentType.internalName = :documentType" : "";
         q += documentSubType != null ? " and d.documentSubType.internalName = :documentSubType" : "";
-        q += " order by d.id desc";
+        q += " order by d.id asc";
 
         Query query = entityManager.createQuery(q);
         if(userId != 0) {
@@ -98,7 +96,8 @@ public class DocumentDaoImpl extends GenericDaoImpl<Document> implements Documen
         }
 
 
-        return query.setFirstResult(firstResult)
+        return query
+                .setFirstResult(firstResult)
                 .setMaxResults(maxResults)
                 .getResultList();
     }
@@ -122,7 +121,7 @@ public class DocumentDaoImpl extends GenericDaoImpl<Document> implements Documen
         */
 
 
-        String q = "Select count(d.id) from Document d join d.users u where 1=1 and d.documentType.internalName = :documentType";
+        String q = "Select count(d.id) from Document d where d.documentType.internalName = :documentType";
         Long count = (Long)entityManager.createQuery(q)
                 .setParameter("documentType", documentType)
                 .getSingleResult();

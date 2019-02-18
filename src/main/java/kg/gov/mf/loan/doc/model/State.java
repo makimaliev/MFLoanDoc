@@ -267,6 +267,18 @@ public enum State
                 public String text() {
                     return "Завершен";
                 }
+            },
+    CLOSED  {
+                @Override
+                public State next(Transition transition)
+                {
+                    return CLOSED;
+                }
+
+                @Override
+                public String text() {
+                    return "Закрыт";
+                }
             };
 
     public abstract State next(Transition transition);
