@@ -2,12 +2,14 @@ package kg.gov.mf.loan.doc.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import kg.gov.mf.loan.admin.org.model.Staff;
 import kg.gov.mf.loan.admin.sys.model.User;
 import kg.gov.mf.loan.task.model.GenericModel;
 import kg.gov.mf.loan.task.listener.MFEntityListener;
 import kg.gov.mf.loan.task.model.Task;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.util.*;
@@ -15,10 +17,12 @@ import java.util.*;
 @Entity
 @Table(name="df_document")
 @EntityListeners(MFEntityListener.class)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Document extends GenericModel {
 
     public Document() {}
 
+    @JsonIgnore
     private boolean viewed = false;
 
     //region Document
@@ -76,6 +80,7 @@ public class Document extends GenericModel {
     @Temporal(TemporalType.DATE)
     private Date documentDueDate;
 
+    @JsonIgnore
     @Enumerated(EnumType.STRING)
     private State documentState = State.NEW;
 
@@ -102,6 +107,7 @@ public class Document extends GenericModel {
     @JoinColumn(name = "documentAttachments")
     private Set<Attachment> attachments = new LinkedHashSet<>(0);
 
+    @JsonIgnore
     private Long[] documentLinks;
 
     //endregion

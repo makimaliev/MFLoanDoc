@@ -36,7 +36,11 @@ public class DocumentDaoImpl extends GenericDaoImpl<Document> implements Documen
     @Override
     public List getDocuments(long userId, String documentType, String documentSubType) {
 
-        String q = "Select d from Document d join d.users u where 1=1";
+        String q = "Select d from Document d";
+
+        q += userId != 0 ? " join d.users u" : "";
+
+        q += " where 1=1";
 
         q += userId != 0 ? " and u in (:usr)" : "";
         q += documentType != null ? " and d.documentType.internalName = :documentType" : "";
@@ -62,20 +66,23 @@ public class DocumentDaoImpl extends GenericDaoImpl<Document> implements Documen
     @Override
     public List list(String documentType, String documentSubType, long userId, int firstResult, int maxResults, String column, String direction, String[] columns, String searchValue) {
 
-        String q = "Select d from Document d join d.users u where 1=1";
+        //join d.users u
+
+        String q = "Select d from Document d";
+        q += userId != 0 ? " join d.users u " : "";
+        q += " where 1=1";
         q += userId != 0 ? " and u in (:usr)" : "";
         q += documentType != null ? " and d.documentType.internalName = :documentType" : "";
         q += documentSubType != null ? " and d.documentSubType.internalName = :documentSubType" : "";
 
-        if(columns != null) {
-
+        if(!searchValue.isEmpty()) {
             for (String str : columns)
             {
-                q += " and cast(d." + str + " as string) like :searchValue";
+                q += " or cast(d." + str + " as string) like :searchValue";
             }
         }
 
-        q += column != null ? " order by d." + column + " " + direction : " order by d.id";
+        q += column != null ? " order by d." + column + " " + direction : " order by d.id " + direction;
 
         Query query = entityManager.createQuery(q);
 
@@ -91,10 +98,9 @@ public class DocumentDaoImpl extends GenericDaoImpl<Document> implements Documen
             query.setParameter("documentSubType", documentSubType);
         }
 
-        if(searchValue != null) {
-            query.setParameter("searchValue", searchValue);
+        if(!searchValue.isEmpty()) {
+            query.setParameter("searchValue", "%" + searchValue + "%");
         }
-
 
         return query
                 .setFirstResult(firstResult)
@@ -104,22 +110,6 @@ public class DocumentDaoImpl extends GenericDaoImpl<Document> implements Documen
 
     @Override
     public int count(String documentType) {
-
-        /*
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
-
-        Root<Document> root = criteria.from(Document.class);
-        ParameterExpression<String> param = builder.parameter(String.class);
-        criteria.select(builder.count(criteria.from(Document.class)));
-        criteria.where(builder.equal(root.get("documentType.internalName"), param));
-
-        return entityManager.createQuery(criteria)
-                .setParameter(param, documentType)
-                .getSingleResult()
-                .intValue();
-        */
-
 
         String q = "Select count(d.id) from Document d where d.documentType.internalName = :documentType";
         Long count = (Long)entityManager.createQuery(q)

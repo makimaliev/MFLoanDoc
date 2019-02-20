@@ -8,5 +8,5 @@ public interface CounterService extends GenericService<Counter>
 {
     Counter getCounter(long department, long documentType, long documentSubType);
     Long getNumber();
-    String generateRegistrationNumber(Document document);
+    String generateRegistrationNumber(Document document, long userId);
 }

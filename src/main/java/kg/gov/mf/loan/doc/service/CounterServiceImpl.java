@@ -37,7 +37,7 @@ public class CounterServiceImpl extends GenericServiceImpl<Counter> implements C
     }
 
     @Override
-    public String generateRegistrationNumber(Document document) {
+    public String generateRegistrationNumber(Document document, long userId) {
 
         User user = userService.findById(document.getOwner().getId());
 
@@ -46,6 +46,7 @@ public class CounterServiceImpl extends GenericServiceImpl<Counter> implements C
         long documentType = document.getDocumentType().getId();
         long documentSubType = document.getDocumentSubType().getId();
         long c;
+        Map<String, String> fmt = new HashMap<>();
 
         if (document.getDocumentType().getInternalName().equals("incoming"))
         {
@@ -58,6 +59,7 @@ public class CounterServiceImpl extends GenericServiceImpl<Counter> implements C
             counter = getCounter(0, 0, 0);
             c = counter.getOutgoing();
             updateOutgoing(counter);
+            fmt.put("КО", Objects.toString(user.getStaff().getDepartment().getDescription(), ""));
         }
         else if(document.getDocumentType().getInternalName().equals("internal"))
         {
@@ -65,11 +67,13 @@ public class CounterServiceImpl extends GenericServiceImpl<Counter> implements C
                 counter = getCounter(department, documentType,0);
                 c = counter.getOutgoing();
                 updateOutgoing(counter);
+                fmt.put("КО", Objects.toString(user.getStaff().getDepartment().getDescription(), ""));
             }
             else {
-                counter = getCounter(department, documentType,0);
+                counter = getCounter(userService.findById(userId).getStaff().getDepartment().getId(), documentType,0);
                 c = counter.getIncoming();
                 updateIncoming(counter);
+                fmt.put("КО", Objects.toString(userService.findById(userId).getStaff().getDepartment().getDescription(), ""));
             }
         }
         else
@@ -103,11 +107,9 @@ public class CounterServiceImpl extends GenericServiceImpl<Counter> implements C
         String month = dFormat.format(cal.get(Calendar.MONTH) + 1);
         String year = String.valueOf(cal.get(Calendar.YEAR));
 
-        Map<String, String> fmt = new HashMap<>();
         fmt.put("No", String.valueOf(c));
         fmt.put("ВД", document.getDocumentType().getCode());
         fmt.put("ТД", document.getDocumentSubType().getCode());
-        fmt.put("КО", Objects.toString(user.getStaff().getDepartment().getDescription(), ""));
         fmt.put("КС", String.valueOf(user.getId()));
         fmt.put("ДД", day);
         fmt.put("ММ", month);
