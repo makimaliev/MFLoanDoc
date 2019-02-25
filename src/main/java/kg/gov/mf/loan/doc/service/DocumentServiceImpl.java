@@ -1,5 +1,6 @@
 package kg.gov.mf.loan.doc.service;
 
+import kg.gov.mf.loan.doc.model.DataTableResult;
 import kg.gov.mf.loan.doc.model.DocumentType;
 import kg.gov.mf.loan.task.service.GenericServiceImpl;
 import kg.gov.mf.loan.doc.dao.DocumentDao;
@@ -32,7 +33,7 @@ public class DocumentServiceImpl extends GenericServiceImpl<Document> implements
     }
 
     @Override
-    public List list(String documentType, String documentSubType, long userId, int firstResult, int maxResults, String column, String direction, String[] columns, String searchValue) {
+    public DataTableResult list(String documentType, String documentSubType, long userId, int firstResult, int maxResults, String column, String direction, String[] columns, String searchValue) {
         return dao.list(documentType, documentSubType, userId, firstResult, maxResults, column, direction, columns, searchValue);
     }
 

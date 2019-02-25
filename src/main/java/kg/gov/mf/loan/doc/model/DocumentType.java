@@ -14,10 +14,10 @@ import java.util.Set;
 @EntityListeners(MFEntityListener.class)
 public class DocumentType extends Catalog {
 
+    @JsonIgnore
     private String code;
+    @JsonIgnore
     private String regNoFormat;
-
-    public DocumentType() { }
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "documentType")
@@ -26,6 +26,8 @@ public class DocumentType extends Catalog {
     @JsonIgnore
     @Transient
     private Map<State, Boolean> stages;
+
+    public DocumentType() { }
 
     //region GET-SET
     public String getRegNoFormat() {

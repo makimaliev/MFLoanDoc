@@ -1,6 +1,7 @@
 package kg.gov.mf.loan.doc.dao;
 
 import kg.gov.mf.loan.admin.sys.dao.UserDao;
+import kg.gov.mf.loan.doc.model.DataTableResult;
 import kg.gov.mf.loan.doc.model.Document;
 import kg.gov.mf.loan.doc.model.DocumentType;
 import kg.gov.mf.loan.task.dao.GenericDaoImpl;
@@ -11,6 +12,7 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.math.BigInteger;
 import java.util.List;
 
 @Repository
@@ -64,48 +66,70 @@ public class DocumentDaoImpl extends GenericDaoImpl<Document> implements Documen
     }
 
     @Override
-    public List list(String documentType, String documentSubType, long userId, int firstResult, int maxResults, String column, String direction, String[] columns, String searchValue) {
+    public DataTableResult list(String documentType, String documentSubType, long userId, int firstResult, int maxResults, String column, String direction, String[] columns, String searchValue) {
 
-        //join d.users u
+        String selectQuery = "Select d from Document d";
+        String countQuery = "Select count(1) from Document d";
+        String q = "";
 
-        String q = "Select d from Document d";
         q += userId != 0 ? " join d.users u " : "";
         q += " where 1=1";
         q += userId != 0 ? " and u in (:usr)" : "";
         q += documentType != null ? " and d.documentType.internalName = :documentType" : "";
-        q += documentSubType != null ? " and d.documentSubType.internalName = :documentSubType" : "";
+        q += documentSubType != null ? " and d.documentSubType.name = :documentSubType" : "";
 
         if(!searchValue.isEmpty()) {
+            q += " and (";
+            boolean b = true;
             for (String str : columns)
             {
-                q += " or cast(d." + str + " as string) like :searchValue";
+                if(b) {
+                    q += "cast(d." + str + " as string) like :searchValue";
+                }
+                else {
+                    q += " or cast(d." + str + " as string) like :searchValue";
+                }
+                b = false;
             }
+            q += " )";
         }
 
         q += column != null ? " order by d." + column + " " + direction : " order by d.id " + direction;
 
-        Query query = entityManager.createQuery(q);
+        Query querySelect = entityManager.createQuery(selectQuery + q);
+        Query queryCount = entityManager.createQuery(countQuery + q);
 
         if(userId != 0) {
-            query.setParameter("usr", userDao.findById(userId));
+            querySelect.setParameter("usr", userDao.findById(userId));
+            queryCount.setParameter("usr", userDao.findById(userId));
         }
 
         if(documentType != null) {
-            query.setParameter("documentType", documentType);
+            querySelect.setParameter("documentType", documentType);
+            queryCount.setParameter("documentType", documentType);
         }
 
         if(documentSubType != null) {
-            query.setParameter("documentSubType", documentSubType);
+            querySelect.setParameter("documentSubType", documentSubType);
+            queryCount.setParameter("documentSubType", documentSubType);
         }
 
         if(!searchValue.isEmpty()) {
-            query.setParameter("searchValue", "%" + searchValue + "%");
+            querySelect.setParameter("searchValue", "%" + searchValue + "%");
+            queryCount.setParameter("searchValue", "%" + searchValue + "%");
         }
 
-        return query
+
+        DataTableResult dataTableResult = new DataTableResult();
+        dataTableResult.setCount((Long)queryCount.getSingleResult());
+        dataTableResult.setData(
+                querySelect
                 .setFirstResult(firstResult)
                 .setMaxResults(maxResults)
-                .getResultList();
+                .getResultList()
+        );
+
+        return dataTableResult;
     }
 
     @Override

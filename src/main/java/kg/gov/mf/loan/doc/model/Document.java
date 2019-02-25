@@ -17,7 +17,6 @@ import java.util.*;
 @Entity
 @Table(name="df_document")
 @EntityListeners(MFEntityListener.class)
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Document extends GenericModel {
 
     public Document() {}
@@ -76,11 +75,10 @@ public class Document extends GenericModel {
     @JoinColumn(name = "documentSubType", foreignKey = @ForeignKey(name = "DOCUMENT_SUBTYPE_ID_FK"))
 	private DocumentSubType documentSubType;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yy")
     @Temporal(TemporalType.DATE)
     private Date documentDueDate;
 
-    @JsonIgnore
     @Enumerated(EnumType.STRING)
     private State documentState = State.NEW;
 
@@ -114,7 +112,7 @@ public class Document extends GenericModel {
     //region Sender Data
     private String senderRegisteredNumber;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yy")
     @Column(columnDefinition="DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date senderRegisteredDate;
@@ -130,7 +128,7 @@ public class Document extends GenericModel {
     //region Receiver Data
     private String receiverRegisteredNumber;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yy")
     @Column(columnDefinition="DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date receiverRegisteredDate;

@@ -11,15 +11,15 @@ import javax.persistence.*;
 @EntityListeners(MFEntityListener.class)
 public class DocumentSubType extends Catalog
 {
+    @JsonIgnore
     private String code;
-
-    public DocumentSubType() { }
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="documentType_id")
     private DocumentType documentType;
 
+    public DocumentSubType() { }
     //region GET-SET
     public String getCode() {
         return code;
