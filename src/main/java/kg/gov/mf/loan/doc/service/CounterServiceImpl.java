@@ -89,7 +89,7 @@ public class CounterServiceImpl extends GenericServiceImpl<Counter> implements C
         {No} - Номер документа
         {ВД} - Вид документа
         {ТД} - Тип документа
-        {КО} - Код организации
+        {КО} - Код отдела
         {КС} - Код сотрудника
         {ДД} - День (две цифры)
         {ММ} - Месяц (две цифры)

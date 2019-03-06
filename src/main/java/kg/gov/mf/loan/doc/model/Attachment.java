@@ -1,5 +1,6 @@
 package kg.gov.mf.loan.doc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import kg.gov.mf.loan.admin.sys.model.User;
 import kg.gov.mf.loan.task.model.Catalog;
 
@@ -19,12 +20,14 @@ public class Attachment extends Catalog {
         this.mimeType = mimeType;
     }
 
+    @JsonIgnore
     private long author;
-
+    @JsonIgnore
     private String mimeType;
-
+    @JsonIgnore
     private String pageIndexNo;
 
+    //region GET-SET
     public long getAuthor() {
         return author;
     }
@@ -48,5 +51,5 @@ public class Attachment extends Catalog {
     public void setMimeType(String mimeType) {
         this.mimeType = mimeType;
     }
-
+    //endregion
 }
