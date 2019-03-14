@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="cat_document_subtype")
-@EntityListeners(MFEntityListener.class)
+//@EntityListeners(MFEntityListener.class)
 public class DocumentSubType extends Catalog
 {
     @JsonIgnore

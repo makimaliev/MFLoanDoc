@@ -16,7 +16,7 @@ import java.util.*;
 
 @Entity
 @Table(name="df_document")
-@EntityListeners(MFEntityListener.class)
+//@EntityListeners(MFEntityListener.class)
 public class Document extends GenericModel {
 
     public Document() {}
@@ -107,6 +107,9 @@ public class Document extends GenericModel {
 
     @JsonIgnore
     private Long[] documentLinks;
+
+    private Long closedWithId;
+
 
     //endregion
     //region Sender Data
@@ -372,6 +375,14 @@ public class Document extends GenericModel {
 
     public void setReceiverExecutor(Executor receiverExecutor) {
         this.receiverExecutor = receiverExecutor;
+    }
+
+    public Long getClosedWithId() {
+        return closedWithId;
+    }
+
+    public void setClosedWithId(Long closedWithId) {
+        this.closedWithId = closedWithId;
     }
     //endregion
 }

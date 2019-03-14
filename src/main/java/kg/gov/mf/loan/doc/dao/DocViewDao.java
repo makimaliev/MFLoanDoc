@@ -32,9 +32,13 @@ public class DocViewDao {
         for(Column column : input.getColumns())
         {
             if(!column.getSearch().getValue().isEmpty()) {
-                if(column.getName().contains("Date"))
+                if(column.getName().contains("Date") && !column.getName().contains("DueDate"))
                 {
                     q += " and (date(" + column.getName() + ") between :" + column.getName() + "fd and :" + column.getName() + "td)";
+                }
+                else if(column.getName().contains("DueDate"))
+                {
+                    q += " and documentDueDate IS " + column.getSearch().getValue() + " NULL";
                 }
                 else
                 {
@@ -51,7 +55,7 @@ public class DocViewDao {
         for(Column column : input.getColumns())
         {
             if(!column.getSearch().getValue().isEmpty()) {
-                if(column.getName().contains("Date"))
+                if(column.getName().contains("Date") && !column.getName().contains("DueDate"))
                 {
                     Date[] dates = getDates(column.getSearch().getValue());
                     querySelect.setParameter(column.getName() + "fd", dates[0]);
@@ -61,8 +65,10 @@ public class DocViewDao {
                 }
                 else
                 {
-                    querySelect.setParameter(column.getName(), "%" + column.getSearch().getValue() + "%");
-                    queryCount.setParameter(column.getName(), "%" + column.getSearch().getValue() + "%");
+                    if(!column.getName().contains("DueDate")) {
+                        querySelect.setParameter(column.getName(), "%" + column.getSearch().getValue() + "%");
+                        queryCount.setParameter(column.getName(), "%" + column.getSearch().getValue() + "%");
+                    }
                 }
             }
         }

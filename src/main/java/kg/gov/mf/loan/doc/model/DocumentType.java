@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="cat_document_type")
-@EntityListeners(MFEntityListener.class)
+//@EntityListeners(MFEntityListener.class)
 public class DocumentType extends Catalog {
 
     @JsonIgnore
