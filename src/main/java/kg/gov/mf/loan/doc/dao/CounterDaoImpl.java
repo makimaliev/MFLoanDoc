@@ -36,10 +36,18 @@ public class CounterDaoImpl extends GenericDaoImpl<Counter> implements CounterDa
     }
 
     @Override
-    public Long getNumber() {
+    public Long getIncomingNumber() {
 
         Counter c = (Counter) entityManager.createQuery("Select c from Counter c where c.documentType = 0 and c.documentSubType = 0 and c.department = 0")
                 .getSingleResult();
         return c.getIncoming();
+    }
+
+    @Override
+    public Long getOutgoingNumber() {
+
+        Counter c = (Counter) entityManager.createQuery("Select c from Counter c where c.documentType = 0 and c.documentSubType = 0 and c.department = 0")
+                .getSingleResult();
+        return c.getOutgoing();
     }
 }

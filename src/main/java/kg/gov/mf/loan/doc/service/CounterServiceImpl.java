@@ -32,8 +32,13 @@ public class CounterServiceImpl extends GenericServiceImpl<Counter> implements C
     }
 
     @Override
-    public Long getNumber() {
-        return dao.getNumber();
+    public Long getIncomingNumber() {
+        return dao.getIncomingNumber();
+    }
+
+    @Override
+    public Long getOutgoingNumber() {
+        return dao.getOutgoingNumber();
     }
 
     @Override

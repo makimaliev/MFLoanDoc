@@ -39,13 +39,13 @@ public class DocView {
     private String receiverExecutor;
     private String users;
 
+    private Long closedWithId;
     private String closedWithNo;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yy")
     private Date closedWithDate;
 
     //private long[] documentLinks;
     //private long[] attachments;
-
 
     //region GET-SET
 
@@ -207,6 +207,14 @@ public class DocView {
 
     public void setUsers(String users) {
         this.users = users;
+    }
+
+    public Long getClosedWithId() {
+        return closedWithId;
+    }
+
+    public void setClosedWithId(Long closedWithId) {
+        this.closedWithId = closedWithId;
     }
 
     public String getClosedWithNo() {

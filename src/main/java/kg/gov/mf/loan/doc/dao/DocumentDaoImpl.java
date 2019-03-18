@@ -42,12 +42,12 @@ public class DocumentDaoImpl extends GenericDaoImpl<Document> implements Documen
 
         q += userId != 0 ? " join d.users u" : "";
 
-        q += " where 1=1";
+        q += " where 1=1 and d.documentLinks is not null";
 
         q += userId != 0 ? " and u in (:usr)" : "";
         q += documentType != null ? " and d.documentType.internalName = :documentType" : "";
         q += documentSubType != null ? " and d.documentSubType.internalName = :documentSubType" : "";
-        q += " order by d.id asc";
+        q += " order by d.id desc";
 
         Query query = entityManager.createQuery(q);
         if(userId != 0) {

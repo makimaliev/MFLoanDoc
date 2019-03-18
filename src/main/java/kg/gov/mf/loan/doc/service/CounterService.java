@@ -7,6 +7,7 @@ import kg.gov.mf.loan.task.service.GenericService;
 public interface CounterService extends GenericService<Counter>
 {
     Counter getCounter(long department, long documentType, long documentSubType);
-    Long getNumber();
+    Long getIncomingNumber();
+    Long getOutgoingNumber();
     String generateRegistrationNumber(Document document, long userId);
 }
