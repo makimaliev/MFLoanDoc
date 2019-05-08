@@ -1,6 +1,5 @@
 package kg.gov.mf.loan.doc.model;
 
-import java.math.BigInteger;
 import java.util.List;
 
 public class DataTableResult {

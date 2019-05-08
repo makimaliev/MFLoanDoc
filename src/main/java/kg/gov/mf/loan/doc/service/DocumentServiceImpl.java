@@ -1,15 +1,17 @@
 package kg.gov.mf.loan.doc.service;
 
-import kg.gov.mf.loan.doc.model.DataTableResult;
-import kg.gov.mf.loan.doc.model.DocumentType;
-import kg.gov.mf.loan.task.service.GenericServiceImpl;
 import kg.gov.mf.loan.doc.dao.DocumentDao;
+import kg.gov.mf.loan.doc.model.DataTableResult;
+import kg.gov.mf.loan.doc.model.DispatchData;
 import kg.gov.mf.loan.doc.model.Document;
+import kg.gov.mf.loan.task.service.GenericServiceImpl;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -90,5 +92,19 @@ public class DocumentServiceImpl extends GenericServiceImpl<Document> implements
     @Override
     public Document finish(Document document, String action) {
         return null;
+    }
+
+    @Override
+    public Set<Long> getDocumentUsers(Long id) {
+        Document doc = dao.getById(id);
+        Hibernate.initialize(doc.getUsers());
+        return doc.getUsers();
+    }
+
+    @Override
+    public Set<DispatchData> getDocumentDispatchData(Long id) {
+        Document doc = dao.getById(id);
+        Hibernate.initialize(doc.getDispatchData());
+        return doc.getDispatchData();
     }
 }

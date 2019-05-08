@@ -5,6 +5,7 @@ import kg.gov.mf.loan.doc.model.DataTableResult;
 import kg.gov.mf.loan.doc.model.Document;
 import kg.gov.mf.loan.doc.model.DocumentType;
 import kg.gov.mf.loan.task.dao.GenericDaoImpl;
+import org.hibernate.transform.AliasToEntityMapResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -12,8 +13,8 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.math.BigInteger;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class DocumentDaoImpl extends GenericDaoImpl<Document> implements DocumentDao
@@ -28,11 +29,20 @@ public class DocumentDaoImpl extends GenericDaoImpl<Document> implements Documen
     @Override
     public List searchOutgoingDocuments(String documentNo) {
 
-        List list = entityManager.createQuery("Select d from Document d where d.documentType.internalName = 'outgoing' and d.senderRegisteredNumber like :documentNo order by d.id asc")
-                .setParameter("documentNo", "%"+ documentNo + "%")
-                .getResultList();
+        String query =
+                "select \n" +
+                "d.id as id, \n" +
+                "concat(d.documentSubType.name, '№', d.senderRegisteredNumber) as text \n" +
+                "from Document d \n" +
+                "where d.documentType.internalName = 'outgoing' and d.senderRegisteredNumber like :rn order by d.id asc";
 
-        return list;
+        List<Map<String,Object>> result = entityManager.createQuery(query)
+                .setParameter("rn", "%"+ documentNo + "%")
+                .unwrap(org.hibernate.Query.class)
+                .setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE)
+                .list();
+
+        return result;
     }
 
     @Override
@@ -84,7 +94,7 @@ public class DocumentDaoImpl extends GenericDaoImpl<Document> implements Documen
             for (String str : columns)
             {
                 if(b) {
-                    q += "cast(d." + str + " as string) like :searchValue";
+                    q += " cast(d." + str + " as string) like :searchValue";
                 }
                 else {
                     q += " or cast(d." + str + " as string) like :searchValue";

@@ -34,7 +34,7 @@ public class DocViewDao {
             if(!column.getSearch().getValue().isEmpty()) {
                 if(column.getName().contains("Date") && !column.getName().contains("DueDate"))
                 {
-                    q += " and (date(" + column.getName() + ") between :" + column.getName() + "fd and :" + column.getName() + "td)";
+                    q += " and (date(" + column.getName() + ") between date(:" + column.getName() + "fd) and date(:" + column.getName() + "td))";
                 }
                 else if(column.getName().contains("DueDate"))
                 {
@@ -79,7 +79,7 @@ public class DocViewDao {
         dataTableResult.setData(
                 querySelect
                         .setFirstResult(input.getStart())
-                        .setMaxResults(input.getLength())
+                        .setMaxResults(input.getLength() < 0 ? 0 : input.getLength())
                         .getResultList()
         );
 

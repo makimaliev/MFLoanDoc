@@ -2,7 +2,8 @@ package kg.gov.mf.loan.doc.model;
 
 import kg.gov.mf.loan.task.model.GenericModel;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="df_counter")

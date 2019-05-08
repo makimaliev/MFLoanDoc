@@ -2,21 +2,18 @@ package kg.gov.mf.loan.doc.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import kg.gov.mf.loan.admin.org.model.Staff;
 import kg.gov.mf.loan.admin.sys.model.User;
 import kg.gov.mf.loan.task.model.GenericModel;
-import kg.gov.mf.loan.task.listener.MFEntityListener;
-import kg.gov.mf.loan.task.model.Task;
-import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="df_document")
-//@EntityListeners(MFEntityListener.class)
 public class Document extends GenericModel {
 
     public Document() {}
@@ -54,7 +51,7 @@ public class Document extends GenericModel {
     private long docIndex;      // Counter
 
     @JsonIgnore
-    private boolean received = true;
+    private boolean received = false;
 
     //Incoming
     //******************************************************************************************************************
@@ -75,8 +72,8 @@ public class Document extends GenericModel {
     @JoinColumn(name = "documentSubType", foreignKey = @ForeignKey(name = "DOCUMENT_SUBTYPE_ID_FK"))
 	private DocumentSubType documentSubType;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yy")
-    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yy", timezone = "Asia/Bishkek")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date documentDueDate;
 
     @Enumerated(EnumType.STRING)
@@ -97,19 +94,16 @@ public class Document extends GenericModel {
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
-    @JoinColumn
-    private Set<User> users = new LinkedHashSet<>(0);
-
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "documentAttachments")
     private Set<Attachment> attachments = new LinkedHashSet<>(0);
 
     @JsonIgnore
-    private Long[] documentLinks;
+    @ElementCollection//(fetch = FetchType.EAGER)
+    @CollectionTable(name="document_users", joinColumns=@JoinColumn(name="documentId"))
+    @Column(name="userId")
+    private Set<Long> users = new LinkedHashSet<>();
 
     private Long closedWithId;
-
 
     //endregion
     //region Sender Data
@@ -167,14 +161,6 @@ public class Document extends GenericModel {
 
     public void setResolution(String resolution) {
         this.resolution = resolution;
-    }
-
-    public Long[] getDocumentLinks() {
-        return documentLinks;
-    }
-
-    public void setDocumentLinks(Long[] documentLinks) {
-        this.documentLinks = documentLinks;
     }
 
     public long getDocIndex() {
@@ -305,11 +291,11 @@ public class Document extends GenericModel {
         this.dispatchData = dispatchData;
     }
 
-    public Set<User> getUsers() {
+    public Set<Long> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<User> users) {
+    public void setUsers(Set<Long> users) {
         this.users = users;
     }
 

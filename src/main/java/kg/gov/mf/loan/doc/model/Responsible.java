@@ -1,6 +1,5 @@
 package kg.gov.mf.loan.doc.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import kg.gov.mf.loan.admin.org.model.Department;
 import kg.gov.mf.loan.admin.org.model.Organization;
 import kg.gov.mf.loan.admin.org.model.Person;
@@ -8,7 +7,8 @@ import kg.gov.mf.loan.admin.org.model.Staff;
 import kg.gov.mf.loan.task.model.GenericModel;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="cat_responsible")
@@ -37,52 +37,7 @@ public class Responsible extends GenericModel {
     @JoinColumn
     private Set<Person> person = new LinkedHashSet<>(0);
 
-    @Transient
-    @Basic(fetch=FetchType.EAGER)
-    private List<String> responsibles;
-
     //region GET-SET
-    public void setResponsibles() {
-
-        List<String> list = new ArrayList<>();
-
-        if(this.responsibleType == 1)
-        {
-            for(Staff s : staff)
-            {
-                list.add(s.getName());
-            }
-        }
-        else if(this.responsibleType == 2)
-        {
-            for(Department d : departments)
-            {
-                list.add(d.getName());
-            }
-        }
-        else if(this.responsibleType == 3)
-        {
-            for(Organization o : this.organizations)
-            {
-                list.add(o.getName());
-            }
-        }
-        else
-        {
-            for(Person p : this.person)
-            {
-                list.add(p.getName());
-            }
-        }
-
-        this.responsibles = list;
-    }
-
-    public List<String> getResponsibles() {
-
-        return responsibles;
-    }
-
     public String getResponsibleName() {
 
         return responsibleName;
@@ -132,4 +87,6 @@ public class Responsible extends GenericModel {
         this.person = person;
     }
     //endregion
+
+
 }

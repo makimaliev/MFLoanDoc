@@ -1,11 +1,10 @@
 package kg.gov.mf.loan.doc.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import kg.gov.mf.loan.admin.sys.model.User;
-import kg.gov.mf.loan.task.listener.MFEntityListener;
 import kg.gov.mf.loan.task.model.Catalog;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="cat_attachments")

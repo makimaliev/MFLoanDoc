@@ -8,7 +8,6 @@ import kg.gov.mf.loan.admin.org.model.Staff;
 import kg.gov.mf.loan.task.model.GenericModel;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 

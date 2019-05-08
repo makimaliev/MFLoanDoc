@@ -1,8 +1,8 @@
 package kg.gov.mf.loan.doc.service;
 
-import kg.gov.mf.loan.task.service.GenericServiceImpl;
 import kg.gov.mf.loan.doc.dao.DocumentSubTypeDao;
 import kg.gov.mf.loan.doc.model.DocumentSubType;
+import kg.gov.mf.loan.task.service.GenericServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

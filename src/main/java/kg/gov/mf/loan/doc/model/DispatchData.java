@@ -1,7 +1,6 @@
 package kg.gov.mf.loan.doc.model;
 
 import kg.gov.mf.loan.admin.sys.model.User;
-import kg.gov.mf.loan.task.listener.MFEntityListener;
 import kg.gov.mf.loan.task.model.GenericModel;
 
 import javax.persistence.*;

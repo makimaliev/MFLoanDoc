@@ -22,18 +22,18 @@ public class DocView {
     private String description;
     private long documentType;
     private String documentSubType;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yy", timezone = "Asia/Bishkek")
     private Date documentDueDate;
     private String documentState;
 
     private String senderRegisteredNumber;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yy", timezone = "Asia/Bishkek")
     private Date senderRegisteredDate;
     private String senderResponsible;
     private String senderExecutor;
 
     private String receiverRegisteredNumber;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yy", timezone = "Asia/Bishkek")
     private Date receiverRegisteredDate;
     private String receiverResponsible;
     private String receiverExecutor;
@@ -41,7 +41,7 @@ public class DocView {
 
     private Long closedWithId;
     private String closedWithNo;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yy", timezone = "Asia/Bishkek")
     private Date closedWithDate;
 
     //private long[] documentLinks;
