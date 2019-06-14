@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import kg.gov.mf.loan.admin.org.model.Staff;
 import kg.gov.mf.loan.admin.sys.model.User;
 import kg.gov.mf.loan.task.model.GenericModel;
+//import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import java.util.Date;

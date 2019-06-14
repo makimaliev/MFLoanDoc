@@ -95,13 +95,6 @@ public class DocumentServiceImpl extends GenericServiceImpl<Document> implements
     }
 
     @Override
-    public Set<Long> getDocumentUsers(Long id) {
-        Document doc = dao.getById(id);
-        Hibernate.initialize(doc.getUsers());
-        return doc.getUsers();
-    }
-
-    @Override
     public Set<DispatchData> getDocumentDispatchData(Long id) {
         Document doc = dao.getById(id);
         Hibernate.initialize(doc.getDispatchData());

@@ -5,6 +5,7 @@ import kg.gov.mf.loan.doc.model.DataTableResult;
 import kg.gov.mf.loan.doc.model.Document;
 import kg.gov.mf.loan.doc.model.DocumentType;
 import kg.gov.mf.loan.task.dao.GenericDaoImpl;
+import org.hibernate.Hibernate;
 import org.hibernate.transform.AliasToEntityMapResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,6 +25,13 @@ public class DocumentDaoImpl extends GenericDaoImpl<Document> implements Documen
     @Autowired
     public DocumentDaoImpl(UserDao userDao) {
         this.userDao = userDao;
+    }
+
+    @Override
+    public Document getById(long id) {
+        Document document = super.getById(id);
+        Hibernate.initialize(document.getUsers());
+        return document;
     }
 
     @Override

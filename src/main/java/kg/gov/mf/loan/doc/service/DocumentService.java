@@ -14,7 +14,6 @@ public interface DocumentService extends GenericService<Document>
     int count(String documentType);
     DataTableResult list(String documentType, String documentSubType, long userId, int firstResult, int maxResults, String column, String direction, String[] columns, String searchValue);
     List<Document> getDocuments(long userId, String documentType, String documentSubType);
-    Set<Long> getDocumentUsers(Long id);
     Set<DispatchData> getDocumentDispatchData(Long id);
 
     Document create(Document document, String action);
