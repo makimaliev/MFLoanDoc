@@ -22,16 +22,20 @@ public class DocViewDao {
 
     public DataTableResult list(long documentType, long userId, DataTablesInput input)
     {
-        String selectQuery = "SELECT * FROM documentview  WHERE documentType = " + documentType;
-        String countQuery = "SELECT count(1) FROM documentview WHERE documentType = " + documentType;
+        String selectQuery = "SELECT * FROM documentview  WHERE 1=1";
+        String countQuery = "SELECT count(1) FROM documentview WHERE 1=1";
+
+        String q = "";
+
+        if(documentType != 0)
+        {
+            q += " AND documentType = " + documentType;
+        }
 
         if(userId != 0)
         {
-            selectQuery += " AND FIND_IN_SET('" + userId + "', users)";
-            countQuery  += " AND FIND_IN_SET('" + userId + "', users)";
+            q += " AND FIND_IN_SET('" + userId + "', users)";
         }
-
-        String q = "";
 
         String columnToSort = input.getColumns().get(input.getOrder().get(0).getColumn()).getName();
         String sortDirection = input.getOrder().get(0).getDir();

@@ -1,5 +1,6 @@
 package kg.gov.mf.loan.doc.model;
 
+import kg.gov.mf.loan.task.model.Catalog;
 import kg.gov.mf.loan.task.model.GenericModel;
 
 import javax.persistence.Entity;
@@ -7,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="df_counter")
-public class Counter extends GenericModel
+public class Counter extends Catalog
 {
     private long department;
     private long documentType;

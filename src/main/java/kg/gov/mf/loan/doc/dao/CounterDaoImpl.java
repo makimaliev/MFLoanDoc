@@ -15,8 +15,9 @@ public class CounterDaoImpl extends GenericDaoImpl<Counter> implements CounterDa
         Counter counter;
 
         try {
-            counter = (Counter) entityManager.createQuery("Select c from Counter c where c.department = :department and c.documentSubType = :documentSubType")
+            counter = (Counter) entityManager.createQuery("Select c from Counter c where c.department = :department and c.documentType = :documentType and c.documentSubType = :documentSubType")
                     .setParameter("department", department)
+                    .setParameter("documentType", documentType)
                     .setParameter("documentSubType", documentSubType)
                     .getSingleResult();
 
